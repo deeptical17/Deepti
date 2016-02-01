@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Template with conditional logic.</title>
+</head>
+<body>
+{{.Name}}
+{{ if .Result }}
+    <h3>Pass !!</h3>
+{{else}}
+    <h3>Fail !!</h3>
+{{end}}
+</body>
