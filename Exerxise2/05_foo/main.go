@@ -3,11 +3,13 @@ package main
 import "fmt"
 
 func main() {
-	intType := 23
-	stringType := "hello"
-	booleanType := false
+	foo(1, 2)
+	foo(1, 2, 3)
+	aSlice := []int{1, 2, 3, 4}
+	foo(aSlice...)
+	foo()
+}
 
-	fmt.Printf("%T\n", intType)
-	fmt.Printf("%T\n", stringType)
-	fmt.Printf("%T\n", booleanType)
+func foo(numbers ...int) {
+	fmt.Println(numbers)
 }
