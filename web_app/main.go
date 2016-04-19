@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-const gcsBucket = "gorosave-project-1.appspot.com"
+const Bucket_gc = "deepti-project-1.appspot.com"
 
 type Entity struct {
 	Value string
@@ -48,7 +48,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		context: context,
 		w:       w,
 		client:  client,
-		bucket:  client.Bucket(gcsBucket),
+		bucket:  client.Bucket(Bucket_gc),
 	}
 
 	d.createFiles()
@@ -65,7 +65,7 @@ func (d *demo) listDir() {
 
 	objs, err := d.bucket.List(d.context, query)
 	if err != nil {
-		log.Errorf(d.context, "listBucketDirMode: unable to list bucket %q: %v", gcsBucket, err)
+		log.Errorf(d.context, "listBucketDirMode: unable to list bucket %q: %v", Bucket_gc, err)
 		return
 	}
 
@@ -86,7 +86,7 @@ func (d *demo) listFiles() {
 	}
 	defer client.Close()
 
-	objs, err := client.Bucket(gcsBucket).List(d.context, nil)
+	objs, err := client.Bucket(Bucket_gc).List(d.context, nil)
 	if err != nil {
 		log.Errorf(d.context, "%v", err)
 		return
@@ -105,23 +105,23 @@ func (d *demo) createFiles() {
 }
 
 func (d *demo) createFile(fileName string) {
-	fmt.Fprintf(d.w, "creating file /%v/%v\n", gcsBucket, fileName)
+	fmt.Fprintf(d.w, "creating file /%v/%v\n", Bucket_gc, fileName)
 
 	wc := d.bucket.Object(fileName).NewWriter(d.context)
 	wc.ContentType = "text/plain"
 
 	if _, err := wc.Write([]byte("abcde\n")); err != nil {
-		log.Errorf(d.context, "createFile: unable to write data to bucket %q, file %q: %v", gcsBucket, fileName, err)
+		log.Errorf(d.context, "createFile: unable to write data to bucket %q, file %q: %v", Bucket_gc, fileName, err)
 		return
 	}
 
 	if _, err := wc.Write([]byte(strings.Repeat("f", 1024*4) + "\n")); err != nil {
-		log.Errorf(d.context, "createFile: unable to write data to bucket %q, file %q: %v", gcsBucket, fileName, err)
+		log.Errorf(d.context, "createFile: unable to write data to bucket %q, file %q: %v", Bucket_gc, fileName, err)
 		return
 	}
 
 	if err := wc.Close(); err != nil {
-		log.Errorf(d.context, "createFile: unable to close bucket %q, file %q: %v", gcsBucket, fileName, err)
+		log.Errorf(d.context, "createFile: unable to close bucket %q, file %q: %v", Bucket_gc, fileName, err)
 		return
 	}
 }
