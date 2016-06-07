@@ -1,0 +1,7773 @@
+Welcome to Abella 2.0.4-dev
+Abella < Specification "hw2".
+Reading specification "hw2"
+
+Abella < Theorem pos_type : 
+forall T, nabla t, {pos T} -> {typ t |- typ (T t)}.
+
+
+============================
+ forall T, nabla t, {pos T} -> {typ t |- typ (T t)}
+
+pos_type < induction on 1.
+
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+============================
+ forall T, nabla t, {pos T}@ -> {typ t |- typ (T t)}
+
+pos_type < intros.
+
+Variables: T
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+H1 : {pos T}@
+============================
+ {typ n1 |- typ (T n1)}
+
+pos_type < case H1.
+Subgoal 1:
+
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+============================
+ {typ n1 |- typ n1}
+
+5 other subgoals.
+
+pos_type < search.
+Witness: unfold(typ, 1, )
+Subgoal 2:
+
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+============================
+ {typ n1 |- typ unit}
+
+4 other subgoals.
+
+pos_type < search.
+Witness: unfold(typ, 2, )
+Subgoal 3:
+
+Variables: T2 T1
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+H2 : {pos T1}*
+H3 : {pos T2}*
+============================
+ {typ n1 |- typ (prod (T1 n1) (T2 n1))}
+
+3 other subgoals.
+
+pos_type < apply IH to H2.
+Subgoal 3:
+
+Variables: T2 T1
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+H2 : {pos T1}*
+H3 : {pos T2}*
+H4 : {typ n1 |- typ (T1 n1)}
+============================
+ {typ n1 |- typ (prod (T1 n1) (T2 n1))}
+
+3 other subgoals.
+
+pos_type < apply IH to H3.
+Subgoal 3:
+
+Variables: T2 T1
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+H2 : {pos T1}*
+H3 : {pos T2}*
+H4 : {typ n1 |- typ (T1 n1)}
+H5 : {typ n1 |- typ (T2 n1)}
+============================
+ {typ n1 |- typ (prod (T1 n1) (T2 n1))}
+
+3 other subgoals.
+
+pos_type < search.
+Witness: unfold(typ, 3, apply H4, apply H5)
+Subgoal 4:
+
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+============================
+ {typ n1 |- typ void}
+
+2 other subgoals.
+
+pos_type < search.
+Witness: unfold(typ, 4, )
+Subgoal 5:
+
+Variables: T2 T1
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+H2 : {pos T1}*
+H3 : {pos T2}*
+============================
+ {typ n1 |- typ (sum (T1 n1) (T2 n1))}
+
+1 other subgoal.
+
+pos_type < apply IH to H2.
+Subgoal 5:
+
+Variables: T2 T1
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+H2 : {pos T1}*
+H3 : {pos T2}*
+H4 : {typ n1 |- typ (T1 n1)}
+============================
+ {typ n1 |- typ (sum (T1 n1) (T2 n1))}
+
+1 other subgoal.
+
+pos_type < apply IH to H3.
+Subgoal 5:
+
+Variables: T2 T1
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+H2 : {pos T1}*
+H3 : {pos T2}*
+H4 : {typ n1 |- typ (T1 n1)}
+H5 : {typ n1 |- typ (T2 n1)}
+============================
+ {typ n1 |- typ (sum (T1 n1) (T2 n1))}
+
+1 other subgoal.
+
+pos_type < search.
+Witness: unfold(typ, 5, apply H4, apply H5)
+Subgoal 6:
+
+Variables: T2 T1
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+H2 : {typ T1}*
+H3 : {pos T2}*
+============================
+ {typ n1 |- typ (arr T1 (T2 n1))}
+
+pos_type < apply IH to H3.
+Subgoal 6:
+
+Variables: T2 T1
+IH : forall T, nabla t, {pos T}* -> {typ t |- typ (T t)}
+H2 : {typ T1}*
+H3 : {pos T2}*
+H4 : {typ n1 |- typ (T2 n1)}
+============================
+ {typ n1 |- typ (arr T1 (T2 n1))}
+
+pos_type < search.
+Witness: unfold(typ, 6, apply H2, apply H4)
+Proof completed.
+Abella < Theorem preservation : 
+forall E T E', {of E T} -> {step E E'} -> {of E' T}.
+
+
+============================
+ forall E T E', {of E T} -> {step E E'} -> {of E' T}
+
+preservation < induction on 2.
+
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+============================
+ forall E T E', {of E T} -> {step E E'}@ -> {of E' T}
+
+preservation < intros.
+
+Variables: E T E'
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of E T}
+H2 : {step E E'}@
+============================
+ {of E' T}
+
+preservation < case H2.
+Subgoal 1:
+
+Variables: T E'1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (prl E1) T}
+H3 : {step E1 E'1}*
+============================
+ {of (prl E'1) T}
+
+19 other subgoals.
+
+preservation < case H1.
+Subgoal 1:
+
+Variables: T E'1 E1 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E'1}*
+H4 : {of E1 (prod T T2)}
+============================
+ {of (prl E'1) T}
+
+19 other subgoals.
+
+preservation < apply IH to H4 H3.
+Subgoal 1:
+
+Variables: T E'1 E1 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E'1}*
+H4 : {of E1 (prod T T2)}
+H5 : {of E'1 (prod T T2)}
+============================
+ {of (prl E'1) T}
+
+19 other subgoals.
+
+preservation < search.
+Witness: unfold(of, 3, apply H5)
+Subgoal 2:
+
+Variables: T E'1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (prr E1) T}
+H3 : {step E1 E'1}*
+============================
+ {of (prr E'1) T}
+
+18 other subgoals.
+
+preservation < case H1.
+Subgoal 2:
+
+Variables: T E'1 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E'1}*
+H4 : {of E1 (prod T1 T)}
+============================
+ {of (prr E'1) T}
+
+18 other subgoals.
+
+preservation < apply IH to H4 H3.
+Subgoal 2:
+
+Variables: T E'1 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E'1}*
+H4 : {of E1 (prod T1 T)}
+H5 : {of E'1 (prod T1 T)}
+============================
+ {of (prr E'1) T}
+
+18 other subgoals.
+
+preservation < search.
+Witness: unfold(of, 4, apply H5)
+Subgoal 3:
+
+Variables: T E' E2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (prl (pair E' E2)) T}
+============================
+ {of E' T}
+
+17 other subgoals.
+
+preservation < case H1.
+Subgoal 3:
+
+Variables: T E' E2 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of (pair E' E2) (prod T T2)}
+============================
+ {of E' T}
+
+17 other subgoals.
+
+preservation < case H3.
+Subgoal 3:
+
+Variables: T E' E2 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of E' T}
+H5 : {of E2 T2}
+============================
+ {of E' T}
+
+17 other subgoals.
+
+preservation < search.
+Witness: apply H4
+Subgoal 4:
+
+Variables: T E' E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (prr (pair E1 E')) T}
+============================
+ {of E' T}
+
+16 other subgoals.
+
+preservation < case H1.
+Subgoal 4:
+
+Variables: T E' E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of (pair E1 E') (prod T1 T)}
+============================
+ {of E' T}
+
+16 other subgoals.
+
+preservation < case H3.
+Subgoal 4:
+
+Variables: T E' E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of E1 T1}
+H5 : {of E' T}
+============================
+ {of E' T}
+
+16 other subgoals.
+
+preservation < search.
+Witness: apply H5
+Subgoal 5:
+
+Variables: T E'1 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (abort T1 E1) T}
+H3 : {step E1 E'1}*
+============================
+ {of (abort T1 E'1) T}
+
+15 other subgoals.
+
+preservation < case H1.
+Subgoal 5:
+
+Variables: T E'1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E'1}*
+H4 : {of E1 void}
+H5 : {typ T}
+============================
+ {of (abort T E'1) T}
+
+15 other subgoals.
+
+preservation < apply IH to H4 H3.
+Subgoal 5:
+
+Variables: T E'1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E'1}*
+H4 : {of E1 void}
+H5 : {typ T}
+H6 : {of E'1 void}
+============================
+ {of (abort T E'1) T}
+
+15 other subgoals.
+
+preservation < search.
+Witness: unfold(of, 5, apply H6, apply H5)
+Subgoal 6:
+
+Variables: T E'1 E3 E2 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (case E3 E1 E2) T}
+H3 : {step E3 E'1}*
+============================
+ {of (case E'1 E1 E2) T}
+
+14 other subgoals.
+
+preservation < case H1.
+Subgoal 6:
+
+Variables: T E'1 E3 E2 E1 T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E3 E'1}*
+H4 : {of E3 (sum T1 T2)}
+H5 : {of n1 T1 |- of (E1 n1) T}
+H6 : {of n1 T2 |- of (E2 n1) T}
+============================
+ {of (case E'1 E1 E2) T}
+
+14 other subgoals.
+
+preservation < apply IH to H4 H3.
+Subgoal 6:
+
+Variables: T E'1 E3 E2 E1 T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E3 E'1}*
+H4 : {of E3 (sum T1 T2)}
+H5 : {of n1 T1 |- of (E1 n1) T}
+H6 : {of n1 T2 |- of (E2 n1) T}
+H7 : {of E'1 (sum T1 T2)}
+============================
+ {of (case E'1 E1 E2) T}
+
+14 other subgoals.
+
+preservation < search.
+Witness: unfold(of, 8, apply H7, apply H5, apply H6)
+Subgoal 7:
+
+Variables: T E3 E1 E2 T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (case (inl T1 T2 E3) E1 E2) T}
+============================
+ {of (E1 E3) T}
+
+13 other subgoals.
+
+preservation < case H1.
+Subgoal 7:
+
+Variables: T E3 E1 E2 T2 T1 T3 T4
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of (inl T1 T2 E3) (sum T4 T3)}
+H4 : {of n1 T4 |- of (E1 n1) T}
+H5 : {of n1 T3 |- of (E2 n1) T}
+============================
+ {of (E1 E3) T}
+
+13 other subgoals.
+
+preservation < case H3.
+Subgoal 7:
+
+Variables: T E3 E1 E2 T3 T4
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of n1 T4 |- of (E1 n1) T}
+H5 : {of n1 T3 |- of (E2 n1) T}
+H6 : {of E3 T4}
+H7 : {typ T3}
+============================
+ {of (E1 E3) T}
+
+13 other subgoals.
+
+preservation <  inst H4 with n1 = E3.
+Subgoal 7:
+
+Variables: T E3 E1 E2 T3 T4
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of n1 T4 |- of (E1 n1) T}
+H5 : {of n1 T3 |- of (E2 n1) T}
+H6 : {of E3 T4}
+H7 : {typ T3}
+H8 : {of E3 T4 |- of (E1 E3) T}
+============================
+ {of (E1 E3) T}
+
+13 other subgoals.
+
+preservation < cut H8 with H6.
+Subgoal 7:
+
+Variables: T E3 E1 E2 T3 T4
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of n1 T4 |- of (E1 n1) T}
+H5 : {of n1 T3 |- of (E2 n1) T}
+H6 : {of E3 T4}
+H7 : {typ T3}
+H8 : {of E3 T4 |- of (E1 E3) T}
+H9 : {of (E1 E3) T}
+============================
+ {of (E1 E3) T}
+
+13 other subgoals.
+
+preservation < search.
+Witness: apply H9
+Subgoal 8:
+
+Variables: T E3 E2 E1 T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (case (inr T1 T2 E3) E1 E2) T}
+============================
+ {of (E2 E3) T}
+
+12 other subgoals.
+
+preservation < case H1.
+Subgoal 8:
+
+Variables: T E3 E2 E1 T2 T1 T3 T4
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of (inr T1 T2 E3) (sum T4 T3)}
+H4 : {of n1 T4 |- of (E1 n1) T}
+H5 : {of n1 T3 |- of (E2 n1) T}
+============================
+ {of (E2 E3) T}
+
+12 other subgoals.
+
+preservation < case H3.
+Subgoal 8:
+
+Variables: T E3 E2 E1 T3 T4
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of n1 T4 |- of (E1 n1) T}
+H5 : {of n1 T3 |- of (E2 n1) T}
+H6 : {of E3 T3}
+H7 : {typ T4}
+============================
+ {of (E2 E3) T}
+
+12 other subgoals.
+
+preservation <  inst H5 with n1 = E3.
+Subgoal 8:
+
+Variables: T E3 E2 E1 T3 T4
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of n1 T4 |- of (E1 n1) T}
+H5 : {of n1 T3 |- of (E2 n1) T}
+H6 : {of E3 T3}
+H7 : {typ T4}
+H8 : {of E3 T3 |- of (E2 E3) T}
+============================
+ {of (E2 E3) T}
+
+12 other subgoals.
+
+preservation < cut H8 with H6.
+Subgoal 8:
+
+Variables: T E3 E2 E1 T3 T4
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of n1 T4 |- of (E1 n1) T}
+H5 : {of n1 T3 |- of (E2 n1) T}
+H6 : {of E3 T3}
+H7 : {typ T4}
+H8 : {of E3 T3 |- of (E2 E3) T}
+H9 : {of (E2 E3) T}
+============================
+ {of (E2 E3) T}
+
+12 other subgoals.
+
+preservation < search.
+Witness: apply H9
+Subgoal 9:
+
+Variables: T E1' E1 E2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (app E1 E2) T}
+H3 : {step E1 E1'}*
+============================
+ {of (app E1' E2) T}
+
+11 other subgoals.
+
+preservation < case H1.
+Subgoal 9:
+
+Variables: T E1' E1 E2 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E1'}*
+H4 : {of E1 (arr T2 T)}
+H5 : {of E2 T2}
+============================
+ {of (app E1' E2) T}
+
+11 other subgoals.
+
+preservation < apply IH to H4 H3.
+Subgoal 9:
+
+Variables: T E1' E1 E2 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E1'}*
+H4 : {of E1 (arr T2 T)}
+H5 : {of E2 T2}
+H6 : {of E1' (arr T2 T)}
+============================
+ {of (app E1' E2) T}
+
+11 other subgoals.
+
+preservation < search.
+Witness: unfold(of, 10, apply H6, apply H5)
+Subgoal 10:
+
+Variables: T E2 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (app (lam T1 E1) E2) T}
+============================
+ {of (E1 E2) T}
+
+10 other subgoals.
+
+preservation < case H1.
+Subgoal 10:
+
+Variables: T E2 E1 T1 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of (lam T1 E1) (arr T2 T)}
+H4 : {of E2 T2}
+============================
+ {of (E1 E2) T}
+
+10 other subgoals.
+
+preservation < case H3.
+Subgoal 10:
+
+Variables: T E2 E1 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of E2 T2}
+H5 : {of n1 T2 |- of (E1 n1) T}
+H6 : {typ T2}
+============================
+ {of (E1 E2) T}
+
+10 other subgoals.
+
+preservation <  inst H5 with n1 = E2.
+Subgoal 10:
+
+Variables: T E2 E1 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of E2 T2}
+H5 : {of n1 T2 |- of (E1 n1) T}
+H6 : {typ T2}
+H7 : {of E2 T2 |- of (E1 E2) T}
+============================
+ {of (E1 E2) T}
+
+10 other subgoals.
+
+preservation < cut H7 with H4.
+Subgoal 10:
+
+Variables: T E2 E1 T2
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of E2 T2}
+H5 : {of n1 T2 |- of (E1 n1) T}
+H6 : {typ T2}
+H7 : {of E2 T2 |- of (E1 E2) T}
+H8 : {of (E1 E2) T}
+============================
+ {of (E1 E2) T}
+
+10 other subgoals.
+
+preservation < search.
+Witness: apply H8
+Subgoal 11:
+
+Variables: T E1 E'1 R' R
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (map t\t R R' E'1 E1) T}
+============================
+ {of (E'1 E1) T}
+
+9 other subgoals.
+
+preservation < case H1.
+Subgoal 11:
+
+Variables: T E1 E'1 R
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) T}
+H4 : {of E1 R}
+H5 : {pos t\t}
+H6 : {typ R}
+H7 : {typ T}
+============================
+ {of (E'1 E1) T}
+
+9 other subgoals.
+
+preservation <  inst H3 with n1 = E1.
+Subgoal 11:
+
+Variables: T E1 E'1 R
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) T}
+H4 : {of E1 R}
+H5 : {pos t\t}
+H6 : {typ R}
+H7 : {typ T}
+H8 : {of E1 R |- of (E'1 E1) T}
+============================
+ {of (E'1 E1) T}
+
+9 other subgoals.
+
+preservation < cut H8 with H4.
+Subgoal 11:
+
+Variables: T E1 E'1 R
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) T}
+H4 : {of E1 R}
+H5 : {pos t\t}
+H6 : {typ R}
+H7 : {typ T}
+H8 : {of E1 R |- of (E'1 E1) T}
+H9 : {of (E'1 E1) T}
+============================
+ {of (E'1 E1) T}
+
+9 other subgoals.
+
+preservation < search.
+Witness: apply H9
+Subgoal 12:
+
+Variables: T E' E'1 R' R
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (map t\unit R R' E'1 E') T}
+============================
+ {of E' T}
+
+8 other subgoals.
+
+preservation < case H1.
+Subgoal 12:
+
+Variables: E' E'1 R' R
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E' unit}
+H5 : {pos t\unit}
+H6 : {typ R}
+H7 : {typ R'}
+============================
+ {of E' unit}
+
+8 other subgoals.
+
+preservation < search.
+Witness: apply H4
+Subgoal 13:
+
+Variables: T E1 E'1 R' R T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (map (t\prod (T1 t) (T2 t)) R R' E'1 E1) T}
+============================
+ {of (pair (map T1 R R' E'1 (prl E1)) (map T2 R R' E'1 (prr E1))) T}
+
+7 other subgoals.
+
+preservation < case H1.
+Subgoal 13:
+
+Variables: E1 E'1 R' R T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (prod (T1 R) (T2 R))}
+H5 : {pos (t\prod (T1 t) (T2 t))}
+H6 : {typ R}
+H7 : {typ R'}
+============================
+ {of (pair (map T1 R R' E'1 (prl E1)) (map T2 R R' E'1 (prr E1)))
+    (prod (T1 R') (T2 R'))}
+
+7 other subgoals.
+
+preservation < case H5.
+Subgoal 13:
+
+Variables: E1 E'1 R' R T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (prod (T1 R) (T2 R))}
+H6 : {typ R}
+H7 : {typ R'}
+H8 : {pos (z1\T1 z1)}
+H9 : {pos (z1\T2 z1)}
+============================
+ {of (pair (map T1 R R' E'1 (prl E1)) (map T2 R R' E'1 (prr E1)))
+    (prod (T1 R') (T2 R'))}
+
+7 other subgoals.
+
+preservation < search.
+Witness: unfold(of, 2, unfold(of, 11, apply H3, unfold(of, 3, apply H4), apply H8, apply H6, apply H7), unfold(of, 11, apply H3, unfold(of, 4, apply H4), apply H9, apply H6, apply H7))
+Subgoal 14:
+
+Variables: T E' E'1 R' R
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (map t\void R R' E'1 E') T}
+============================
+ {of E' T}
+
+6 other subgoals.
+
+preservation < case H1.
+Subgoal 14:
+
+Variables: E' E'1 R' R
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E' void}
+H5 : {pos t\void}
+H6 : {typ R}
+H7 : {typ R'}
+============================
+ {of E' void}
+
+6 other subgoals.
+
+preservation < search.
+Witness: apply H4
+Subgoal 15:
+
+Variables: T E'1 R' R T2 T1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (map (t\sum (T1 t) (T2 t)) R R' E'1 E1) T}
+============================
+ {of
+    (case E1 (x1\inl (T1 R') (T2 R') (map T1 R R' E'1 x1))
+       (x2\inr (T1 R') (T2 R') (map T2 R R' E'1 x2)))
+    T}
+
+5 other subgoals.
+
+preservation < case H1.
+Subgoal 15:
+
+Variables: E'1 R' R T2 T1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (sum (T1 R) (T2 R))}
+H5 : {pos (t\sum (T1 t) (T2 t))}
+H6 : {typ R}
+H7 : {typ R'}
+============================
+ {of
+    (case E1 (x1\inl (T1 R') (T2 R') (map T1 R R' E'1 x1))
+       (x2\inr (T1 R') (T2 R') (map T2 R R' E'1 x2)))
+    (sum (T1 R') (T2 R'))}
+
+5 other subgoals.
+
+preservation < case H5.
+Subgoal 15:
+
+Variables: E'1 R' R T2 T1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (sum (T1 R) (T2 R))}
+H6 : {typ R}
+H7 : {typ R'}
+H8 : {pos (z1\T1 z1)}
+H9 : {pos (z1\T2 z1)}
+============================
+ {of
+    (case E1 (x1\inl (T1 R') (T2 R') (map T1 R R' E'1 x1))
+       (x2\inr (T1 R') (T2 R') (map T2 R R' E'1 x2)))
+    (sum (T1 R') (T2 R'))}
+
+5 other subgoals.
+
+preservation < apply pos_type to H8.
+Subgoal 15:
+
+Variables: E'1 R' R T2 T1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (sum (T1 R) (T2 R))}
+H6 : {typ R}
+H7 : {typ R'}
+H8 : {pos (z1\T1 z1)}
+H9 : {pos (z1\T2 z1)}
+H10 : {typ n1 |- typ (T1 n1)}
+============================
+ {of
+    (case E1 (x1\inl (T1 R') (T2 R') (map T1 R R' E'1 x1))
+       (x2\inr (T1 R') (T2 R') (map T2 R R' E'1 x2)))
+    (sum (T1 R') (T2 R'))}
+
+5 other subgoals.
+
+preservation <  inst H10 with n1 = R'.
+Subgoal 15:
+
+Variables: E'1 R' R T2 T1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (sum (T1 R) (T2 R))}
+H6 : {typ R}
+H7 : {typ R'}
+H8 : {pos (z1\T1 z1)}
+H9 : {pos (z1\T2 z1)}
+H10 : {typ n1 |- typ (T1 n1)}
+H11 : {typ R' |- typ (T1 R')}
+============================
+ {of
+    (case E1 (x1\inl (T1 R') (T2 R') (map T1 R R' E'1 x1))
+       (x2\inr (T1 R') (T2 R') (map T2 R R' E'1 x2)))
+    (sum (T1 R') (T2 R'))}
+
+5 other subgoals.
+
+preservation < cut H11 with H7.
+Subgoal 15:
+
+Variables: E'1 R' R T2 T1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (sum (T1 R) (T2 R))}
+H6 : {typ R}
+H7 : {typ R'}
+H8 : {pos (z1\T1 z1)}
+H9 : {pos (z1\T2 z1)}
+H10 : {typ n1 |- typ (T1 n1)}
+H11 : {typ R' |- typ (T1 R')}
+H12 : {typ (T1 R')}
+============================
+ {of
+    (case E1 (x1\inl (T1 R') (T2 R') (map T1 R R' E'1 x1))
+       (x2\inr (T1 R') (T2 R') (map T2 R R' E'1 x2)))
+    (sum (T1 R') (T2 R'))}
+
+5 other subgoals.
+
+preservation < apply pos_type to H9.
+Subgoal 15:
+
+Variables: E'1 R' R T2 T1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (sum (T1 R) (T2 R))}
+H6 : {typ R}
+H7 : {typ R'}
+H8 : {pos (z1\T1 z1)}
+H9 : {pos (z1\T2 z1)}
+H10 : {typ n1 |- typ (T1 n1)}
+H11 : {typ R' |- typ (T1 R')}
+H12 : {typ (T1 R')}
+H13 : {typ n1 |- typ (T2 n1)}
+============================
+ {of
+    (case E1 (x1\inl (T1 R') (T2 R') (map T1 R R' E'1 x1))
+       (x2\inr (T1 R') (T2 R') (map T2 R R' E'1 x2)))
+    (sum (T1 R') (T2 R'))}
+
+5 other subgoals.
+
+preservation <  inst H13 with n1 = R'.
+Subgoal 15:
+
+Variables: E'1 R' R T2 T1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (sum (T1 R) (T2 R))}
+H6 : {typ R}
+H7 : {typ R'}
+H8 : {pos (z1\T1 z1)}
+H9 : {pos (z1\T2 z1)}
+H10 : {typ n1 |- typ (T1 n1)}
+H11 : {typ R' |- typ (T1 R')}
+H12 : {typ (T1 R')}
+H13 : {typ n1 |- typ (T2 n1)}
+H14 : {typ R' |- typ (T2 R')}
+============================
+ {of
+    (case E1 (x1\inl (T1 R') (T2 R') (map T1 R R' E'1 x1))
+       (x2\inr (T1 R') (T2 R') (map T2 R R' E'1 x2)))
+    (sum (T1 R') (T2 R'))}
+
+5 other subgoals.
+
+preservation < cut H14 with H7.
+Subgoal 15:
+
+Variables: E'1 R' R T2 T1 E1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (sum (T1 R) (T2 R))}
+H6 : {typ R}
+H7 : {typ R'}
+H8 : {pos (z1\T1 z1)}
+H9 : {pos (z1\T2 z1)}
+H10 : {typ n1 |- typ (T1 n1)}
+H11 : {typ R' |- typ (T1 R')}
+H12 : {typ (T1 R')}
+H13 : {typ n1 |- typ (T2 n1)}
+H14 : {typ R' |- typ (T2 R')}
+H15 : {typ (T2 R')}
+============================
+ {of
+    (case E1 (x1\inl (T1 R') (T2 R') (map T1 R R' E'1 x1))
+       (x2\inr (T1 R') (T2 R') (map T2 R R' E'1 x2)))
+    (sum (T1 R') (T2 R'))}
+
+5 other subgoals.
+
+preservation < search.
+Witness: unfold(of, 8, apply H4, unfold(of, 7, unfold(of, 12, apply H3, unfold(of, 1, ), apply H8, apply H6, apply H7), apply H15), unfold(of, 8, unfold(of, 12, apply H3, unfold(of, 1, ), apply H9, apply H6, apply H7), apply H12))
+Subgoal 16:
+
+Variables: T E1 E'1 R' R T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (map (t\arr T1 (T2 t)) R R' E'1 E1) T}
+============================
+ {of (lam T1 (x1\map T2 R R' E'1 (app E1 x1))) T}
+
+4 other subgoals.
+
+preservation < case H1.
+Subgoal 16:
+
+Variables: E1 E'1 R' R T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (arr T1 (T2 R))}
+H5 : {pos (t\arr T1 (T2 t))}
+H6 : {typ R}
+H7 : {typ R'}
+============================
+ {of (lam T1 (x1\map T2 R R' E'1 (app E1 x1))) (arr T1 (T2 R'))}
+
+4 other subgoals.
+
+preservation < case H5.
+Subgoal 16:
+
+Variables: E1 E'1 R' R T2 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 R |- of (E'1 n1) R'}
+H4 : {of E1 (arr T1 (T2 R))}
+H6 : {typ R}
+H7 : {typ R'}
+H8 : {typ T1}
+H9 : {pos (z1\T2 z1)}
+============================
+ {of (lam T1 (x1\map T2 R R' E'1 (app E1 x1))) (arr T1 (T2 R'))}
+
+4 other subgoals.
+
+preservation < search.
+Witness: unfold(of, 9, unfold(of, 12, apply H3, unfold(of, 11, apply H4, unfold(of, 1, )), apply H9, apply H6, apply H7), apply H8)
+Subgoal 17:
+
+Variables: T E2' E2 E1 T' T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (rec T1 T' E1 E2) T}
+H3 : {step E2 E2'}*
+============================
+ {of (rec T1 T' E1 E2') T}
+
+3 other subgoals.
+
+preservation < case H1.
+Subgoal 17:
+
+Variables: T E2' E2 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E2 E2'}*
+H4 : {of n1 (T1 T) |- of (E1 n1) T}
+H5 : {of E2 (ind T1)}
+H6 : {typ T}
+============================
+ {of (rec T1 T E1 E2') T}
+
+3 other subgoals.
+
+preservation < apply IH to H5 H3.
+Subgoal 17:
+
+Variables: T E2' E2 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E2 E2'}*
+H4 : {of n1 (T1 T) |- of (E1 n1) T}
+H5 : {of E2 (ind T1)}
+H6 : {typ T}
+H7 : {of E2' (ind T1)}
+============================
+ {of (rec T1 T E1 E2') T}
+
+3 other subgoals.
+
+preservation < search.
+Witness: unfold(of, 13, apply H4, apply H7, apply H6)
+Subgoal 18:
+
+Variables: T E2 E1 T' T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (rec T1 T' E1 (fold T1 E2)) T}
+============================
+ {of (E1 (map T1 (ind T1) T' (rec T1 T' E1) E2)) T}
+
+2 other subgoals.
+
+preservation < case H1.
+Subgoal 18:
+
+Variables: T E2 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 (T1 T) |- of (E1 n1) T}
+H4 : {of (fold T1 E2) (ind T1)}
+H5 : {typ T}
+============================
+ {of (E1 (map T1 (ind T1) T (rec T1 T E1) E2)) T}
+
+2 other subgoals.
+
+preservation < case H4.
+Subgoal 18:
+
+Variables: T E2 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 (T1 T) |- of (E1 n1) T}
+H5 : {typ T}
+H6 : {of E2 (T1 (ind T1))}
+H7 : {pos T1}
+============================
+ {of (E1 (map T1 (ind T1) T (rec T1 T E1) E2)) T}
+
+2 other subgoals.
+
+preservation <  inst H3 with n1 = map T1 (ind T1) T (rec T1 T E1) E2.
+Subgoal 18:
+
+Variables: T E2 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 (T1 T) |- of (E1 n1) T}
+H5 : {typ T}
+H6 : {of E2 (T1 (ind T1))}
+H7 : {pos T1}
+H8 : {of (map T1 (ind T1) T (rec T1 T E1) E2) (T1 T) |-
+        of (E1 (map T1 (ind T1) T (rec T1 T E1) E2)) T}
+============================
+ {of (E1 (map T1 (ind T1) T (rec T1 T E1) E2)) T}
+
+2 other subgoals.
+
+preservation <  cut H8.
+Subgoal 18:
+
+Variables: T E2 E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of n1 (T1 T) |- of (E1 n1) T}
+H5 : {typ T}
+H6 : {of E2 (T1 (ind T1))}
+H7 : {pos T1}
+H8 : {of (map T1 (ind T1) T (rec T1 T E1) E2) (T1 T) |-
+        of (E1 (map T1 (ind T1) T (rec T1 T E1) E2)) T}
+H9 : {of (E1 (map T1 (ind T1) T (rec T1 T E1) E2)) T}
+============================
+ {of (E1 (map T1 (ind T1) T (rec T1 T E1) E2)) T}
+
+2 other subgoals.
+
+preservation < search.
+Witness: apply H9
+Subgoal 19:
+
+Variables: T E1' E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (unfold T1 E1) T}
+H3 : {step E1 E1'}*
+============================
+ {of (unfold T1 E1') T}
+
+1 other subgoal.
+
+preservation < case H1.
+Subgoal 19:
+
+Variables: E1' E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E1'}*
+H4 : {of E1 (coi T1)}
+============================
+ {of (unfold T1 E1') (T1 (coi T1))}
+
+1 other subgoal.
+
+preservation < apply IH to H4 H3.
+Subgoal 19:
+
+Variables: E1' E1 T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {step E1 E1'}*
+H4 : {of E1 (coi T1)}
+H5 : {of E1' (coi T1)}
+============================
+ {of (unfold T1 E1') (T1 (coi T1))}
+
+1 other subgoal.
+
+preservation < search.
+Witness: unfold(of, 14, apply H5)
+Subgoal 20:
+
+Variables: T E2 E1 T' T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H1 : {of (unfold T1 (gen T1 T' E1 E2)) T}
+============================
+ {of (map T1 T' (coi T1) (gen T1 T' E1) (E1 E2)) T}
+
+preservation < case H1.
+Subgoal 20:
+
+Variables: E2 E1 T' T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H3 : {of (gen T1 T' E1 E2) (coi T1)}
+============================
+ {of (map T1 T' (coi T1) (gen T1 T' E1) (E1 E2)) (T1 (coi T1))}
+
+preservation < case H3.
+Subgoal 20:
+
+Variables: E2 E1 T' T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of n1 T' |- of (E1 n1) (T1 T')}
+H5 : {of E2 T'}
+H6 : {pos T1}
+H7 : {typ T'}
+============================
+ {of (map T1 T' (coi T1) (gen T1 T' E1) (E1 E2)) (T1 (coi T1))}
+
+preservation <  inst H4 with n1 = E2.
+Subgoal 20:
+
+Variables: E2 E1 T' T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of n1 T' |- of (E1 n1) (T1 T')}
+H5 : {of E2 T'}
+H6 : {pos T1}
+H7 : {typ T'}
+H8 : {of E2 T' |- of (E1 E2) (T1 T')}
+============================
+ {of (map T1 T' (coi T1) (gen T1 T' E1) (E1 E2)) (T1 (coi T1))}
+
+preservation < cut H8 with H5.
+Subgoal 20:
+
+Variables: E2 E1 T' T1
+IH : forall E T E', {of E T} -> {step E E'}* -> {of E' T}
+H4 : {of n1 T' |- of (E1 n1) (T1 T')}
+H5 : {of E2 T'}
+H6 : {pos T1}
+H7 : {typ T'}
+H8 : {of E2 T' |- of (E1 E2) (T1 T')}
+H9 : {of (E1 E2) (T1 T')}
+============================
+ {of (map T1 T' (coi T1) (gen T1 T' E1) (E1 E2)) (T1 (coi T1))}
+
+preservation < search.
+Witness: unfold(of, 11, unfold(of, 16, apply H4, unfold(of, 1, ), apply H6, apply H7), apply H9, apply H6, apply H7, unfold(typ, 7, apply H6))
+Proof completed.
+Abella < Theorem cfl : 
+forall E T, {of E T} -> {val E} -> T = unit /\ E = triv \/
+  (exists T1 T2 E1 E2, T = prod T1 T2 /\ E = pair E1 E2) \/
+  (exists T1 T2 E1, T = sum T1 T2 /\ E = inl T1 T2 E1) \/
+  (exists T1 T2 E2, T = sum T1 T2 /\ E = inr T1 T2 E2) \/
+  (exists T1 T2 E1, T = arr T1 T2 /\ E = lam T1 E1) \/
+  (exists T1 E1, T = ind T1 /\ E = fold T1 E1) \/
+  (exists T1 T1' E1 E2, T = coi T1 /\ E = gen T1 T1' E1 E2).
+
+
+============================
+ forall E T, {of E T} -> {val E} -> T = unit /\ E = triv \/
+   (exists T1 T2 E1 E2, T = prod T1 T2 /\ E = pair E1 E2) \/
+   (exists T1 T2 E1, T = sum T1 T2 /\ E = inl T1 T2 E1) \/
+   (exists T1 T2 E2, T = sum T1 T2 /\ E = inr T1 T2 E2) \/
+   (exists T1 T2 E1, T = arr T1 T2 /\ E = lam T1 E1) \/
+   (exists T1 E1, T = ind T1 /\ E = fold T1 E1) \/
+   (exists T1 T1' E1 E2, T = coi T1 /\ E = gen T1 T1' E1 E2)
+
+cfl < intros.
+
+Variables: E T
+H1 : {of E T}
+H2 : {val E}
+============================
+ T = unit /\ E = triv \/
+   (exists T1 T2 E1 E2, T = prod T1 T2 /\ E = pair E1 E2) \/
+   (exists T1 T2 E1, T = sum T1 T2 /\ E = inl T1 T2 E1) \/
+   (exists T1 T2 E2, T = sum T1 T2 /\ E = inr T1 T2 E2) \/
+   (exists T1 T2 E1, T = arr T1 T2 /\ E = lam T1 E1) \/
+   (exists T1 E1, T = ind T1 /\ E = fold T1 E1) \/
+   (exists T1 T1' E1 E2, T = coi T1 /\ E = gen T1 T1' E1 E2)
+
+cfl < case H2.
+Subgoal 1:
+
+Variables: T
+H1 : {of triv T}
+============================
+ T = unit /\ triv = triv \/
+   (exists T1 T2 E1 E2, T = prod T1 T2 /\ triv = pair E1 E2) \/
+   (exists T1 T2 E1, T = sum T1 T2 /\ triv = inl T1 T2 E1) \/
+   (exists T1 T2 E2, T = sum T1 T2 /\ triv = inr T1 T2 E2) \/
+   (exists T1 T2 E1, T = arr T1 T2 /\ triv = lam T1 E1) \/
+   (exists T1 E1, T = ind T1 /\ triv = fold T1 E1) \/
+   (exists T1 T1' E1 E2, T = coi T1 /\ triv = gen T1 T1' E1 E2)
+
+6 other subgoals.
+
+cfl < case H1.
+Subgoal 1:
+
+============================
+ unit = unit /\ triv = triv \/
+   (exists T1 T2 E1 E2, unit = prod T1 T2 /\ triv = pair E1 E2) \/
+   (exists T1 T2 E1, unit = sum T1 T2 /\ triv = inl T1 T2 E1) \/
+   (exists T1 T2 E2, unit = sum T1 T2 /\ triv = inr T1 T2 E2) \/
+   (exists T1 T2 E1, unit = arr T1 T2 /\ triv = lam T1 E1) \/
+   (exists T1 E1, unit = ind T1 /\ triv = fold T1 E1) \/
+   (exists T1 T1' E1 E2, unit = coi T1 /\ triv = gen T1 T1' E1 E2)
+
+6 other subgoals.
+
+cfl < search.
+Witness: left left left left left left split(=, =)
+Subgoal 2:
+
+Variables: T E2 E1
+H1 : {of (pair E1 E2) T}
+============================
+ T = unit /\ pair E1 E2 = triv \/
+   (exists T1 T2 E3 E4, T = prod T1 T2 /\ pair E1 E2 = pair E3 E4) \/
+   (exists T1 T2 E3, T = sum T1 T2 /\ pair E1 E2 = inl T1 T2 E3) \/
+   (exists T1 T2 E3, T = sum T1 T2 /\ pair E1 E2 = inr T1 T2 E3) \/
+   (exists T1 T2 E3, T = arr T1 T2 /\ pair E1 E2 = lam T1 E3) \/
+   (exists T1 E3, T = ind T1 /\ pair E1 E2 = fold T1 E3) \/
+   (exists T1 T1' E3 E4, T = coi T1 /\ pair E1 E2 = gen T1 T1' E3 E4)
+
+5 other subgoals.
+
+cfl < case H1.
+Subgoal 2:
+
+Variables: E2 E1 T2 T1
+H3 : {of E1 T1}
+H4 : {of E2 T2}
+============================
+ prod T1 T2 = unit /\ pair E1 E2 = triv \/
+   (exists T3 T4 E3 E4, prod T1 T2 = prod T3 T4 /\ pair E1 E2 = pair E3 E4) \/
+   (exists T3 T4 E3, prod T1 T2 = sum T3 T4 /\ pair E1 E2 = inl T3 T4 E3) \/
+   (exists T3 T4 E3, prod T1 T2 = sum T3 T4 /\ pair E1 E2 = inr T3 T4 E3) \/
+   (exists T3 T4 E3, prod T1 T2 = arr T3 T4 /\ pair E1 E2 = lam T3 E3) \/
+   (exists T3 E3, prod T1 T2 = ind T3 /\ pair E1 E2 = fold T3 E3) \/
+   (exists T3 T1' E3 E4, prod T1 T2 = coi T3 /\ pair E1 E2 =
+      gen T3 T1' E3 E4)
+
+5 other subgoals.
+
+cfl < search.
+Witness: left left left left left right exists[T3 = T1, T4 = T2, E3 = E1, E4 = E2] split(=, =)
+Subgoal 3:
+
+Variables: T E1 T2 T1
+H1 : {of (inl T1 T2 E1) T}
+============================
+ T = unit /\ inl T1 T2 E1 = triv \/
+   (exists T3 T4 E2 E3, T = prod T3 T4 /\ inl T1 T2 E1 = pair E2 E3) \/
+   (exists T3 T4 E2, T = sum T3 T4 /\ inl T1 T2 E1 = inl T3 T4 E2) \/
+   (exists T3 T4 E2, T = sum T3 T4 /\ inl T1 T2 E1 = inr T3 T4 E2) \/
+   (exists T3 T4 E2, T = arr T3 T4 /\ inl T1 T2 E1 = lam T3 E2) \/
+   (exists T3 E2, T = ind T3 /\ inl T1 T2 E1 = fold T3 E2) \/
+   (exists T3 T1' E2 E3, T = coi T3 /\ inl T1 T2 E1 = gen T3 T1' E2 E3)
+
+4 other subgoals.
+
+cfl < case H1.
+Subgoal 3:
+
+Variables: E1 T2 T1
+H3 : {of E1 T1}
+H4 : {typ T2}
+============================
+ sum T1 T2 = unit /\ inl T1 T2 E1 = triv \/
+   (exists T3 T4 E2 E3, sum T1 T2 = prod T3 T4 /\ inl T1 T2 E1 = pair E2 E3) \/
+   (exists T3 T4 E2, sum T1 T2 = sum T3 T4 /\ inl T1 T2 E1 = inl T3 T4 E2) \/
+   (exists T3 T4 E2, sum T1 T2 = sum T3 T4 /\ inl T1 T2 E1 = inr T3 T4 E2) \/
+   (exists T3 T4 E2, sum T1 T2 = arr T3 T4 /\ inl T1 T2 E1 = lam T3 E2) \/
+   (exists T3 E2, sum T1 T2 = ind T3 /\ inl T1 T2 E1 = fold T3 E2) \/
+   (exists T3 T1' E2 E3, sum T1 T2 = coi T3 /\ inl T1 T2 E1 =
+      gen T3 T1' E2 E3)
+
+4 other subgoals.
+
+cfl < search.
+Witness: left left left left right exists[T3 = T1, T4 = T2, E2 = E1] split(=, =)
+Subgoal 4:
+
+Variables: T E2 T2 T1
+H1 : {of (inr T1 T2 E2) T}
+============================
+ T = unit /\ inr T1 T2 E2 = triv \/
+   (exists T3 T4 E1 E3, T = prod T3 T4 /\ inr T1 T2 E2 = pair E1 E3) \/
+   (exists T3 T4 E1, T = sum T3 T4 /\ inr T1 T2 E2 = inl T3 T4 E1) \/
+   (exists T3 T4 E1, T = sum T3 T4 /\ inr T1 T2 E2 = inr T3 T4 E1) \/
+   (exists T3 T4 E1, T = arr T3 T4 /\ inr T1 T2 E2 = lam T3 E1) \/
+   (exists T3 E1, T = ind T3 /\ inr T1 T2 E2 = fold T3 E1) \/
+   (exists T3 T1' E1 E3, T = coi T3 /\ inr T1 T2 E2 = gen T3 T1' E1 E3)
+
+3 other subgoals.
+
+cfl < case H1.
+Subgoal 4:
+
+Variables: E2 T2 T1
+H3 : {of E2 T2}
+H4 : {typ T1}
+============================
+ sum T1 T2 = unit /\ inr T1 T2 E2 = triv \/
+   (exists T3 T4 E1 E3, sum T1 T2 = prod T3 T4 /\ inr T1 T2 E2 = pair E1 E3) \/
+   (exists T3 T4 E1, sum T1 T2 = sum T3 T4 /\ inr T1 T2 E2 = inl T3 T4 E1) \/
+   (exists T3 T4 E1, sum T1 T2 = sum T3 T4 /\ inr T1 T2 E2 = inr T3 T4 E1) \/
+   (exists T3 T4 E1, sum T1 T2 = arr T3 T4 /\ inr T1 T2 E2 = lam T3 E1) \/
+   (exists T3 E1, sum T1 T2 = ind T3 /\ inr T1 T2 E2 = fold T3 E1) \/
+   (exists T3 T1' E1 E3, sum T1 T2 = coi T3 /\ inr T1 T2 E2 =
+      gen T3 T1' E1 E3)
+
+3 other subgoals.
+
+cfl < search.
+Witness: left left left right exists[T3 = T1, T4 = T2, E1 = E2] split(=, =)
+Subgoal 5:
+
+Variables: T E1 T1
+H1 : {of (lam T1 E1) T}
+============================
+ T = unit /\ lam T1 E1 = triv \/
+   (exists T2 T3 E2 E3, T = prod T2 T3 /\ lam T1 E1 = pair E2 E3) \/
+   (exists T2 T3 E2, T = sum T2 T3 /\ lam T1 E1 = inl T2 T3 E2) \/
+   (exists T2 T3 E2, T = sum T2 T3 /\ lam T1 E1 = inr T2 T3 E2) \/
+   (exists T2 T3 E2, T = arr T2 T3 /\ lam T1 E1 = lam T2 E2) \/
+   (exists T2 E2, T = ind T2 /\ lam T1 E1 = fold T2 E2) \/
+   (exists T2 T1' E2 E3, T = coi T2 /\ lam T1 E1 = gen T2 T1' E2 E3)
+
+2 other subgoals.
+
+cfl < case H1.
+Subgoal 5:
+
+Variables: E1 T1 T2
+H3 : {of n1 T1 |- of (E1 n1) T2}
+H4 : {typ T1}
+============================
+ arr T1 T2 = unit /\ lam T1 E1 = triv \/
+   (exists T3 T4 E2 E3, arr T1 T2 = prod T3 T4 /\ lam T1 E1 = pair E2 E3) \/
+   (exists T3 T4 E2, arr T1 T2 = sum T3 T4 /\ lam T1 E1 = inl T3 T4 E2) \/
+   (exists T3 T4 E2, arr T1 T2 = sum T3 T4 /\ lam T1 E1 = inr T3 T4 E2) \/
+   (exists T3 T4 E2, arr T1 T2 = arr T3 T4 /\ lam T1 E1 = lam T3 E2) \/
+   (exists T3 E2, arr T1 T2 = ind T3 /\ lam T1 E1 = fold T3 E2) \/
+   (exists T3 T1' E2 E3, arr T1 T2 = coi T3 /\ lam T1 E1 = gen T3 T1' E2 E3)
+
+2 other subgoals.
+
+cfl < search.
+Witness: left left right exists[T3 = T1, T4 = T2, E2 = E1] split(=, =)
+Subgoal 6:
+
+Variables: T E1 T1
+H1 : {of (fold T1 E1) T}
+============================
+ T = unit /\ fold T1 E1 = triv \/
+   (exists T2 T3 E2 E3, T = prod T2 T3 /\ fold T1 E1 = pair E2 E3) \/
+   (exists T2 T3 E2, T = sum T2 T3 /\ fold T1 E1 = inl T2 T3 E2) \/
+   (exists T2 T3 E2, T = sum T2 T3 /\ fold T1 E1 = inr T2 T3 E2) \/
+   (exists T2 T3 E2, T = arr T2 T3 /\ fold T1 E1 = lam T2 E2) \/
+   (exists T2 E2, T = ind T2 /\ fold T1 E1 = fold T2 E2) \/
+   (exists T2 T1' E2 E3, T = coi T2 /\ fold T1 E1 = gen T2 T1' E2 E3)
+
+1 other subgoal.
+
+cfl < case H1.
+Subgoal 6:
+
+Variables: E1 T1
+H3 : {of E1 (T1 (ind T1))}
+H4 : {pos T1}
+============================
+ ind T1 = unit /\ fold T1 E1 = triv \/
+   (exists T2 T3 E2 E3, ind T1 = prod T2 T3 /\ fold T1 E1 = pair E2 E3) \/
+   (exists T2 T3 E2, ind T1 = sum T2 T3 /\ fold T1 E1 = inl T2 T3 E2) \/
+   (exists T2 T3 E2, ind T1 = sum T2 T3 /\ fold T1 E1 = inr T2 T3 E2) \/
+   (exists T2 T3 E2, ind T1 = arr T2 T3 /\ fold T1 E1 = lam T2 E2) \/
+   (exists T2 E2, ind T1 = ind T2 /\ fold T1 E1 = fold T2 E2) \/
+   (exists T2 T1' E2 E3, ind T1 = coi T2 /\ fold T1 E1 = gen T2 T1' E2 E3)
+
+1 other subgoal.
+
+cfl < search.
+Witness: left right exists[T2 = T1, E2 = E1] split(=, =)
+Subgoal 7:
+
+Variables: T E2 E1 T2 T1
+H1 : {of (gen T1 T2 E1 E2) T}
+============================
+ T = unit /\ gen T1 T2 E1 E2 = triv \/
+   (exists T3 T4 E3 E4, T = prod T3 T4 /\ gen T1 T2 E1 E2 = pair E3 E4) \/
+   (exists T3 T4 E3, T = sum T3 T4 /\ gen T1 T2 E1 E2 = inl T3 T4 E3) \/
+   (exists T3 T4 E3, T = sum T3 T4 /\ gen T1 T2 E1 E2 = inr T3 T4 E3) \/
+   (exists T3 T4 E3, T = arr T3 T4 /\ gen T1 T2 E1 E2 = lam T3 E3) \/
+   (exists T3 E3, T = ind T3 /\ gen T1 T2 E1 E2 = fold T3 E3) \/
+   (exists T3 T1' E3 E4, T = coi T3 /\ gen T1 T2 E1 E2 = gen T3 T1' E3 E4)
+
+cfl < case H1.
+Subgoal 7:
+
+Variables: E2 E1 T2 T1
+H3 : {of n1 T2 |- of (E1 n1) (T1 T2)}
+H4 : {of E2 T2}
+H5 : {pos T1}
+H6 : {typ T2}
+============================
+ coi T1 = unit /\ gen T1 T2 E1 E2 = triv \/
+   (exists T3 T4 E3 E4, coi T1 = prod T3 T4 /\ gen T1 T2 E1 E2 = pair E3 E4) \/
+   (exists T3 T4 E3, coi T1 = sum T3 T4 /\ gen T1 T2 E1 E2 = inl T3 T4 E3) \/
+   (exists T3 T4 E3, coi T1 = sum T3 T4 /\ gen T1 T2 E1 E2 = inr T3 T4 E3) \/
+   (exists T3 T4 E3, coi T1 = arr T3 T4 /\ gen T1 T2 E1 E2 = lam T3 E3) \/
+   (exists T3 E3, coi T1 = ind T3 /\ gen T1 T2 E1 E2 = fold T3 E3) \/
+   (exists T3 T1' E3 E4, coi T1 = coi T3 /\ gen T1 T2 E1 E2 =
+      gen T3 T1' E3 E4)
+
+cfl < search.
+Witness: right exists[T3 = T1, T1' = T2, E3 = E1, E4 = E2] split(=, =)
+Proof completed.
+Abella < Theorem progress : 
+forall E T, {of E T} -> {val E} \/ (exists E', {step E E'}).
+
+
+============================
+ forall E T, {of E T} -> {val E} \/ (exists E', {step E E'})
+
+progress < induction on 1.
+
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+============================
+ forall E T, {of E T}@ -> {val E} \/ (exists E', {step E E'})
+
+progress < intros.
+
+Variables: E T
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H1 : {of E T}@
+============================
+ {val E} \/ (exists E', {step E E'})
+
+progress < case H1.
+Subgoal 1:
+
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+============================
+ {val triv} \/ (exists E', {step triv E'})
+
+14 other subgoals.
+
+progress < search.
+Witness: left unfold(val, 1, )
+Subgoal 2:
+
+Variables: T2 E2 T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 T1}*
+H3 : {of E2 T2}*
+============================
+ {val (pair E1 E2)} \/ (exists E', {step (pair E1 E2) E'})
+
+13 other subgoals.
+
+progress < search.
+Witness: left unfold(val, 2, )
+Subgoal 3:
+
+Variables: T T2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T T2)}*
+============================
+ {val (prl E1)} \/ (exists E', {step (prl E1) E'})
+
+12 other subgoals.
+
+progress < apply IH to H2.
+Subgoal 3:
+
+Variables: T T2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T T2)}*
+H3 : {val E1} \/ (exists E', {step E1 E'})
+============================
+ {val (prl E1)} \/ (exists E', {step (prl E1) E'})
+
+12 other subgoals.
+
+progress < case H3.
+Subgoal 3.1:
+
+Variables: T T2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T T2)}*
+H4 : {val E1}
+============================
+ {val (prl E1)} \/ (exists E', {step (prl E1) E'})
+
+13 other subgoals.
+
+progress < apply cfl to H2 H4.
+Subgoal 3.1:
+
+Variables: T T2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T T2)}*
+H4 : {val E1}
+H5 : prod T T2 = unit /\ E1 = triv \/
+       (exists T1 T3 E2 E3, prod T T2 = prod T1 T3 /\ E1 = pair E2 E3) \/
+       (exists T1 T3 E2, prod T T2 = sum T1 T3 /\ E1 = inl T1 T3 E2) \/
+       (exists T1 T3 E2, prod T T2 = sum T1 T3 /\ E1 = inr T1 T3 E2) \/
+       (exists T1 T3 E2, prod T T2 = arr T1 T3 /\ E1 = lam T1 E2) \/
+       (exists T1 E2, prod T T2 = ind T1 /\ E1 = fold T1 E2) \/
+       (exists T1 T1' E2 E3, prod T T2 = coi T1 /\ E1 = gen T1 T1' E2 E3)
+============================
+ {val (prl E1)} \/ (exists E', {step (prl E1) E'})
+
+13 other subgoals.
+
+progress < case H5.
+Subgoal 3.1:
+
+Variables: T1 T3 E2 E3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of (pair E2 E3) (prod T1 T3)}*
+H4 : {val (pair E2 E3)}
+============================
+ {val (prl (pair E2 E3))} \/ (exists E', {step (prl (pair E2 E3)) E'})
+
+13 other subgoals.
+
+progress < search.
+Witness: right exists[E' = E2] unfold(step, 3, )
+Subgoal 3.2:
+
+Variables: T T2 E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T T2)}*
+H4 : {step E1 E'}
+============================
+ {val (prl E1)} \/ (exists E', {step (prl E1) E'})
+
+12 other subgoals.
+
+progress < search.
+Witness: right exists[E' = prl E'] unfold(step, 1, apply H4)
+Subgoal 4:
+
+Variables: T T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T1 T)}*
+============================
+ {val (prr E1)} \/ (exists E', {step (prr E1) E'})
+
+11 other subgoals.
+
+progress < apply IH to H2.
+Subgoal 4:
+
+Variables: T T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T1 T)}*
+H3 : {val E1} \/ (exists E', {step E1 E'})
+============================
+ {val (prr E1)} \/ (exists E', {step (prr E1) E'})
+
+11 other subgoals.
+
+progress < case H3.
+Subgoal 4.1:
+
+Variables: T T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T1 T)}*
+H4 : {val E1}
+============================
+ {val (prr E1)} \/ (exists E', {step (prr E1) E'})
+
+12 other subgoals.
+
+progress < apply cfl to H2 H4.
+Subgoal 4.1:
+
+Variables: T T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T1 T)}*
+H4 : {val E1}
+H5 : prod T1 T = unit /\ E1 = triv \/
+       (exists T2 T3 E2 E3, prod T1 T = prod T2 T3 /\ E1 = pair E2 E3) \/
+       (exists T2 T3 E2, prod T1 T = sum T2 T3 /\ E1 = inl T2 T3 E2) \/
+       (exists T2 T3 E2, prod T1 T = sum T2 T3 /\ E1 = inr T2 T3 E2) \/
+       (exists T2 T3 E2, prod T1 T = arr T2 T3 /\ E1 = lam T2 E2) \/
+       (exists T2 E2, prod T1 T = ind T2 /\ E1 = fold T2 E2) \/
+       (exists T2 T1' E2 E3, prod T1 T = coi T2 /\ E1 = gen T2 T1' E2 E3)
+============================
+ {val (prr E1)} \/ (exists E', {step (prr E1) E'})
+
+12 other subgoals.
+
+progress < case H5.
+Subgoal 4.1:
+
+Variables: T2 T3 E2 E3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of (pair E2 E3) (prod T2 T3)}*
+H4 : {val (pair E2 E3)}
+============================
+ {val (prr (pair E2 E3))} \/ (exists E', {step (prr (pair E2 E3)) E'})
+
+12 other subgoals.
+
+progress < search.
+Witness: right exists[E' = E3] unfold(step, 4, )
+Subgoal 4.2:
+
+Variables: T T1 E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (prod T1 T)}*
+H4 : {step E1 E'}
+============================
+ {val (prr E1)} \/ (exists E', {step (prr E1) E'})
+
+11 other subgoals.
+
+progress < search.
+Witness: right exists[E' = prr E'] unfold(step, 2, apply H4)
+Subgoal 5:
+
+Variables: T E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 void}*
+H3 : {typ T}*
+============================
+ {val (abort T E1)} \/ (exists E', {step (abort T E1) E'})
+
+10 other subgoals.
+
+progress < apply IH to H2.
+Subgoal 5:
+
+Variables: T E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 void}*
+H3 : {typ T}*
+H4 : {val E1} \/ (exists E', {step E1 E'})
+============================
+ {val (abort T E1)} \/ (exists E', {step (abort T E1) E'})
+
+10 other subgoals.
+
+progress < case H4.
+Subgoal 5.1:
+
+Variables: T E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 void}*
+H3 : {typ T}*
+H5 : {val E1}
+============================
+ {val (abort T E1)} \/ (exists E', {step (abort T E1) E'})
+
+11 other subgoals.
+
+progress < apply cfl to H2 H5.
+Subgoal 5.1:
+
+Variables: T E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 void}*
+H3 : {typ T}*
+H5 : {val E1}
+H6 : void = unit /\ E1 = triv \/
+       (exists T1 T2 E2 E3, void = prod T1 T2 /\ E1 = pair E2 E3) \/
+       (exists T1 T2 E2, void = sum T1 T2 /\ E1 = inl T1 T2 E2) \/
+       (exists T1 T2 E2, void = sum T1 T2 /\ E1 = inr T1 T2 E2) \/
+       (exists T1 T2 E2, void = arr T1 T2 /\ E1 = lam T1 E2) \/
+       (exists T1 E2, void = ind T1 /\ E1 = fold T1 E2) \/
+       (exists T1 T1' E2 E3, void = coi T1 /\ E1 = gen T1 T1' E2 E3)
+============================
+ {val (abort T E1)} \/ (exists E', {step (abort T E1) E'})
+
+11 other subgoals.
+
+progress < case H6.
+Subgoal 5.2:
+
+Variables: T E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 void}*
+H3 : {typ T}*
+H5 : {step E1 E'}
+============================
+ {val (abort T E1)} \/ (exists E', {step (abort T E1) E'})
+
+10 other subgoals.
+
+progress < search.
+Witness: right exists[E' = abort T E'] unfold(step, 5, apply H5)
+Subgoal 6:
+
+Variables: T2 T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 T1}*
+H3 : {typ T2}*
+============================
+ {val (inl T1 T2 E1)} \/ (exists E', {step (inl T1 T2 E1) E'})
+
+9 other subgoals.
+
+progress < search.
+Witness: left unfold(val, 3, )
+Subgoal 7:
+
+Variables: T1 T2 E2
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E2 T2}*
+H3 : {typ T1}*
+============================
+ {val (inr T1 T2 E2)} \/ (exists E', {step (inr T1 T2 E2) E'})
+
+8 other subgoals.
+
+progress < search.
+Witness: left unfold(val, 4, )
+Subgoal 8:
+
+Variables: T E2 T2 E1 T1 E3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E3 (sum T1 T2)}*
+H3 : {of n1 T1 |- of (E1 n1) T}*
+H4 : {of n1 T2 |- of (E2 n1) T}*
+============================
+ {val (case E3 E1 E2)} \/ (exists E', {step (case E3 E1 E2) E'})
+
+7 other subgoals.
+
+progress < apply IH to H2.
+Subgoal 8:
+
+Variables: T E2 T2 E1 T1 E3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E3 (sum T1 T2)}*
+H3 : {of n1 T1 |- of (E1 n1) T}*
+H4 : {of n1 T2 |- of (E2 n1) T}*
+H5 : {val E3} \/ (exists E', {step E3 E'})
+============================
+ {val (case E3 E1 E2)} \/ (exists E', {step (case E3 E1 E2) E'})
+
+7 other subgoals.
+
+progress < case H5.
+Subgoal 8.1:
+
+Variables: T E2 T2 E1 T1 E3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E3 (sum T1 T2)}*
+H3 : {of n1 T1 |- of (E1 n1) T}*
+H4 : {of n1 T2 |- of (E2 n1) T}*
+H6 : {val E3}
+============================
+ {val (case E3 E1 E2)} \/ (exists E', {step (case E3 E1 E2) E'})
+
+8 other subgoals.
+
+progress < apply cfl to H2 H6.
+Subgoal 8.1:
+
+Variables: T E2 T2 E1 T1 E3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E3 (sum T1 T2)}*
+H3 : {of n1 T1 |- of (E1 n1) T}*
+H4 : {of n1 T2 |- of (E2 n1) T}*
+H6 : {val E3}
+H7 : sum T1 T2 = unit /\ E3 = triv \/
+       (exists T3 T4 E1 E2, sum T1 T2 = prod T3 T4 /\ E3 = pair E1 E2) \/
+       (exists T3 T4 E1, sum T1 T2 = sum T3 T4 /\ E3 = inl T3 T4 E1) \/
+       (exists T3 T4 E2, sum T1 T2 = sum T3 T4 /\ E3 = inr T3 T4 E2) \/
+       (exists T3 T4 E1, sum T1 T2 = arr T3 T4 /\ E3 = lam T3 E1) \/
+       (exists T3 E1, sum T1 T2 = ind T3 /\ E3 = fold T3 E1) \/
+       (exists T3 T1' E1 E2, sum T1 T2 = coi T3 /\ E3 = gen T3 T1' E1 E2)
+============================
+ {val (case E3 E1 E2)} \/ (exists E', {step (case E3 E1 E2) E'})
+
+8 other subgoals.
+
+progress < case H7.
+Subgoal 8.1.1:
+
+Variables: T E2 E1 T3 T4 E4
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of (inl T3 T4 E4) (sum T3 T4)}*
+H3 : {of n1 T3 |- of (E1 n1) T}*
+H4 : {of n1 T4 |- of (E2 n1) T}*
+H6 : {val (inl T3 T4 E4)}
+============================
+ {val (case (inl T3 T4 E4) E1 E2)} \/
+   (exists E', {step (case (inl T3 T4 E4) E1 E2) E'})
+
+9 other subgoals.
+
+progress < search.
+Witness: right exists[E' = E1 E4] unfold(step, 7, )
+Subgoal 8.1.2:
+
+Variables: T E2 E1 T3 T4 E4
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of (inr T3 T4 E4) (sum T3 T4)}*
+H3 : {of n1 T3 |- of (E1 n1) T}*
+H4 : {of n1 T4 |- of (E2 n1) T}*
+H6 : {val (inr T3 T4 E4)}
+============================
+ {val (case (inr T3 T4 E4) E1 E2)} \/
+   (exists E', {step (case (inr T3 T4 E4) E1 E2) E'})
+
+8 other subgoals.
+
+progress < search.
+Witness: right exists[E' = E2 E4] unfold(step, 8, )
+Subgoal 8.2:
+
+Variables: T E2 T2 E1 T1 E3 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E3 (sum T1 T2)}*
+H3 : {of n1 T1 |- of (E1 n1) T}*
+H4 : {of n1 T2 |- of (E2 n1) T}*
+H6 : {step E3 E'}
+============================
+ {val (case E3 E1 E2)} \/ (exists E', {step (case E3 E1 E2) E'})
+
+7 other subgoals.
+
+progress < search.
+Witness: right exists[E' = case E' E1 E2] unfold(step, 6, apply H6)
+Subgoal 9:
+
+Variables: T1 T2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 T1 |- of (E1 n1) T2}*
+H3 : {typ T1}*
+============================
+ {val (lam T1 E1)} \/ (exists E', {step (lam T1 E1) E'})
+
+6 other subgoals.
+
+progress < search.
+Witness: left unfold(val, 5, )
+Subgoal 10:
+
+Variables: T T2 E2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (arr T2 T)}*
+H3 : {of E2 T2}*
+============================
+ {val (app E1 E2)} \/ (exists E', {step (app E1 E2) E'})
+
+5 other subgoals.
+
+progress < apply IH to H2.
+Subgoal 10:
+
+Variables: T T2 E2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (arr T2 T)}*
+H3 : {of E2 T2}*
+H4 : {val E1} \/ (exists E', {step E1 E'})
+============================
+ {val (app E1 E2)} \/ (exists E', {step (app E1 E2) E'})
+
+5 other subgoals.
+
+progress < case H4.
+Subgoal 10.1:
+
+Variables: T T2 E2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (arr T2 T)}*
+H3 : {of E2 T2}*
+H5 : {val E1}
+============================
+ {val (app E1 E2)} \/ (exists E', {step (app E1 E2) E'})
+
+6 other subgoals.
+
+progress < apply cfl to H2 H5.
+Subgoal 10.1:
+
+Variables: T T2 E2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (arr T2 T)}*
+H3 : {of E2 T2}*
+H5 : {val E1}
+H6 : arr T2 T = unit /\ E1 = triv \/
+       (exists T1 T3 E2 E3, arr T2 T = prod T1 T3 /\ E1 = pair E2 E3) \/
+       (exists T1 T3 E2, arr T2 T = sum T1 T3 /\ E1 = inl T1 T3 E2) \/
+       (exists T1 T3 E2, arr T2 T = sum T1 T3 /\ E1 = inr T1 T3 E2) \/
+       (exists T1 T3 E2, arr T2 T = arr T1 T3 /\ E1 = lam T1 E2) \/
+       (exists T1 E2, arr T2 T = ind T1 /\ E1 = fold T1 E2) \/
+       (exists T1 T1' E2 E3, arr T2 T = coi T1 /\ E1 = gen T1 T1' E2 E3)
+============================
+ {val (app E1 E2)} \/ (exists E', {step (app E1 E2) E'})
+
+6 other subgoals.
+
+progress < case H6.
+Subgoal 10.1:
+
+Variables: E2 T1 T3 E3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of (lam T1 E3) (arr T1 T3)}*
+H3 : {of E2 T1}*
+H5 : {val (lam T1 E3)}
+============================
+ {val (app (lam T1 E3) E2)} \/ (exists E', {step (app (lam T1 E3) E2) E'})
+
+6 other subgoals.
+
+progress < search.
+Witness: right exists[E' = E3 E2] unfold(step, 10, )
+Subgoal 10.2:
+
+Variables: T T2 E2 E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (arr T2 T)}*
+H3 : {of E2 T2}*
+H5 : {step E1 E'}
+============================
+ {val (app E1 E2)} \/ (exists E', {step (app E1 E2) E'})
+
+5 other subgoals.
+
+progress < search.
+Witness: right exists[E' = app E' E2] unfold(step, 9, apply H5)
+Subgoal 11:
+
+Variables: R' R T1 E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 R |- of (E' n1) R'}*
+H3 : {of E1 (T1 R)}*
+H4 : {pos T1}*
+H5 : {typ R}*
+H6 : {typ R'}*
+============================
+ {val (map T1 R R' E' E1)} \/ (exists E'1, {step (map T1 R R' E' E1) E'1})
+
+4 other subgoals.
+
+progress < case H4.
+Subgoal 11.1:
+
+Variables: R' R E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 R |- of (E' n1) R'}*
+H3 : {of E1 R}*
+H5 : {typ R}*
+H6 : {typ R'}*
+============================
+ {val (map t\t R R' E' E1)} \/ (exists E'1, {step (map t\t R R' E' E1) E'1})
+
+9 other subgoals.
+
+progress < search.
+Witness: right exists[E'1 = E' E1] unfold(step, 11, )
+Subgoal 11.2:
+
+Variables: R' R E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 R |- of (E' n1) R'}*
+H3 : {of E1 unit}*
+H5 : {typ R}*
+H6 : {typ R'}*
+============================
+ {val (map t\unit R R' E' E1)} \/
+   (exists E'1, {step (map t\unit R R' E' E1) E'1})
+
+8 other subgoals.
+
+progress < search.
+Witness: right exists[E'1 = E1] unfold(step, 12, )
+Subgoal 11.3:
+
+Variables: R' R E1 E' T2 T3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 R |- of (E' n1) R'}*
+H3 : {of E1 (prod (T3 R) (T2 R))}*
+H5 : {typ R}*
+H6 : {typ R'}*
+H7 : {pos T3}*
+H8 : {pos T2}*
+============================
+ {val (map (t\prod (T3 t) (T2 t)) R R' E' E1)} \/
+   (exists E'1, {step (map (t\prod (T3 t) (T2 t)) R R' E' E1) E'1})
+
+7 other subgoals.
+
+progress < search.
+Witness: right exists[E'1 = pair (map (z2\T3 z2) R R' E' (prl E1)) (map (z2\T2 z2) R R' E' (prr E1))] unfold(step, 13, )
+Subgoal 11.4:
+
+Variables: R' R E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 R |- of (E' n1) R'}*
+H3 : {of E1 void}*
+H5 : {typ R}*
+H6 : {typ R'}*
+============================
+ {val (map t\void R R' E' E1)} \/
+   (exists E'1, {step (map t\void R R' E' E1) E'1})
+
+6 other subgoals.
+
+progress < search.
+Witness: right exists[E'1 = E1] unfold(step, 14, )
+Subgoal 11.5:
+
+Variables: R' R E1 E' T2 T3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 R |- of (E' n1) R'}*
+H3 : {of E1 (sum (T3 R) (T2 R))}*
+H5 : {typ R}*
+H6 : {typ R'}*
+H7 : {pos T3}*
+H8 : {pos T2}*
+============================
+ {val (map (t\sum (T3 t) (T2 t)) R R' E' E1)} \/
+   (exists E'1, {step (map (t\sum (T3 t) (T2 t)) R R' E' E1) E'1})
+
+5 other subgoals.
+
+progress < search.
+Witness: right exists[E'1 = case E1 (x1\inl (T3 R') (T2 R') (map (z2\T3 z2) R R' E' x1))
+  (x2\inr (T3 R') (T2 R') (map (z2\T2 z2) R R' E' x2))] unfold(step, 15, )
+Subgoal 11.6:
+
+Variables: R' R E1 E' T2 T3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 R |- of (E' n1) R'}*
+H3 : {of E1 (arr T3 (T2 R))}*
+H5 : {typ R}*
+H6 : {typ R'}*
+H7 : {typ T3}*
+H8 : {pos T2}*
+============================
+ {val (map (t\arr T3 (T2 t)) R R' E' E1)} \/
+   (exists E'1, {step (map (t\arr T3 (T2 t)) R R' E' E1) E'1})
+
+4 other subgoals.
+
+progress < search.
+Witness: right exists[E'1 = lam T3 (x1\map (z2\T2 z2) R R' E' (app E1 x1))] unfold(step, 16, )
+Subgoal 12:
+
+Variables: T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (T1 (ind T1))}*
+H3 : {pos T1}*
+============================
+ {val (fold T1 E1)} \/ (exists E', {step (fold T1 E1) E'})
+
+3 other subgoals.
+
+progress < search.
+Witness: left unfold(val, 6, )
+Subgoal 13:
+
+Variables: T T1 E2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 (T1 T) |- of (E1 n1) T}*
+H3 : {of E2 (ind T1)}*
+H4 : {typ T}*
+============================
+ {val (rec T1 T E1 E2)} \/ (exists E', {step (rec T1 T E1 E2) E'})
+
+2 other subgoals.
+
+progress < apply IH to H3.
+Subgoal 13:
+
+Variables: T T1 E2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 (T1 T) |- of (E1 n1) T}*
+H3 : {of E2 (ind T1)}*
+H4 : {typ T}*
+H5 : {val E2} \/ (exists E', {step E2 E'})
+============================
+ {val (rec T1 T E1 E2)} \/ (exists E', {step (rec T1 T E1 E2) E'})
+
+2 other subgoals.
+
+progress < case H5.
+Subgoal 13.1:
+
+Variables: T T1 E2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 (T1 T) |- of (E1 n1) T}*
+H3 : {of E2 (ind T1)}*
+H4 : {typ T}*
+H6 : {val E2}
+============================
+ {val (rec T1 T E1 E2)} \/ (exists E', {step (rec T1 T E1 E2) E'})
+
+3 other subgoals.
+
+progress < apply cfl to H3 H6.
+Subgoal 13.1:
+
+Variables: T T1 E2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 (T1 T) |- of (E1 n1) T}*
+H3 : {of E2 (ind T1)}*
+H4 : {typ T}*
+H6 : {val E2}
+H7 : ind T1 = unit /\ E2 = triv \/
+       (exists T2 T3 E1 E3, ind T1 = prod T2 T3 /\ E2 = pair E1 E3) \/
+       (exists T2 T3 E1, ind T1 = sum T2 T3 /\ E2 = inl T2 T3 E1) \/
+       (exists T2 T3 E1, ind T1 = sum T2 T3 /\ E2 = inr T2 T3 E1) \/
+       (exists T2 T3 E1, ind T1 = arr T2 T3 /\ E2 = lam T2 E1) \/
+       (exists T2 E1, ind T1 = ind T2 /\ E2 = fold T2 E1) \/
+       (exists T2 T1' E1 E3, ind T1 = coi T2 /\ E2 = gen T2 T1' E1 E3)
+============================
+ {val (rec T1 T E1 E2)} \/ (exists E', {step (rec T1 T E1 E2) E'})
+
+3 other subgoals.
+
+progress < case H7.
+Subgoal 13.1:
+
+Variables: T E1 T2 E3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 (T2 T) |- of (E1 n1) T}*
+H3 : {of (fold T2 E3) (ind T2)}*
+H4 : {typ T}*
+H6 : {val (fold T2 E3)}
+============================
+ {val (rec T2 T E1 (fold T2 E3))} \/
+   (exists E', {step (rec T2 T E1 (fold T2 E3)) E'})
+
+3 other subgoals.
+
+progress < search.
+Witness: right exists[E' = E1 (map T2 (ind T2) T (rec T2 T E1) E3)] unfold(step, 18, )
+Subgoal 13.2:
+
+Variables: T T1 E2 E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 (T1 T) |- of (E1 n1) T}*
+H3 : {of E2 (ind T1)}*
+H4 : {typ T}*
+H6 : {step E2 E'}
+============================
+ {val (rec T1 T E1 E2)} \/ (exists E', {step (rec T1 T E1 E2) E'})
+
+2 other subgoals.
+
+progress < search.
+Witness: right exists[E' = rec T1 T E1 E'] unfold(step, 17, apply H6)
+Subgoal 14:
+
+Variables: T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (coi T1)}*
+============================
+ {val (unfold T1 E1)} \/ (exists E', {step (unfold T1 E1) E'})
+
+1 other subgoal.
+
+progress < apply IH to H2.
+Subgoal 14:
+
+Variables: T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (coi T1)}*
+H3 : {val E1} \/ (exists E', {step E1 E'})
+============================
+ {val (unfold T1 E1)} \/ (exists E', {step (unfold T1 E1) E'})
+
+1 other subgoal.
+
+progress < case H3.
+Subgoal 14.1:
+
+Variables: T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (coi T1)}*
+H4 : {val E1}
+============================
+ {val (unfold T1 E1)} \/ (exists E', {step (unfold T1 E1) E'})
+
+2 other subgoals.
+
+progress < apply cfl to H2 H4.
+Subgoal 14.1:
+
+Variables: T1 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (coi T1)}*
+H4 : {val E1}
+H5 : coi T1 = unit /\ E1 = triv \/
+       (exists T2 T3 E2 E3, coi T1 = prod T2 T3 /\ E1 = pair E2 E3) \/
+       (exists T2 T3 E2, coi T1 = sum T2 T3 /\ E1 = inl T2 T3 E2) \/
+       (exists T2 T3 E2, coi T1 = sum T2 T3 /\ E1 = inr T2 T3 E2) \/
+       (exists T2 T3 E2, coi T1 = arr T2 T3 /\ E1 = lam T2 E2) \/
+       (exists T2 E2, coi T1 = ind T2 /\ E1 = fold T2 E2) \/
+       (exists T2 T1' E2 E3, coi T1 = coi T2 /\ E1 = gen T2 T1' E2 E3)
+============================
+ {val (unfold T1 E1)} \/ (exists E', {step (unfold T1 E1) E'})
+
+2 other subgoals.
+
+progress < case H5.
+Subgoal 14.1:
+
+Variables: T2 T1' E2 E3
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of (gen T2 T1' E2 E3) (coi T2)}*
+H4 : {val (gen T2 T1' E2 E3)}
+============================
+ {val (unfold T2 (gen T2 T1' E2 E3))} \/
+   (exists E', {step (unfold T2 (gen T2 T1' E2 E3)) E'})
+
+2 other subgoals.
+
+progress < search.
+Witness: right exists[E' = map T2 T1' (coi T2) (gen T2 T1' E2) (E2 E3)] unfold(step, 20, )
+Subgoal 14.2:
+
+Variables: T1 E1 E'
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of E1 (coi T1)}*
+H4 : {step E1 E'}
+============================
+ {val (unfold T1 E1)} \/ (exists E', {step (unfold T1 E1) E'})
+
+1 other subgoal.
+
+progress < search.
+Witness: right exists[E' = unfold T1 E'] unfold(step, 19, apply H4)
+Subgoal 15:
+
+Variables: T' T1 E2 E1
+IH : forall E T, {of E T}* -> {val E} \/ (exists E', {step E E'})
+H2 : {of n1 T' |- of (E1 n1) (T1 T')}*
+H3 : {of E2 T'}*
+H4 : {pos T1}*
+H5 : {typ T'}*
+============================
+ {val (gen T1 T' E1 E2)} \/ (exists E', {step (gen T1 T' E1 E2) E'})
+
+progress < search.
+Witness: left unfold(val, 7, )
+Proof completed.
+Abella < Define ctx : olist -> prop by 
+ctx nil;
+nabla x, ctx (of x T :: G) := {G |- typ T} /\ ctx G;
+nabla t, ctx (typ t :: G) := ctx G.
+
+Abella < Theorem ctx_inv : 
+forall G E, ctx G -> member E G ->
+  (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+  (exists T, E = typ T /\ is_name T).
+
+
+============================
+ forall G E, ctx G -> member E G ->
+   (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+   (exists T, E = typ T /\ is_name T)
+
+ctx_inv < induction on 1.
+
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+============================
+ forall G E, ctx G @ -> member E G ->
+   (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+   (exists T, E = typ T /\ is_name T)
+
+ctx_inv < intros.
+
+Variables: G E
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H1 : ctx G @
+H2 : member E G
+============================
+ (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+   (exists T, E = typ T /\ is_name T)
+
+ctx_inv < case H1.
+Subgoal 1:
+
+Variables: E
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H2 : member E nil
+============================
+ (exists X T, E = of X T /\ is_name X /\ {typ T}) \/
+   (exists T, E = typ T /\ is_name T)
+
+2 other subgoals.
+
+ctx_inv < case H2.
+Subgoal 2:
+
+Variables: E G1 T
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H2 : member (E n1) (of n1 T :: G1)
+H3 : {G1 |- typ T}
+H4 : ctx G1 *
+============================
+ (exists X T1, E n1 = of X T1 /\ is_name X /\ {G1, of n1 T |- typ T1}) \/
+   (exists T1, E n1 = typ T1 /\ is_name T1)
+
+1 other subgoal.
+
+ctx_inv < case H2.
+Subgoal 2.1:
+
+Variables: G1 T
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : {G1 |- typ T}
+H4 : ctx G1 *
+============================
+ (exists X T1, of n1 T = of X T1 /\ is_name X /\ {G1, of n1 T |- typ T1}) \/
+   (exists T1, of n1 T = typ T1 /\ is_name T1)
+
+2 other subgoals.
+
+ctx_inv < search.
+Witness: left exists[X = n1, T1 = T] split(split(=, unfold(is_name, 1, true)), apply H3)
+Subgoal 2.2:
+
+Variables: E G1 T
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : {G1 |- typ T}
+H4 : ctx G1 *
+H5 : member (E n1) G1
+============================
+ (exists X T1, E n1 = of X T1 /\ is_name X /\ {G1, of n1 T |- typ T1}) \/
+   (exists T1, E n1 = typ T1 /\ is_name T1)
+
+1 other subgoal.
+
+ctx_inv < apply IH to H4 H5.
+Subgoal 2.2:
+
+Variables: E G1 T
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : {G1 |- typ T}
+H4 : ctx G1 *
+H5 : member (E n1) G1
+H6 : (exists X T, E n1 = of X T /\ is_name X /\ {G1 |- typ T}) \/
+       (exists T, E n1 = typ T /\ is_name T)
+============================
+ (exists X T1, E n1 = of X T1 /\ is_name X /\ {G1, of n1 T |- typ T1}) \/
+   (exists T1, E n1 = typ T1 /\ is_name T1)
+
+1 other subgoal.
+
+ctx_inv < case H6.
+Subgoal 2.2.1:
+
+Variables: G1 T X T1
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : {G1 |- typ T}
+H4 : ctx G1 *
+H5 : member (of (X n1) (T1 n1)) G1
+H7 : is_name (X n1)
+H8 : {G1 |- typ (T1 n1)}
+============================
+ (exists X1 T2, of (X n1) (T1 n1) = of X1 T2 /\ is_name X1 /\
+      {G1, of n1 T |- typ T2}) \/
+   (exists T2, of (X n1) (T1 n1) = typ T2 /\ is_name T2)
+
+2 other subgoals.
+
+ctx_inv < search.
+Witness: left exists[X1 = X n1, T2 = T1 n1] split(split(=, apply H7), apply H8)
+Subgoal 2.2.2:
+
+Variables: G1 T T1
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : {G1 |- typ T}
+H4 : ctx G1 *
+H5 : member (typ (T1 n1)) G1
+H7 : is_name (T1 n1)
+============================
+ (exists X T2, typ (T1 n1) = of X T2 /\ is_name X /\ {G1, of n1 T |- typ T2}) \/
+   (exists T2, typ (T1 n1) = typ T2 /\ is_name T2)
+
+1 other subgoal.
+
+ctx_inv < search.
+Witness: right exists[T2 = T1 n1] split(=, apply H7)
+Subgoal 3:
+
+Variables: E G1
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H2 : member (E n1) (typ n1 :: G1)
+H3 : ctx G1 *
+============================
+ (exists X T, E n1 = of X T /\ is_name X /\ {G1, typ n1 |- typ T}) \/
+   (exists T, E n1 = typ T /\ is_name T)
+
+ctx_inv < case H2.
+Subgoal 3.1:
+
+Variables: G1
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : ctx G1 *
+============================
+ (exists X T, typ n1 = of X T /\ is_name X /\ {G1, typ n1 |- typ T}) \/
+   (exists T, typ n1 = typ T /\ is_name T)
+
+1 other subgoal.
+
+ctx_inv < search.
+Witness: right exists[T = n1] split(=, unfold(is_name, 1, true))
+Subgoal 3.2:
+
+Variables: E G1
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : ctx G1 *
+H4 : member (E n1) G1
+============================
+ (exists X T, E n1 = of X T /\ is_name X /\ {G1, typ n1 |- typ T}) \/
+   (exists T, E n1 = typ T /\ is_name T)
+
+ctx_inv < apply IH to H3 H4.
+Subgoal 3.2:
+
+Variables: E G1
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : ctx G1 *
+H4 : member (E n1) G1
+H5 : (exists X T, E n1 = of X T /\ is_name X /\ {G1 |- typ T}) \/
+       (exists T, E n1 = typ T /\ is_name T)
+============================
+ (exists X T, E n1 = of X T /\ is_name X /\ {G1, typ n1 |- typ T}) \/
+   (exists T, E n1 = typ T /\ is_name T)
+
+ctx_inv < case H5.
+Subgoal 3.2.1:
+
+Variables: G1 X T
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : ctx G1 *
+H4 : member (of (X n1) (T n1)) G1
+H6 : is_name (X n1)
+H7 : {G1 |- typ (T n1)}
+============================
+ (exists X1 T1, of (X n1) (T n1) = of X1 T1 /\ is_name X1 /\
+      {G1, typ n1 |- typ T1}) \/
+   (exists T1, of (X n1) (T n1) = typ T1 /\ is_name T1)
+
+1 other subgoal.
+
+ctx_inv < search.
+Witness: left exists[X1 = X n1, T1 = T n1] split(split(=, apply H6), apply H7)
+Subgoal 3.2.2:
+
+Variables: G1 T
+IH : forall G E, ctx G * -> member E G ->
+       (exists X T, E = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, E = typ T /\ is_name T)
+H3 : ctx G1 *
+H4 : member (typ (T n1)) G1
+H6 : is_name (T n1)
+============================
+ (exists X T1, typ (T n1) = of X T1 /\ is_name X /\ {G1, typ n1 |- typ T1}) \/
+   (exists T1, typ (T n1) = typ T1 /\ is_name T1)
+
+ctx_inv < search.
+Witness: right exists[T1 = T n1] split(=, apply H6)
+Proof completed.
+Abella < Theorem typ/pos_str : 
+(forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T} -> {G |- typ T1} ->
+     {G |- typ T}) /\
+  (forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T} ->
+       {G |- typ T1} -> {G |- pos T}).
+
+
+============================
+ (forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T} ->
+      {G |- typ T1} -> {G |- typ T}) /\
+   (forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T} ->
+        {G |- typ T1} -> {G |- pos T})
+
+typ/pos_str < induction on 2 2.
+
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+============================
+ (forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}@ ->
+      {G |- typ T1} -> {G |- typ T}) /\
+   (forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}@ ->
+        {G |- typ T1} -> {G |- pos T})
+
+typ/pos_str < split.
+Subgoal 1:
+
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+============================
+ forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}@ ->
+   {G |- typ T1} -> {G |- typ T}
+
+1 other subgoal.
+
+typ/pos_str < intros.
+Subgoal 1:
+
+Variables: G T1 T
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H2 : {G, of n1 T1 |- typ T}@
+H3 : {G |- typ T1}
+============================
+ {G |- typ T}
+
+1 other subgoal.
+
+typ/pos_str < case H2.
+Subgoal 1.1:
+
+Variables: G T1
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+============================
+ {G |- typ unit}
+
+8 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(typ, 1, )
+Subgoal 1.2:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- typ T5}*
+============================
+ {G |- typ (prod T4 T5)}
+
+7 other subgoals.
+
+typ/pos_str < apply IH to H1 H4 H3.
+Subgoal 1.2:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- typ T5}*
+H6 : {G |- typ T4}
+============================
+ {G |- typ (prod T4 T5)}
+
+7 other subgoals.
+
+typ/pos_str < apply IH to H1 H5 H3.
+Subgoal 1.2:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- typ T5}*
+H6 : {G |- typ T4}
+H7 : {G |- typ T5}
+============================
+ {G |- typ (prod T4 T5)}
+
+7 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(typ, 2, apply H6, apply H7)
+Subgoal 1.3:
+
+Variables: G T1
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+============================
+ {G |- typ void}
+
+6 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(typ, 3, )
+Subgoal 1.4:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- typ T5}*
+============================
+ {G |- typ (sum T4 T5)}
+
+5 other subgoals.
+
+typ/pos_str < apply IH to H1 H4 H3.
+Subgoal 1.4:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- typ T5}*
+H6 : {G |- typ T4}
+============================
+ {G |- typ (sum T4 T5)}
+
+5 other subgoals.
+
+typ/pos_str < apply IH to H1 H5 H3.
+Subgoal 1.4:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- typ T5}*
+H6 : {G |- typ T4}
+H7 : {G |- typ T5}
+============================
+ {G |- typ (sum T4 T5)}
+
+5 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(typ, 4, apply H6, apply H7)
+Subgoal 1.5:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- typ T5}*
+============================
+ {G |- typ (arr T4 T5)}
+
+4 other subgoals.
+
+typ/pos_str < apply IH to H1 H4 H3.
+Subgoal 1.5:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- typ T5}*
+H6 : {G |- typ T4}
+============================
+ {G |- typ (arr T4 T5)}
+
+4 other subgoals.
+
+typ/pos_str < apply IH to H1 H5 H3.
+Subgoal 1.5:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- typ T5}*
+H6 : {G |- typ T4}
+H7 : {G |- typ T5}
+============================
+ {G |- typ (arr T4 T5)}
+
+4 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(typ, 5, apply H6, apply H7)
+Subgoal 1.6:
+
+Variables: G T1 T3
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos T3}*
+============================
+ {G |- typ (ind T3)}
+
+3 other subgoals.
+
+typ/pos_str < apply IH1 to H1 H4 H3.
+Subgoal 1.6:
+
+Variables: G T1 T3
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos T3}*
+H5 : {G |- pos T3}
+============================
+ {G |- typ (ind T3)}
+
+3 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(typ, 6, apply H5)
+Subgoal 1.7:
+
+Variables: G T1 T3
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos T3}*
+============================
+ {G |- typ (coi T3)}
+
+2 other subgoals.
+
+typ/pos_str < apply IH1 to H1 H4 H3.
+Subgoal 1.7:
+
+Variables: G T1 T3
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos T3}*
+H5 : {G |- pos T3}
+============================
+ {G |- typ (coi T3)}
+
+2 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(typ, 7, apply H5)
+Subgoal 1.8:
+
+Variables: G T1 T F
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1, [F n1] |- typ T}*
+H5 : member (F n1) (of n1 T1 :: G)
+============================
+ {G |- typ T}
+
+1 other subgoal.
+
+typ/pos_str < apply ctx_inv to _ H5.
+Witness: unfold(ctx, 2, split(apply H3, apply H1))
+Subgoal 1.8:
+
+Variables: G T1 T F
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1, [F n1] |- typ T}*
+H5 : member (F n1) (of n1 T1 :: G)
+H6 : (exists X T, F n1 = of X T /\ is_name X /\ {G, of n1 T1 |- typ T}) \/
+       (exists T, F n1 = typ T /\ is_name T)
+============================
+ {G |- typ T}
+
+1 other subgoal.
+
+typ/pos_str < case H6.
+Subgoal 1.8.1:
+
+Variables: G T1 T X T2
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1, [of (X n1) (T2 n1)] |- typ T}*
+H5 : member (of (X n1) (T2 n1)) (of n1 T1 :: G)
+H7 : is_name (X n1)
+H8 : {G, of n1 T1 |- typ (T2 n1)}
+============================
+ {G |- typ T}
+
+2 other subgoals.
+
+typ/pos_str < case H4.
+Subgoal 1.8.2:
+
+Variables: G T1 T T2
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1, [typ (T2 n1)] |- typ T}*
+H5 : member (typ (T2 n1)) (of n1 T1 :: G)
+H7 : is_name (T2 n1)
+============================
+ {G |- typ T}
+
+1 other subgoal.
+
+typ/pos_str < case H4.
+Subgoal 1.8.2:
+
+Variables: G T1 T
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H5 : member (typ T) (of n1 T1 :: G)
+H7 : is_name T
+============================
+ {G |- typ T}
+
+1 other subgoal.
+
+typ/pos_str < case H5.
+Subgoal 1.8.2:
+
+Variables: G T1 T
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H7 : is_name T
+H8 : member (typ T) G
+============================
+ {G |- typ T}
+
+1 other subgoal.
+
+typ/pos_str < search.
+Witness: unfold(typ, 1, )
+Subgoal 2:
+
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+============================
+ forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}@ ->
+   {G |- typ T1} -> {G |- pos T}
+
+typ/pos_str < intros.
+Subgoal 2:
+
+Variables: G T1 T
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H2 : {G, of n1 T1 |- pos T}@
+H3 : {G |- typ T1}
+============================
+ {G |- pos T}
+
+typ/pos_str < case H2.
+Subgoal 2.1:
+
+Variables: G T1
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+============================
+ {G |- pos t\t}
+
+6 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(pos, 1, )
+Subgoal 2.2:
+
+Variables: G T1
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+============================
+ {G |- pos t\unit}
+
+5 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(pos, 2, )
+Subgoal 2.3:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos (z2\T4 z2)}*
+H5 : {G, of n1 T1 |- pos (z2\T5 z2)}*
+============================
+ {G |- pos (t\prod (T4 t) (T5 t))}
+
+4 other subgoals.
+
+typ/pos_str < apply IH1 to H1 H4 H3.
+Subgoal 2.3:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos (z2\T4 z2)}*
+H5 : {G, of n1 T1 |- pos (z2\T5 z2)}*
+H6 : {G |- pos (z2\T4 z2)}
+============================
+ {G |- pos (t\prod (T4 t) (T5 t))}
+
+4 other subgoals.
+
+typ/pos_str < apply IH1 to H1 H5 H3.
+Subgoal 2.3:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos (z2\T4 z2)}*
+H5 : {G, of n1 T1 |- pos (z2\T5 z2)}*
+H6 : {G |- pos (z2\T4 z2)}
+H7 : {G |- pos (z2\T5 z2)}
+============================
+ {G |- pos (t\prod (T4 t) (T5 t))}
+
+4 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(pos, 3, apply H6, apply H7)
+Subgoal 2.4:
+
+Variables: G T1
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+============================
+ {G |- pos t\void}
+
+3 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(pos, 4, )
+Subgoal 2.5:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos (z2\T4 z2)}*
+H5 : {G, of n1 T1 |- pos (z2\T5 z2)}*
+============================
+ {G |- pos (t\sum (T4 t) (T5 t))}
+
+2 other subgoals.
+
+typ/pos_str < apply IH1 to H1 H4 H3.
+Subgoal 2.5:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos (z2\T4 z2)}*
+H5 : {G, of n1 T1 |- pos (z2\T5 z2)}*
+H6 : {G |- pos (z2\T4 z2)}
+============================
+ {G |- pos (t\sum (T4 t) (T5 t))}
+
+2 other subgoals.
+
+typ/pos_str < apply IH1 to H1 H5 H3.
+Subgoal 2.5:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- pos (z2\T4 z2)}*
+H5 : {G, of n1 T1 |- pos (z2\T5 z2)}*
+H6 : {G |- pos (z2\T4 z2)}
+H7 : {G |- pos (z2\T5 z2)}
+============================
+ {G |- pos (t\sum (T4 t) (T5 t))}
+
+2 other subgoals.
+
+typ/pos_str < search.
+Witness: unfold(pos, 5, apply H6, apply H7)
+Subgoal 2.6:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- pos (z2\T5 z2)}*
+============================
+ {G |- pos (t\arr T4 (T5 t))}
+
+1 other subgoal.
+
+typ/pos_str < apply IH to H1 H4 H3.
+Subgoal 2.6:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- pos (z2\T5 z2)}*
+H6 : {G |- typ T4}
+============================
+ {G |- pos (t\arr T4 (T5 t))}
+
+1 other subgoal.
+
+typ/pos_str < apply IH1 to H1 H5 H3.
+Subgoal 2.6:
+
+Variables: G T1 T5 T4
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1 |- typ T4}*
+H5 : {G, of n1 T1 |- pos (z2\T5 z2)}*
+H6 : {G |- typ T4}
+H7 : {G |- pos (z2\T5 z2)}
+============================
+ {G |- pos (t\arr T4 (T5 t))}
+
+1 other subgoal.
+
+typ/pos_str < search.
+Witness: unfold(pos, 6, apply H6, apply H7)
+Subgoal 2.7:
+
+Variables: G T1 T F
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1, [F n1] |- pos T}*
+H5 : member (F n1) (of n1 T1 :: G)
+============================
+ {G |- pos T}
+
+typ/pos_str < apply ctx_inv to _ H5.
+Witness: unfold(ctx, 2, split(apply H3, apply H1))
+Subgoal 2.7:
+
+Variables: G T1 T F
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1, [F n1] |- pos T}*
+H5 : member (F n1) (of n1 T1 :: G)
+H6 : (exists X T, F n1 = of X T /\ is_name X /\ {G, of n1 T1 |- typ T}) \/
+       (exists T, F n1 = typ T /\ is_name T)
+============================
+ {G |- pos T}
+
+typ/pos_str < case H6.
+Subgoal 2.7.1:
+
+Variables: G T1 T X T2
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1, [of (X n1) (T2 n1)] |- pos T}*
+H5 : member (of (X n1) (T2 n1)) (of n1 T1 :: G)
+H7 : is_name (X n1)
+H8 : {G, of n1 T1 |- typ (T2 n1)}
+============================
+ {G |- pos T}
+
+1 other subgoal.
+
+typ/pos_str < case H4.
+Subgoal 2.7.2:
+
+Variables: G T1 T T2
+IH : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T}* ->
+       {G |- typ T1} -> {G |- typ T}
+IH1 : forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T}* ->
+        {G |- typ T1} -> {G |- pos T}
+H1 : ctx G
+H3 : {G |- typ T1}
+H4 : {G, of n1 T1, [typ (T2 n1)] |- pos T}*
+H5 : member (typ (T2 n1)) (of n1 T1 :: G)
+H7 : is_name (T2 n1)
+============================
+ {G |- pos T}
+
+typ/pos_str < case H4.
+Proof completed.
+Abella < Split typ/pos_str as typ_str, pos_str.
+Theorem typ_str :
+  forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- typ T} ->
+    {G |- typ T1} -> {G |- typ T}.
+Theorem pos_str :
+  forall G T1 T, nabla x1, ctx G -> {G, of x1 T1 |- pos T} ->
+    {G |- typ T1} -> {G |- pos T}.
+
+Abella < Theorem pos_type2 : 
+forall G T, nabla t, ctx G -> {G |- pos T} -> {G, typ t |- typ (T t)}.
+
+
+============================
+ forall G T, nabla t, ctx G -> {G |- pos T} -> {G, typ t |- typ (T t)}
+
+pos_type2 < induction on 2.
+
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+============================
+ forall G T, nabla t, ctx G -> {G |- pos T}@ -> {G, typ t |- typ (T t)}
+
+pos_type2 < intros.
+
+Variables: G T
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H2 : {G |- pos T}@
+============================
+ {G, typ n1 |- typ (T n1)}
+
+pos_type2 < case H2.
+Subgoal 1:
+
+Variables: G
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+============================
+ {G, typ n1 |- typ n1}
+
+6 other subgoals.
+
+pos_type2 < search.
+Witness: unfold(typ, 1, )
+Subgoal 2:
+
+Variables: G
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+============================
+ {G, typ n1 |- typ unit}
+
+5 other subgoals.
+
+pos_type2 < search.
+Witness: unfold(typ, 2, )
+Subgoal 3:
+
+Variables: G T2 T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G |- pos T1}*
+H4 : {G |- pos T2}*
+============================
+ {G, typ n1 |- typ (prod (T1 n1) (T2 n1))}
+
+4 other subgoals.
+
+pos_type2 < apply IH to H1 H3.
+Subgoal 3:
+
+Variables: G T2 T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G |- pos T1}*
+H4 : {G |- pos T2}*
+H5 : {G, typ n1 |- typ (T1 n1)}
+============================
+ {G, typ n1 |- typ (prod (T1 n1) (T2 n1))}
+
+4 other subgoals.
+
+pos_type2 < apply IH to H1 H4.
+Subgoal 3:
+
+Variables: G T2 T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G |- pos T1}*
+H4 : {G |- pos T2}*
+H5 : {G, typ n1 |- typ (T1 n1)}
+H6 : {G, typ n1 |- typ (T2 n1)}
+============================
+ {G, typ n1 |- typ (prod (T1 n1) (T2 n1))}
+
+4 other subgoals.
+
+pos_type2 < search.
+Witness: unfold(typ, 3, apply H5, apply H6)
+Subgoal 4:
+
+Variables: G
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+============================
+ {G, typ n1 |- typ void}
+
+3 other subgoals.
+
+pos_type2 < search.
+Witness: unfold(typ, 4, )
+Subgoal 5:
+
+Variables: G T2 T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G |- pos T1}*
+H4 : {G |- pos T2}*
+============================
+ {G, typ n1 |- typ (sum (T1 n1) (T2 n1))}
+
+2 other subgoals.
+
+pos_type2 < apply IH to H1 H3.
+Subgoal 5:
+
+Variables: G T2 T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G |- pos T1}*
+H4 : {G |- pos T2}*
+H5 : {G, typ n1 |- typ (T1 n1)}
+============================
+ {G, typ n1 |- typ (sum (T1 n1) (T2 n1))}
+
+2 other subgoals.
+
+pos_type2 < apply IH to H1 H4.
+Subgoal 5:
+
+Variables: G T2 T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G |- pos T1}*
+H4 : {G |- pos T2}*
+H5 : {G, typ n1 |- typ (T1 n1)}
+H6 : {G, typ n1 |- typ (T2 n1)}
+============================
+ {G, typ n1 |- typ (sum (T1 n1) (T2 n1))}
+
+2 other subgoals.
+
+pos_type2 < search.
+Witness: unfold(typ, 5, apply H5, apply H6)
+Subgoal 6:
+
+Variables: G T2 T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G |- typ T1}*
+H4 : {G |- pos T2}*
+============================
+ {G, typ n1 |- typ (arr T1 (T2 n1))}
+
+1 other subgoal.
+
+pos_type2 < apply IH to H1 H4.
+Subgoal 6:
+
+Variables: G T2 T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G |- typ T1}*
+H4 : {G |- pos T2}*
+H5 : {G, typ n1 |- typ (T2 n1)}
+============================
+ {G, typ n1 |- typ (arr T1 (T2 n1))}
+
+1 other subgoal.
+
+pos_type2 < search.
+Witness: unfold(typ, 6, apply H3, apply H5)
+Subgoal 7:
+
+Variables: G T F
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G, [F] |- pos T}*
+H4 : member F G
+============================
+ {G, typ n1 |- typ (T n1)}
+
+pos_type2 < apply ctx_inv to H1 H4.
+Subgoal 7:
+
+Variables: G T F
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G, [F] |- pos T}*
+H4 : member F G
+H5 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ {G, typ n1 |- typ (T n1)}
+
+pos_type2 < case H5.
+Subgoal 7.1:
+
+Variables: G T X T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G, [of X T1] |- pos T}*
+H4 : member (of X T1) G
+H6 : is_name X
+H7 : {G |- typ T1}
+============================
+ {G, typ n1 |- typ (T n1)}
+
+1 other subgoal.
+
+pos_type2 < case H3.
+Subgoal 7.2:
+
+Variables: G T T1
+IH : forall G T, nabla t, ctx G -> {G |- pos T}* -> {G, typ t |- typ (T t)}
+H1 : ctx G
+H3 : {G, [typ T1] |- pos T}*
+H4 : member (typ T1) G
+H6 : is_name T1
+============================
+ {G, typ n1 |- typ (T n1)}
+
+pos_type2 < case H3.
+Proof completed.
+Abella < Theorem regularity : 
+forall G E T, ctx G -> {G |- of E T} -> {G |- typ T}.
+
+
+============================
+ forall G E T, ctx G -> {G |- of E T} -> {G |- typ T}
+
+regularity < induction on 2.
+
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+============================
+ forall G E T, ctx G -> {G |- of E T}@ -> {G |- typ T}
+
+regularity < intros.
+
+Variables: G E T
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H2 : {G |- of E T}@
+============================
+ {G |- typ T}
+
+regularity < case H2.
+Subgoal 1:
+
+Variables: G
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+============================
+ {G |- typ unit}
+
+15 other subgoals.
+
+regularity < search.
+Witness: unfold(typ, 1, )
+Subgoal 2:
+
+Variables: G T2 E2 T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 T1}*
+H4 : {G |- of E2 T2}*
+============================
+ {G |- typ (prod T1 T2)}
+
+14 other subgoals.
+
+regularity < apply IH to H1 H3.
+Subgoal 2:
+
+Variables: G T2 E2 T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 T1}*
+H4 : {G |- of E2 T2}*
+H5 : {G |- typ T1}
+============================
+ {G |- typ (prod T1 T2)}
+
+14 other subgoals.
+
+regularity < apply IH to H1 H4.
+Subgoal 2:
+
+Variables: G T2 E2 T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 T1}*
+H4 : {G |- of E2 T2}*
+H5 : {G |- typ T1}
+H6 : {G |- typ T2}
+============================
+ {G |- typ (prod T1 T2)}
+
+14 other subgoals.
+
+regularity < search.
+Witness: unfold(typ, 2, apply H5, apply H6)
+Subgoal 3:
+
+Variables: G T T2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T T2)}*
+============================
+ {G |- typ T}
+
+13 other subgoals.
+
+regularity < apply IH to H1 H3.
+Subgoal 3:
+
+Variables: G T T2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T T2)}*
+H4 : {G |- typ (prod T T2)}
+============================
+ {G |- typ T}
+
+13 other subgoals.
+
+regularity < case H4.
+Subgoal 3.1:
+
+Variables: G T T2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T T2)}*
+H5 : {G |- typ T}
+H6 : {G |- typ T2}
+============================
+ {G |- typ T}
+
+14 other subgoals.
+
+regularity < search.
+Witness: apply H5
+Subgoal 3.2:
+
+Variables: G T T2 E1 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T T2)}*
+H5 : {G, [F] |- typ (prod T T2)}
+H6 : member F G
+============================
+ {G |- typ T}
+
+13 other subgoals.
+
+regularity < apply ctx_inv to H1 H6.
+Subgoal 3.2:
+
+Variables: G T T2 E1 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T T2)}*
+H5 : {G, [F] |- typ (prod T T2)}
+H6 : member F G
+H7 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ {G |- typ T}
+
+13 other subgoals.
+
+regularity < case H7.
+Subgoal 3.2.1:
+
+Variables: G T T2 E1 X T1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T T2)}*
+H5 : {G, [of X T1] |- typ (prod T T2)}
+H6 : member (of X T1) G
+H8 : is_name X
+H9 : {G |- typ T1}
+============================
+ {G |- typ T}
+
+14 other subgoals.
+
+regularity < case H5.
+Subgoal 3.2.2:
+
+Variables: G T T2 E1 T1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T T2)}*
+H5 : {G, [typ T1] |- typ (prod T T2)}
+H6 : member (typ T1) G
+H8 : is_name T1
+============================
+ {G |- typ T}
+
+13 other subgoals.
+
+regularity < case H5.
+Subgoal 3.2.2:
+
+Variables: G T T2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T T2)}*
+H6 : member (typ (prod T T2)) G
+H8 : is_name (prod T T2)
+============================
+ {G |- typ T}
+
+13 other subgoals.
+
+regularity < case H8.
+Subgoal 4:
+
+Variables: G T T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T1 T)}*
+============================
+ {G |- typ T}
+
+12 other subgoals.
+
+regularity < apply IH to H1 H3.
+Subgoal 4:
+
+Variables: G T T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T1 T)}*
+H4 : {G |- typ (prod T1 T)}
+============================
+ {G |- typ T}
+
+12 other subgoals.
+
+regularity < case H4.
+Subgoal 4.1:
+
+Variables: G T T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T1 T)}*
+H5 : {G |- typ T1}
+H6 : {G |- typ T}
+============================
+ {G |- typ T}
+
+13 other subgoals.
+
+regularity < search.
+Witness: apply H6
+Subgoal 4.2:
+
+Variables: G T T1 E1 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T1 T)}*
+H5 : {G, [F] |- typ (prod T1 T)}
+H6 : member F G
+============================
+ {G |- typ T}
+
+12 other subgoals.
+
+regularity < apply ctx_inv to H1 H6.
+Subgoal 4.2:
+
+Variables: G T T1 E1 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T1 T)}*
+H5 : {G, [F] |- typ (prod T1 T)}
+H6 : member F G
+H7 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ {G |- typ T}
+
+12 other subgoals.
+
+regularity < case H7.
+Subgoal 4.2.1:
+
+Variables: G T T1 E1 X T2
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T1 T)}*
+H5 : {G, [of X T2] |- typ (prod T1 T)}
+H6 : member (of X T2) G
+H8 : is_name X
+H9 : {G |- typ T2}
+============================
+ {G |- typ T}
+
+13 other subgoals.
+
+regularity < case H5.
+Subgoal 4.2.2:
+
+Variables: G T T1 E1 T2
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T1 T)}*
+H5 : {G, [typ T2] |- typ (prod T1 T)}
+H6 : member (typ T2) G
+H8 : is_name T2
+============================
+ {G |- typ T}
+
+12 other subgoals.
+
+regularity < case H5.
+Subgoal 4.2.2:
+
+Variables: G T T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (prod T1 T)}*
+H6 : member (typ (prod T1 T)) G
+H8 : is_name (prod T1 T)
+============================
+ {G |- typ T}
+
+12 other subgoals.
+
+regularity < case H8.
+Subgoal 5:
+
+Variables: G T E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 void}*
+H4 : {G |- typ T}*
+============================
+ {G |- typ T}
+
+11 other subgoals.
+
+regularity < search.
+Witness: apply H4
+Subgoal 6:
+
+Variables: G T2 T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 T1}*
+H4 : {G |- typ T2}*
+============================
+ {G |- typ (sum T1 T2)}
+
+10 other subgoals.
+
+regularity < apply IH to H1 H3.
+Subgoal 6:
+
+Variables: G T2 T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 T1}*
+H4 : {G |- typ T2}*
+H5 : {G |- typ T1}
+============================
+ {G |- typ (sum T1 T2)}
+
+10 other subgoals.
+
+regularity < search.
+Witness: unfold(typ, 4, apply H5, apply H4)
+Subgoal 7:
+
+Variables: G T1 T2 E2
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E2 T2}*
+H4 : {G |- typ T1}*
+============================
+ {G |- typ (sum T1 T2)}
+
+9 other subgoals.
+
+regularity < apply IH to H1 H3.
+Subgoal 7:
+
+Variables: G T1 T2 E2
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E2 T2}*
+H4 : {G |- typ T1}*
+H5 : {G |- typ T2}
+============================
+ {G |- typ (sum T1 T2)}
+
+9 other subgoals.
+
+regularity < search.
+Witness: unfold(typ, 4, apply H4, apply H5)
+Subgoal 8:
+
+Variables: G T E2 T2 E1 T1 E3
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+============================
+ {G |- typ T}
+
+8 other subgoals.
+
+regularity < apply IH to H1 H3.
+Subgoal 8:
+
+Variables: G T E2 T2 E1 T1 E3
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+H6 : {G |- typ (sum T1 T2)}
+============================
+ {G |- typ T}
+
+8 other subgoals.
+
+regularity < case H6.
+Subgoal 8.1:
+
+Variables: G T E2 T2 E1 T1 E3
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+H7 : {G |- typ T1}
+H8 : {G |- typ T2}
+============================
+ {G |- typ T}
+
+9 other subgoals.
+
+regularity < apply IH to _ H4.
+Witness: unfold(ctx, 2, split(apply H7, apply H1))
+Subgoal 8.1:
+
+Variables: G T E2 T2 E1 T1 E3
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+H7 : {G |- typ T1}
+H8 : {G |- typ T2}
+H9 : {G, of n1 T1 |- typ T}
+============================
+ {G |- typ T}
+
+9 other subgoals.
+
+regularity < apply typ_str to H1 H9 H7.
+Subgoal 8.1:
+
+Variables: G T E2 T2 E1 T1 E3
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+H7 : {G |- typ T1}
+H8 : {G |- typ T2}
+H9 : {G, of n1 T1 |- typ T}
+H10 : {G |- typ T}
+============================
+ {G |- typ T}
+
+9 other subgoals.
+
+regularity < search.
+Witness: apply H10
+Subgoal 8.2:
+
+Variables: G T E2 T2 E1 T1 E3 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+H7 : {G, [F] |- typ (sum T1 T2)}
+H8 : member F G
+============================
+ {G |- typ T}
+
+8 other subgoals.
+
+regularity < apply ctx_inv to H1 H8.
+Subgoal 8.2:
+
+Variables: G T E2 T2 E1 T1 E3 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+H7 : {G, [F] |- typ (sum T1 T2)}
+H8 : member F G
+H9 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ {G |- typ T}
+
+8 other subgoals.
+
+regularity < case H9.
+Subgoal 8.2.1:
+
+Variables: G T E2 T2 E1 T1 E3 X T3
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+H7 : {G, [of X T3] |- typ (sum T1 T2)}
+H8 : member (of X T3) G
+H10 : is_name X
+H11 : {G |- typ T3}
+============================
+ {G |- typ T}
+
+9 other subgoals.
+
+regularity < case H7.
+Subgoal 8.2.2:
+
+Variables: G T E2 T2 E1 T1 E3 T3
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+H7 : {G, [typ T3] |- typ (sum T1 T2)}
+H8 : member (typ T3) G
+H10 : is_name T3
+============================
+ {G |- typ T}
+
+8 other subgoals.
+
+regularity < case H7.
+Subgoal 8.2.2:
+
+Variables: G T E2 T2 E1 T1 E3
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E3 (sum T1 T2)}*
+H4 : {G, of n1 T1 |- of (E1 n1) T}*
+H5 : {G, of n1 T2 |- of (E2 n1) T}*
+H8 : member (typ (sum T1 T2)) G
+H10 : is_name (sum T1 T2)
+============================
+ {G |- typ T}
+
+8 other subgoals.
+
+regularity < case H10.
+Subgoal 9:
+
+Variables: G T1 T2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, of n1 T1 |- of (E1 n1) T2}*
+H4 : {G |- typ T1}*
+============================
+ {G |- typ (arr T1 T2)}
+
+7 other subgoals.
+
+regularity < apply IH to _ H3.
+Witness: unfold(ctx, 2, split(apply H4, apply H1))
+Subgoal 9:
+
+Variables: G T1 T2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, of n1 T1 |- of (E1 n1) T2}*
+H4 : {G |- typ T1}*
+H5 : {G, of n1 T1 |- typ T2}
+============================
+ {G |- typ (arr T1 T2)}
+
+7 other subgoals.
+
+regularity < apply typ_str to H1 H5 H4.
+Subgoal 9:
+
+Variables: G T1 T2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, of n1 T1 |- of (E1 n1) T2}*
+H4 : {G |- typ T1}*
+H5 : {G, of n1 T1 |- typ T2}
+H6 : {G |- typ T2}
+============================
+ {G |- typ (arr T1 T2)}
+
+7 other subgoals.
+
+regularity < search.
+Witness: unfold(typ, 5, apply H4, apply H6)
+Subgoal 10:
+
+Variables: G T T2 E2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (arr T2 T)}*
+H4 : {G |- of E2 T2}*
+============================
+ {G |- typ T}
+
+6 other subgoals.
+
+regularity < apply IH to H1 H3.
+Subgoal 10:
+
+Variables: G T T2 E2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (arr T2 T)}*
+H4 : {G |- of E2 T2}*
+H5 : {G |- typ (arr T2 T)}
+============================
+ {G |- typ T}
+
+6 other subgoals.
+
+regularity < case H5.
+Subgoal 10.1:
+
+Variables: G T T2 E2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (arr T2 T)}*
+H4 : {G |- of E2 T2}*
+H6 : {G |- typ T2}
+H7 : {G |- typ T}
+============================
+ {G |- typ T}
+
+7 other subgoals.
+
+regularity < search.
+Witness: apply H7
+Subgoal 10.2:
+
+Variables: G T T2 E2 E1 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (arr T2 T)}*
+H4 : {G |- of E2 T2}*
+H6 : {G, [F] |- typ (arr T2 T)}
+H7 : member F G
+============================
+ {G |- typ T}
+
+6 other subgoals.
+
+regularity < apply ctx_inv to H1 H7.
+Subgoal 10.2:
+
+Variables: G T T2 E2 E1 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (arr T2 T)}*
+H4 : {G |- of E2 T2}*
+H6 : {G, [F] |- typ (arr T2 T)}
+H7 : member F G
+H8 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ {G |- typ T}
+
+6 other subgoals.
+
+regularity < case H8.
+Subgoal 10.2.1:
+
+Variables: G T T2 E2 E1 X T1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (arr T2 T)}*
+H4 : {G |- of E2 T2}*
+H6 : {G, [of X T1] |- typ (arr T2 T)}
+H7 : member (of X T1) G
+H9 : is_name X
+H10 : {G |- typ T1}
+============================
+ {G |- typ T}
+
+7 other subgoals.
+
+regularity < case H6.
+Subgoal 10.2.2:
+
+Variables: G T T2 E2 E1 T1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (arr T2 T)}*
+H4 : {G |- of E2 T2}*
+H6 : {G, [typ T1] |- typ (arr T2 T)}
+H7 : member (typ T1) G
+H9 : is_name T1
+============================
+ {G |- typ T}
+
+6 other subgoals.
+
+regularity < case H6.
+Subgoal 10.2.2:
+
+Variables: G T T2 E2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (arr T2 T)}*
+H4 : {G |- of E2 T2}*
+H7 : member (typ (arr T2 T)) G
+H9 : is_name (arr T2 T)
+============================
+ {G |- typ T}
+
+6 other subgoals.
+
+regularity < case H9.
+Subgoal 11:
+
+Variables: G R' R T1 E1 E'
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, of n1 R |- of (E' n1) R'}*
+H4 : {G |- of E1 (T1 R)}*
+H5 : {G |- pos T1}*
+H6 : {G |- typ R}*
+H7 : {G |- typ R'}*
+============================
+ {G |- typ (T1 R')}
+
+5 other subgoals.
+
+regularity < apply pos_type2 to H1 H5.
+Subgoal 11:
+
+Variables: G R' R T1 E1 E'
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, of n1 R |- of (E' n1) R'}*
+H4 : {G |- of E1 (T1 R)}*
+H5 : {G |- pos T1}*
+H6 : {G |- typ R}*
+H7 : {G |- typ R'}*
+H8 : {G, typ n1 |- typ (T1 n1)}
+============================
+ {G |- typ (T1 R')}
+
+5 other subgoals.
+
+regularity <  inst H8 with n1 = R'.
+Subgoal 11:
+
+Variables: G R' R T1 E1 E'
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, of n1 R |- of (E' n1) R'}*
+H4 : {G |- of E1 (T1 R)}*
+H5 : {G |- pos T1}*
+H6 : {G |- typ R}*
+H7 : {G |- typ R'}*
+H8 : {G, typ n1 |- typ (T1 n1)}
+H9 : {G, typ R' |- typ (T1 R')}
+============================
+ {G |- typ (T1 R')}
+
+5 other subgoals.
+
+regularity < cut H9 with H7.
+Subgoal 11:
+
+Variables: G R' R T1 E1 E'
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, of n1 R |- of (E' n1) R'}*
+H4 : {G |- of E1 (T1 R)}*
+H5 : {G |- pos T1}*
+H6 : {G |- typ R}*
+H7 : {G |- typ R'}*
+H8 : {G, typ n1 |- typ (T1 n1)}
+H9 : {G, typ R' |- typ (T1 R')}
+H10 : {G |- typ (T1 R')}
+============================
+ {G |- typ (T1 R')}
+
+5 other subgoals.
+
+regularity < search.
+Witness: apply H10
+Subgoal 12:
+
+Variables: G T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (T1 (ind T1))}*
+H4 : {G |- pos T1}*
+============================
+ {G |- typ (ind T1)}
+
+4 other subgoals.
+
+regularity < search.
+Witness: unfold(typ, 6, apply H4)
+Subgoal 13:
+
+Variables: G T T1 E2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, of n1 (T1 T) |- of (E1 n1) T}*
+H4 : {G |- of E2 (ind T1)}*
+H5 : {G |- typ T}*
+============================
+ {G |- typ T}
+
+3 other subgoals.
+
+regularity < search.
+Witness: apply H5
+Subgoal 14:
+
+Variables: G T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+============================
+ {G |- typ (T1 (coi T1))}
+
+2 other subgoals.
+
+regularity < apply IH to H1 H3.
+Subgoal 14:
+
+Variables: G T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+============================
+ {G |- typ (T1 (coi T1))}
+
+2 other subgoals.
+
+regularity < case H4 (keep).
+Subgoal 14.1:
+
+Variables: G T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+H5 : {G |- pos T1}
+============================
+ {G |- typ (T1 (coi T1))}
+
+3 other subgoals.
+
+regularity < apply pos_type2 to H1 H5.
+Subgoal 14.1:
+
+Variables: G T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+H5 : {G |- pos T1}
+H6 : {G, typ n1 |- typ (T1 n1)}
+============================
+ {G |- typ (T1 (coi T1))}
+
+3 other subgoals.
+
+regularity <  inst H6 with n1 = coi T1.
+Subgoal 14.1:
+
+Variables: G T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+H5 : {G |- pos T1}
+H6 : {G, typ n1 |- typ (T1 n1)}
+H7 : {G, typ (coi T1) |- typ (T1 (coi T1))}
+============================
+ {G |- typ (T1 (coi T1))}
+
+3 other subgoals.
+
+regularity < cut H7 with H4.
+Subgoal 14.1:
+
+Variables: G T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+H5 : {G |- pos T1}
+H6 : {G, typ n1 |- typ (T1 n1)}
+H7 : {G, typ (coi T1) |- typ (T1 (coi T1))}
+H8 : {G |- typ (T1 (coi T1))}
+============================
+ {G |- typ (T1 (coi T1))}
+
+3 other subgoals.
+
+regularity < search.
+Witness: apply H8
+Subgoal 14.2:
+
+Variables: G T1 E1 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+H5 : {G, [F] |- typ (coi T1)}
+H6 : member F G
+============================
+ {G |- typ (T1 (coi T1))}
+
+2 other subgoals.
+
+regularity < apply ctx_inv to H1 H6.
+Subgoal 14.2:
+
+Variables: G T1 E1 F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+H5 : {G, [F] |- typ (coi T1)}
+H6 : member F G
+H7 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ {G |- typ (T1 (coi T1))}
+
+2 other subgoals.
+
+regularity < case H7.
+Subgoal 14.2.1:
+
+Variables: G T1 E1 X T2
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+H5 : {G, [of X T2] |- typ (coi T1)}
+H6 : member (of X T2) G
+H8 : is_name X
+H9 : {G |- typ T2}
+============================
+ {G |- typ (T1 (coi T1))}
+
+3 other subgoals.
+
+regularity < case H5.
+Subgoal 14.2.2:
+
+Variables: G T1 E1 T2
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+H5 : {G, [typ T2] |- typ (coi T1)}
+H6 : member (typ T2) G
+H8 : is_name T2
+============================
+ {G |- typ (T1 (coi T1))}
+
+2 other subgoals.
+
+regularity < case H5.
+Subgoal 14.2.2:
+
+Variables: G T1 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G |- of E1 (coi T1)}*
+H4 : {G |- typ (coi T1)}
+H6 : member (typ (coi T1)) G
+H8 : is_name (coi T1)
+============================
+ {G |- typ (T1 (coi T1))}
+
+2 other subgoals.
+
+regularity < case H8.
+Subgoal 15:
+
+Variables: G T' T1 E2 E1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, of n1 T' |- of (E1 n1) (T1 T')}*
+H4 : {G |- of E2 T'}*
+H5 : {G |- pos T1}*
+H6 : {G |- typ T'}*
+============================
+ {G |- typ (coi T1)}
+
+1 other subgoal.
+
+regularity < search.
+Witness: unfold(typ, 7, apply H5)
+Subgoal 16:
+
+Variables: G E T F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, [F] |- of E T}*
+H4 : member F G
+============================
+ {G |- typ T}
+
+regularity < apply ctx_inv to H1 H4.
+Subgoal 16:
+
+Variables: G E T F
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, [F] |- of E T}*
+H4 : member F G
+H5 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ {G |- typ T}
+
+regularity < case H5.
+Subgoal 16.1:
+
+Variables: G E T X T1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, [of X T1] |- of E T}*
+H4 : member (of X T1) G
+H6 : is_name X
+H7 : {G |- typ T1}
+============================
+ {G |- typ T}
+
+1 other subgoal.
+
+regularity < case H3.
+Subgoal 16.1:
+
+Variables: G E T
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H4 : member (of E T) G
+H6 : is_name E
+H7 : {G |- typ T}
+============================
+ {G |- typ T}
+
+1 other subgoal.
+
+regularity < search.
+Witness: apply H7
+Subgoal 16.2:
+
+Variables: G E T T1
+IH : forall G E T, ctx G -> {G |- of E T}* -> {G |- typ T}
+H1 : ctx G
+H3 : {G, [typ T1] |- of E T}*
+H4 : member (typ T1) G
+H6 : is_name T1
+============================
+ {G |- typ T}
+
+regularity < case H3.
+Proof completed.
+Abella < Theorem prune_arg/exp : 
+forall G F, nabla x, member (F x) G -> (exists F', F = x\F').
+
+
+============================
+ forall G F, nabla x, member (F x) G -> (exists F', F = x\F')
+
+prune_arg/exp < induction on 1.
+
+IH : forall G F, nabla x, member (F x) G * -> (exists F', F = x\F')
+============================
+ forall G F, nabla x, member (F x) G @ -> (exists F', F = x\F')
+
+prune_arg/exp < intros.
+
+Variables: G F
+IH : forall G F, nabla x, member (F x) G * -> (exists F', F = x\F')
+H1 : member (F n1) G @
+============================
+ exists F', F = x\F'
+
+prune_arg/exp < case H1.
+Subgoal 1:
+
+Variables: G2 G1
+IH : forall G F, nabla x, member (F x) G * -> (exists F', F = x\F')
+============================
+ exists F', z1\G1 = x\F'
+
+1 other subgoal.
+
+prune_arg/exp < search.
+Witness: exists[F' = G1] =
+Subgoal 2:
+
+Variables: F G2 G1
+IH : forall G F, nabla x, member (F x) G * -> (exists F', F = x\F')
+H2 : member (F n1) G2 *
+============================
+ exists F', F = x\F'
+
+prune_arg/exp < apply IH to H2.
+Subgoal 2:
+
+Variables: G2 G1 F'
+IH : forall G F, nabla x, member (F x) G * -> (exists F', F = x\F')
+H2 : member F' G2 *
+============================
+ exists F'1, z1\F' = x\F'1
+
+prune_arg/exp < search.
+Witness: exists[F'1 = F'] =
+Proof completed.
+Abella < Theorem uniq_ctx : 
+forall G X T1 T2, ctx G -> member (of X T1) G -> member (of X T2) G -> T1 =
+T2.
+
+
+============================
+ forall G X T1 T2, ctx G -> member (of X T1) G -> member (of X T2) G -> T1 =
+ T2
+
+uniq_ctx < induction on 2.
+
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+============================
+ forall G X T1 T2, ctx G -> member (of X T1) G @ -> member (of X T2) G ->
+   T1 =
+ T2
+
+uniq_ctx < intros.
+
+Variables: G X T1 T2
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H1 : ctx G
+H2 : member (of X T1) G @
+H3 : member (of X T2) G
+============================
+ T1 = T2
+
+uniq_ctx < case H2.
+Subgoal 1:
+
+Variables: X T1 T2 L
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H1 : ctx (of X T1 :: L)
+H3 : member (of X T2) (of X T1 :: L)
+============================
+ T1 = T2
+
+1 other subgoal.
+
+uniq_ctx < case H3.
+Subgoal 1.1:
+
+Variables: X T1 L
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H1 : ctx (of X T1 :: L)
+============================
+ T1 = T1
+
+2 other subgoals.
+
+uniq_ctx < search.
+Witness: =
+Subgoal 1.2:
+
+Variables: X T1 T2 L
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H1 : ctx (of X T1 :: L)
+H4 : member (of X T2) L
+============================
+ T1 = T2
+
+1 other subgoal.
+
+uniq_ctx < case H1.
+Subgoal 1.2:
+
+Variables: T2 G1 T
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H4 : member (of n1 (T2 n1)) G1
+H5 : {G1 |- typ T}
+H6 : ctx G1
+============================
+ T = T2 n1
+
+1 other subgoal.
+
+uniq_ctx < apply prune_arg/exp to H4.
+Subgoal 2:
+
+Variables: X T1 T2 L B
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H1 : ctx (B :: L)
+H3 : member (of X T2) (B :: L)
+H4 : member (of X T1) L *
+============================
+ T1 = T2
+
+uniq_ctx < case H3.
+Subgoal 2.1:
+
+Variables: X T1 T2 L
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H1 : ctx (of X T2 :: L)
+H4 : member (of X T1) L *
+============================
+ T1 = T2
+
+1 other subgoal.
+
+uniq_ctx < case H1.
+Subgoal 2.1:
+
+Variables: T1 G1 T
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H4 : member (of n1 (T1 n1)) G1 *
+H5 : {G1 |- typ T}
+H6 : ctx G1
+============================
+ T1 n1 = T
+
+1 other subgoal.
+
+uniq_ctx < apply prune_arg/exp to H4.
+Subgoal 2.2:
+
+Variables: X T1 T2 L B
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H1 : ctx (B :: L)
+H4 : member (of X T1) L *
+H5 : member (of X T2) L
+============================
+ T1 = T2
+
+uniq_ctx < case H1.
+Subgoal 2.2.1:
+
+Variables: X T1 T2 G1 T
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H4 : member (of (X n1) (T1 n1)) G1 *
+H5 : member (of (X n1) (T2 n1)) G1
+H6 : {G1 |- typ T}
+H7 : ctx G1
+============================
+ T1 n1 = T2 n1
+
+1 other subgoal.
+
+uniq_ctx < apply IH to H7 H4 H5.
+Subgoal 2.2.1:
+
+Variables: X T2 G1 T
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H4 : member (of (X n1) (T2 n1)) G1 *
+H5 : member (of (X n1) (T2 n1)) G1
+H6 : {G1 |- typ T}
+H7 : ctx G1
+============================
+ T2 n1 = T2 n1
+
+1 other subgoal.
+
+uniq_ctx < search.
+Witness: =
+Subgoal 2.2.2:
+
+Variables: X T1 T2 G1
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H4 : member (of (X n1) (T1 n1)) G1 *
+H5 : member (of (X n1) (T2 n1)) G1
+H6 : ctx G1
+============================
+ T1 n1 = T2 n1
+
+uniq_ctx < apply IH to H6 H4 H5.
+Subgoal 2.2.2:
+
+Variables: X T2 G1
+IH : forall G X T1 T2, ctx G -> member (of X T1) G * -> member (of X T2) G ->
+       T1 =
+     T2
+H4 : member (of (X n1) (T2 n1)) G1 *
+H5 : member (of (X n1) (T2 n1)) G1
+H6 : ctx G1
+============================
+ T2 n1 = T2 n1
+
+uniq_ctx < search.
+Witness: =
+Proof completed.
+Abella < Theorem unicity : 
+forall G E T1 T2, ctx G -> {G |- of E T1} -> {G |- of E T2} -> T1 = T2.
+
+
+============================
+ forall G E T1 T2, ctx G -> {G |- of E T1} -> {G |- of E T2} -> T1 = T2
+
+unicity < induction on 2.
+
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+============================
+ forall G E T1 T2, ctx G -> {G |- of E T1}@ -> {G |- of E T2} -> T1 = T2
+
+unicity < intros.
+
+Variables: G E T1 T2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H2 : {G |- of E T1}@
+H3 : {G |- of E T2}
+============================
+ T1 = T2
+
+unicity < case H2.
+Subgoal 1:
+
+Variables: G T2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of triv T2}
+============================
+ unit = T2
+
+15 other subgoals.
+
+unicity < case H3.
+Subgoal 1.1:
+
+Variables: G
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+============================
+ unit = unit
+
+16 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 1.2:
+
+Variables: G T2 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, [F] |- of triv T2}
+H5 : member F G
+============================
+ unit = T2
+
+15 other subgoals.
+
+unicity < apply ctx_inv to H1 H5.
+Subgoal 1.2:
+
+Variables: G T2 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, [F] |- of triv T2}
+H5 : member F G
+H6 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ unit = T2
+
+15 other subgoals.
+
+unicity < case H6.
+Subgoal 1.2.1:
+
+Variables: G T2 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, [of X T] |- of triv T2}
+H5 : member (of X T) G
+H7 : is_name X
+H8 : {G |- typ T}
+============================
+ unit = T2
+
+16 other subgoals.
+
+unicity < case H4.
+Subgoal 1.2.1:
+
+Variables: G T2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H5 : member (of triv T2) G
+H7 : is_name triv
+H8 : {G |- typ T2}
+============================
+ unit = T2
+
+16 other subgoals.
+
+unicity < case H7.
+Subgoal 1.2.2:
+
+Variables: G T2 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, [typ T] |- of triv T2}
+H5 : member (typ T) G
+H7 : is_name T
+============================
+ unit = T2
+
+15 other subgoals.
+
+unicity < case H4.
+Subgoal 2:
+
+Variables: G T2 T3 E2 T4 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (pair E1 E2) T2}
+H4 : {G |- of E1 T4}*
+H5 : {G |- of E2 T3}*
+============================
+ prod T4 T3 = T2
+
+14 other subgoals.
+
+unicity < case H3.
+Subgoal 2.1:
+
+Variables: G T3 E2 T4 E1 T5 T6
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- of E2 T3}*
+H6 : {G |- of E1 T6}
+H7 : {G |- of E2 T5}
+============================
+ prod T4 T3 = prod T6 T5
+
+15 other subgoals.
+
+unicity < apply IH to H1 H4 H6.
+Subgoal 2.1:
+
+Variables: G T3 E2 E1 T5 T6
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T6}*
+H5 : {G |- of E2 T3}*
+H6 : {G |- of E1 T6}
+H7 : {G |- of E2 T5}
+============================
+ prod T6 T3 = prod T6 T5
+
+15 other subgoals.
+
+unicity < apply IH to H1 H5 H7.
+Subgoal 2.1:
+
+Variables: G E2 E1 T5 T6
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T6}*
+H5 : {G |- of E2 T5}*
+H6 : {G |- of E1 T6}
+H7 : {G |- of E2 T5}
+============================
+ prod T6 T5 = prod T6 T5
+
+15 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 2.2:
+
+Variables: G T2 T3 E2 T4 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- of E2 T3}*
+H6 : {G, [F] |- of (pair E1 E2) T2}
+H7 : member F G
+============================
+ prod T4 T3 = T2
+
+14 other subgoals.
+
+unicity < apply ctx_inv to H1 H7.
+Subgoal 2.2:
+
+Variables: G T2 T3 E2 T4 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- of E2 T3}*
+H6 : {G, [F] |- of (pair E1 E2) T2}
+H7 : member F G
+H8 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ prod T4 T3 = T2
+
+14 other subgoals.
+
+unicity < case H8.
+Subgoal 2.2.1:
+
+Variables: G T2 T3 E2 T4 E1 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- of E2 T3}*
+H6 : {G, [of X T] |- of (pair E1 E2) T2}
+H7 : member (of X T) G
+H9 : is_name X
+H10 : {G |- typ T}
+============================
+ prod T4 T3 = T2
+
+15 other subgoals.
+
+unicity < case H6.
+Subgoal 2.2.1:
+
+Variables: G T2 T3 E2 T4 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- of E2 T3}*
+H7 : member (of (pair E1 E2) T2) G
+H9 : is_name (pair E1 E2)
+H10 : {G |- typ T2}
+============================
+ prod T4 T3 = T2
+
+15 other subgoals.
+
+unicity < case H9.
+Subgoal 2.2.2:
+
+Variables: G T2 T3 E2 T4 E1 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- of E2 T3}*
+H6 : {G, [typ T] |- of (pair E1 E2) T2}
+H7 : member (typ T) G
+H9 : is_name T
+============================
+ prod T4 T3 = T2
+
+14 other subgoals.
+
+unicity < case H6.
+Subgoal 3:
+
+Variables: G T1 T2 T3 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (prl E1) T2}
+H4 : {G |- of E1 (prod T1 T3)}*
+============================
+ T1 = T2
+
+13 other subgoals.
+
+unicity < case H3.
+Subgoal 3.1:
+
+Variables: G T1 T2 T3 E1 T4
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T1 T3)}*
+H5 : {G |- of E1 (prod T2 T4)}
+============================
+ T1 = T2
+
+14 other subgoals.
+
+unicity < apply IH to H1 H4 H5.
+Subgoal 3.1:
+
+Variables: G T2 E1 T4
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T2 T4)}*
+H5 : {G |- of E1 (prod T2 T4)}
+============================
+ T2 = T2
+
+14 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 3.2:
+
+Variables: G T1 T2 T3 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T1 T3)}*
+H5 : {G, [F] |- of (prl E1) T2}
+H6 : member F G
+============================
+ T1 = T2
+
+13 other subgoals.
+
+unicity < apply ctx_inv to H1 H6.
+Subgoal 3.2:
+
+Variables: G T1 T2 T3 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T1 T3)}*
+H5 : {G, [F] |- of (prl E1) T2}
+H6 : member F G
+H7 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ T1 = T2
+
+13 other subgoals.
+
+unicity < case H7.
+Subgoal 3.2.1:
+
+Variables: G T1 T2 T3 E1 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T1 T3)}*
+H5 : {G, [of X T] |- of (prl E1) T2}
+H6 : member (of X T) G
+H8 : is_name X
+H9 : {G |- typ T}
+============================
+ T1 = T2
+
+14 other subgoals.
+
+unicity < case H5.
+Subgoal 3.2.1:
+
+Variables: G T1 T2 T3 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T1 T3)}*
+H6 : member (of (prl E1) T2) G
+H8 : is_name (prl E1)
+H9 : {G |- typ T2}
+============================
+ T1 = T2
+
+14 other subgoals.
+
+unicity < case H8.
+Subgoal 3.2.2:
+
+Variables: G T1 T2 T3 E1 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T1 T3)}*
+H5 : {G, [typ T] |- of (prl E1) T2}
+H6 : member (typ T) G
+H8 : is_name T
+============================
+ T1 = T2
+
+13 other subgoals.
+
+unicity < case H5.
+Subgoal 4:
+
+Variables: G T1 T2 T3 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (prr E1) T2}
+H4 : {G |- of E1 (prod T3 T1)}*
+============================
+ T1 = T2
+
+12 other subgoals.
+
+unicity < case H3.
+Subgoal 4.1:
+
+Variables: G T1 T2 T3 E1 T4
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T3 T1)}*
+H5 : {G |- of E1 (prod T4 T2)}
+============================
+ T1 = T2
+
+13 other subgoals.
+
+unicity < apply IH to H1 H4 H5.
+Subgoal 4.1:
+
+Variables: G T2 E1 T4
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T4 T2)}*
+H5 : {G |- of E1 (prod T4 T2)}
+============================
+ T2 = T2
+
+13 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 4.2:
+
+Variables: G T1 T2 T3 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T3 T1)}*
+H5 : {G, [F] |- of (prr E1) T2}
+H6 : member F G
+============================
+ T1 = T2
+
+12 other subgoals.
+
+unicity < apply ctx_inv to H1 H6.
+Subgoal 4.2:
+
+Variables: G T1 T2 T3 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T3 T1)}*
+H5 : {G, [F] |- of (prr E1) T2}
+H6 : member F G
+H7 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ T1 = T2
+
+12 other subgoals.
+
+unicity < case H7.
+Subgoal 4.2.1:
+
+Variables: G T1 T2 T3 E1 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T3 T1)}*
+H5 : {G, [of X T] |- of (prr E1) T2}
+H6 : member (of X T) G
+H8 : is_name X
+H9 : {G |- typ T}
+============================
+ T1 = T2
+
+13 other subgoals.
+
+unicity < case H5.
+Subgoal 4.2.1:
+
+Variables: G T1 T2 T3 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T3 T1)}*
+H6 : member (of (prr E1) T2) G
+H8 : is_name (prr E1)
+H9 : {G |- typ T2}
+============================
+ T1 = T2
+
+13 other subgoals.
+
+unicity < case H8.
+Subgoal 4.2.2:
+
+Variables: G T1 T2 T3 E1 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (prod T3 T1)}*
+H5 : {G, [typ T] |- of (prr E1) T2}
+H6 : member (typ T) G
+H8 : is_name T
+============================
+ T1 = T2
+
+12 other subgoals.
+
+unicity < case H5.
+Subgoal 5:
+
+Variables: G T1 T2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (abort T1 E1) T2}
+H4 : {G |- of E1 void}*
+H5 : {G |- typ T1}*
+============================
+ T1 = T2
+
+11 other subgoals.
+
+unicity < case H3.
+Subgoal 5.1:
+
+Variables: G T2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 void}*
+H5 : {G |- typ T2}*
+H6 : {G |- of E1 void}
+H7 : {G |- typ T2}
+============================
+ T2 = T2
+
+12 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 5.2:
+
+Variables: G T1 T2 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 void}*
+H5 : {G |- typ T1}*
+H6 : {G, [F] |- of (abort T1 E1) T2}
+H7 : member F G
+============================
+ T1 = T2
+
+11 other subgoals.
+
+unicity < apply ctx_inv to H1 H7.
+Subgoal 5.2:
+
+Variables: G T1 T2 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 void}*
+H5 : {G |- typ T1}*
+H6 : {G, [F] |- of (abort T1 E1) T2}
+H7 : member F G
+H8 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ T1 = T2
+
+11 other subgoals.
+
+unicity < case H8.
+Subgoal 5.2.1:
+
+Variables: G T1 T2 E1 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 void}*
+H5 : {G |- typ T1}*
+H6 : {G, [of X T] |- of (abort T1 E1) T2}
+H7 : member (of X T) G
+H9 : is_name X
+H10 : {G |- typ T}
+============================
+ T1 = T2
+
+12 other subgoals.
+
+unicity < case H6.
+Subgoal 5.2.1:
+
+Variables: G T1 T2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 void}*
+H5 : {G |- typ T1}*
+H7 : member (of (abort T1 E1) T2) G
+H9 : is_name (abort T1 E1)
+H10 : {G |- typ T2}
+============================
+ T1 = T2
+
+12 other subgoals.
+
+unicity < case H9.
+Subgoal 5.2.2:
+
+Variables: G T1 T2 E1 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 void}*
+H5 : {G |- typ T1}*
+H6 : {G, [typ T] |- of (abort T1 E1) T2}
+H7 : member (typ T) G
+H9 : is_name T
+============================
+ T1 = T2
+
+11 other subgoals.
+
+unicity < case H6.
+Subgoal 6:
+
+Variables: G T2 T3 T4 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (inl T4 T3 E1) T2}
+H4 : {G |- of E1 T4}*
+H5 : {G |- typ T3}*
+============================
+ sum T4 T3 = T2
+
+10 other subgoals.
+
+unicity < case H3.
+Subgoal 6.1:
+
+Variables: G T3 T4 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- typ T3}*
+H6 : {G |- of E1 T4}
+H7 : {G |- typ T3}
+============================
+ sum T4 T3 = sum T4 T3
+
+11 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 6.2:
+
+Variables: G T2 T3 T4 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- typ T3}*
+H6 : {G, [F] |- of (inl T4 T3 E1) T2}
+H7 : member F G
+============================
+ sum T4 T3 = T2
+
+10 other subgoals.
+
+unicity < apply ctx_inv to H1 H7.
+Subgoal 6.2:
+
+Variables: G T2 T3 T4 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- typ T3}*
+H6 : {G, [F] |- of (inl T4 T3 E1) T2}
+H7 : member F G
+H8 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ sum T4 T3 = T2
+
+10 other subgoals.
+
+unicity < case H8.
+Subgoal 6.2.1:
+
+Variables: G T2 T3 T4 E1 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- typ T3}*
+H6 : {G, [of X T] |- of (inl T4 T3 E1) T2}
+H7 : member (of X T) G
+H9 : is_name X
+H10 : {G |- typ T}
+============================
+ sum T4 T3 = T2
+
+11 other subgoals.
+
+unicity < case H6.
+Subgoal 6.2.1:
+
+Variables: G T2 T3 T4 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- typ T3}*
+H7 : member (of (inl T4 T3 E1) T2) G
+H9 : is_name (inl T4 T3 E1)
+H10 : {G |- typ T2}
+============================
+ sum T4 T3 = T2
+
+11 other subgoals.
+
+unicity < case H9.
+Subgoal 6.2.2:
+
+Variables: G T2 T3 T4 E1 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 T4}*
+H5 : {G |- typ T3}*
+H6 : {G, [typ T] |- of (inl T4 T3 E1) T2}
+H7 : member (typ T) G
+H9 : is_name T
+============================
+ sum T4 T3 = T2
+
+10 other subgoals.
+
+unicity < case H6.
+Subgoal 7:
+
+Variables: G T2 T4 T3 E2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (inr T4 T3 E2) T2}
+H4 : {G |- of E2 T3}*
+H5 : {G |- typ T4}*
+============================
+ sum T4 T3 = T2
+
+9 other subgoals.
+
+unicity < case H3.
+Subgoal 7.1:
+
+Variables: G T4 T3 E2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E2 T3}*
+H5 : {G |- typ T4}*
+H6 : {G |- of E2 T3}
+H7 : {G |- typ T4}
+============================
+ sum T4 T3 = sum T4 T3
+
+10 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 7.2:
+
+Variables: G T2 T4 T3 E2 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E2 T3}*
+H5 : {G |- typ T4}*
+H6 : {G, [F] |- of (inr T4 T3 E2) T2}
+H7 : member F G
+============================
+ sum T4 T3 = T2
+
+9 other subgoals.
+
+unicity < apply ctx_inv to H1 H7.
+Subgoal 7.2:
+
+Variables: G T2 T4 T3 E2 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E2 T3}*
+H5 : {G |- typ T4}*
+H6 : {G, [F] |- of (inr T4 T3 E2) T2}
+H7 : member F G
+H8 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ sum T4 T3 = T2
+
+9 other subgoals.
+
+unicity < case H8.
+Subgoal 7.2.1:
+
+Variables: G T2 T4 T3 E2 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E2 T3}*
+H5 : {G |- typ T4}*
+H6 : {G, [of X T] |- of (inr T4 T3 E2) T2}
+H7 : member (of X T) G
+H9 : is_name X
+H10 : {G |- typ T}
+============================
+ sum T4 T3 = T2
+
+10 other subgoals.
+
+unicity < case H6.
+Subgoal 7.2.1:
+
+Variables: G T2 T4 T3 E2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E2 T3}*
+H5 : {G |- typ T4}*
+H7 : member (of (inr T4 T3 E2) T2) G
+H9 : is_name (inr T4 T3 E2)
+H10 : {G |- typ T2}
+============================
+ sum T4 T3 = T2
+
+10 other subgoals.
+
+unicity < case H9.
+Subgoal 7.2.2:
+
+Variables: G T2 T4 T3 E2 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E2 T3}*
+H5 : {G |- typ T4}*
+H6 : {G, [typ T] |- of (inr T4 T3 E2) T2}
+H7 : member (typ T) G
+H9 : is_name T
+============================
+ sum T4 T3 = T2
+
+9 other subgoals.
+
+unicity < case H6.
+Subgoal 8:
+
+Variables: G T1 T2 E2 T3 E1 T4 E3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (case E3 E1 E2) T2}
+H4 : {G |- of E3 (sum T4 T3)}*
+H5 : {G, of n1 T4 |- of (E1 n1) T1}*
+H6 : {G, of n1 T3 |- of (E2 n1) T1}*
+============================
+ T1 = T2
+
+8 other subgoals.
+
+unicity < case H3.
+Subgoal 8.1:
+
+Variables: G T1 T2 E2 T3 E1 T4 E3 T5 T6
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T4 T3)}*
+H5 : {G, of n1 T4 |- of (E1 n1) T1}*
+H6 : {G, of n1 T3 |- of (E2 n1) T1}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+============================
+ T1 = T2
+
+9 other subgoals.
+
+unicity < apply IH to H1 H4 H7.
+Subgoal 8.1:
+
+Variables: G T1 T2 E2 E1 E3 T5 T6
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T6 T5)}*
+H5 : {G, of n1 T6 |- of (E1 n1) T1}*
+H6 : {G, of n1 T5 |- of (E2 n1) T1}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+============================
+ T1 = T2
+
+9 other subgoals.
+
+unicity < apply regularity to H1 H4.
+Subgoal 8.1:
+
+Variables: G T1 T2 E2 E1 E3 T5 T6
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T6 T5)}*
+H5 : {G, of n1 T6 |- of (E1 n1) T1}*
+H6 : {G, of n1 T5 |- of (E2 n1) T1}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+H10 : {G |- typ (sum T6 T5)}
+============================
+ T1 = T2
+
+9 other subgoals.
+
+unicity < case H10.
+Subgoal 8.1.1:
+
+Variables: G T1 T2 E2 E1 E3 T5 T6
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T6 T5)}*
+H5 : {G, of n1 T6 |- of (E1 n1) T1}*
+H6 : {G, of n1 T5 |- of (E2 n1) T1}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+H11 : {G |- typ T6}
+H12 : {G |- typ T5}
+============================
+ T1 = T2
+
+10 other subgoals.
+
+unicity < apply IH to _ H5 H8.
+Witness: unfold(ctx, 2, split(apply H11, apply H1))
+Subgoal 8.1.1:
+
+Variables: G T2 E2 E1 E3 T5 T6
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T6 T5)}*
+H5 : {G, of n1 T6 |- of (E1 n1) T2}*
+H6 : {G, of n1 T5 |- of (E2 n1) T2}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+H11 : {G |- typ T6}
+H12 : {G |- typ T5}
+============================
+ T2 = T2
+
+10 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 8.1.2:
+
+Variables: G T1 T2 E2 E1 E3 T5 T6 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T6 T5)}*
+H5 : {G, of n1 T6 |- of (E1 n1) T1}*
+H6 : {G, of n1 T5 |- of (E2 n1) T1}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+H11 : {G, [F] |- typ (sum T6 T5)}
+H12 : member F G
+============================
+ T1 = T2
+
+9 other subgoals.
+
+unicity < apply ctx_inv to H1 H12.
+Subgoal 8.1.2:
+
+Variables: G T1 T2 E2 E1 E3 T5 T6 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T6 T5)}*
+H5 : {G, of n1 T6 |- of (E1 n1) T1}*
+H6 : {G, of n1 T5 |- of (E2 n1) T1}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+H11 : {G, [F] |- typ (sum T6 T5)}
+H12 : member F G
+H13 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+        (exists T, F = typ T /\ is_name T)
+============================
+ T1 = T2
+
+9 other subgoals.
+
+unicity < case H13.
+Subgoal 8.1.2.1:
+
+Variables: G T1 T2 E2 E1 E3 T5 T6 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T6 T5)}*
+H5 : {G, of n1 T6 |- of (E1 n1) T1}*
+H6 : {G, of n1 T5 |- of (E2 n1) T1}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+H11 : {G, [of X T] |- typ (sum T6 T5)}
+H12 : member (of X T) G
+H14 : is_name X
+H15 : {G |- typ T}
+============================
+ T1 = T2
+
+10 other subgoals.
+
+unicity < case H11.
+Subgoal 8.1.2.2:
+
+Variables: G T1 T2 E2 E1 E3 T5 T6 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T6 T5)}*
+H5 : {G, of n1 T6 |- of (E1 n1) T1}*
+H6 : {G, of n1 T5 |- of (E2 n1) T1}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+H11 : {G, [typ T] |- typ (sum T6 T5)}
+H12 : member (typ T) G
+H14 : is_name T
+============================
+ T1 = T2
+
+9 other subgoals.
+
+unicity < case H11.
+Subgoal 8.1.2.2:
+
+Variables: G T1 T2 E2 E1 E3 T5 T6
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T6 T5)}*
+H5 : {G, of n1 T6 |- of (E1 n1) T1}*
+H6 : {G, of n1 T5 |- of (E2 n1) T1}*
+H7 : {G |- of E3 (sum T6 T5)}
+H8 : {G, of n1 T6 |- of (E1 n1) T2}
+H9 : {G, of n1 T5 |- of (E2 n1) T2}
+H12 : member (typ (sum T6 T5)) G
+H14 : is_name (sum T6 T5)
+============================
+ T1 = T2
+
+9 other subgoals.
+
+unicity < case H14.
+Subgoal 8.2:
+
+Variables: G T1 T2 E2 T3 E1 T4 E3 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T4 T3)}*
+H5 : {G, of n1 T4 |- of (E1 n1) T1}*
+H6 : {G, of n1 T3 |- of (E2 n1) T1}*
+H7 : {G, [F] |- of (case E3 E1 E2) T2}
+H8 : member F G
+============================
+ T1 = T2
+
+8 other subgoals.
+
+unicity < apply ctx_inv to H1 H8.
+Subgoal 8.2:
+
+Variables: G T1 T2 E2 T3 E1 T4 E3 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T4 T3)}*
+H5 : {G, of n1 T4 |- of (E1 n1) T1}*
+H6 : {G, of n1 T3 |- of (E2 n1) T1}*
+H7 : {G, [F] |- of (case E3 E1 E2) T2}
+H8 : member F G
+H9 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ T1 = T2
+
+8 other subgoals.
+
+unicity < case H9.
+Subgoal 8.2.1:
+
+Variables: G T1 T2 E2 T3 E1 T4 E3 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T4 T3)}*
+H5 : {G, of n1 T4 |- of (E1 n1) T1}*
+H6 : {G, of n1 T3 |- of (E2 n1) T1}*
+H7 : {G, [of X T] |- of (case E3 E1 E2) T2}
+H8 : member (of X T) G
+H10 : is_name X
+H11 : {G |- typ T}
+============================
+ T1 = T2
+
+9 other subgoals.
+
+unicity < case H7.
+Subgoal 8.2.1:
+
+Variables: G T1 T2 E2 T3 E1 T4 E3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T4 T3)}*
+H5 : {G, of n1 T4 |- of (E1 n1) T1}*
+H6 : {G, of n1 T3 |- of (E2 n1) T1}*
+H8 : member (of (case E3 E1 E2) T2) G
+H10 : is_name (case E3 E1 E2)
+H11 : {G |- typ T2}
+============================
+ T1 = T2
+
+9 other subgoals.
+
+unicity < case H10.
+Subgoal 8.2.2:
+
+Variables: G T1 T2 E2 T3 E1 T4 E3 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E3 (sum T4 T3)}*
+H5 : {G, of n1 T4 |- of (E1 n1) T1}*
+H6 : {G, of n1 T3 |- of (E2 n1) T1}*
+H7 : {G, [typ T] |- of (case E3 E1 E2) T2}
+H8 : member (typ T) G
+H10 : is_name T
+============================
+ T1 = T2
+
+8 other subgoals.
+
+unicity < case H7.
+Subgoal 9:
+
+Variables: G T2 T4 T3 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (lam T4 E1) T2}
+H4 : {G, of n1 T4 |- of (E1 n1) T3}*
+H5 : {G |- typ T4}*
+============================
+ arr T4 T3 = T2
+
+7 other subgoals.
+
+unicity < case H3.
+Subgoal 9.1:
+
+Variables: G T4 T3 E1 T5
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T4 |- of (E1 n1) T3}*
+H5 : {G |- typ T4}*
+H6 : {G, of n1 T4 |- of (E1 n1) T5}
+H7 : {G |- typ T4}
+============================
+ arr T4 T3 = arr T4 T5
+
+8 other subgoals.
+
+unicity < apply IH to _ H4 H6.
+Witness: unfold(ctx, 2, split(apply H5, apply H1))
+Subgoal 9.1:
+
+Variables: G T4 E1 T5
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T4 |- of (E1 n1) T5}*
+H5 : {G |- typ T4}*
+H6 : {G, of n1 T4 |- of (E1 n1) T5}
+H7 : {G |- typ T4}
+============================
+ arr T4 T5 = arr T4 T5
+
+8 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 9.2:
+
+Variables: G T2 T4 T3 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T4 |- of (E1 n1) T3}*
+H5 : {G |- typ T4}*
+H6 : {G, [F] |- of (lam T4 E1) T2}
+H7 : member F G
+============================
+ arr T4 T3 = T2
+
+7 other subgoals.
+
+unicity < apply ctx_inv to H1 H7.
+Subgoal 9.2:
+
+Variables: G T2 T4 T3 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T4 |- of (E1 n1) T3}*
+H5 : {G |- typ T4}*
+H6 : {G, [F] |- of (lam T4 E1) T2}
+H7 : member F G
+H8 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ arr T4 T3 = T2
+
+7 other subgoals.
+
+unicity < case H8.
+Subgoal 9.2.1:
+
+Variables: G T2 T4 T3 E1 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T4 |- of (E1 n1) T3}*
+H5 : {G |- typ T4}*
+H6 : {G, [of X T] |- of (lam T4 E1) T2}
+H7 : member (of X T) G
+H9 : is_name X
+H10 : {G |- typ T}
+============================
+ arr T4 T3 = T2
+
+8 other subgoals.
+
+unicity < case H6.
+Subgoal 9.2.1:
+
+Variables: G T2 T4 T3 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T4 |- of (E1 n1) T3}*
+H5 : {G |- typ T4}*
+H7 : member (of (lam T4 E1) T2) G
+H9 : is_name (lam T4 E1)
+H10 : {G |- typ T2}
+============================
+ arr T4 T3 = T2
+
+8 other subgoals.
+
+unicity < case H9.
+Subgoal 9.2.2:
+
+Variables: G T2 T4 T3 E1 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T4 |- of (E1 n1) T3}*
+H5 : {G |- typ T4}*
+H6 : {G, [typ T] |- of (lam T4 E1) T2}
+H7 : member (typ T) G
+H9 : is_name T
+============================
+ arr T4 T3 = T2
+
+7 other subgoals.
+
+unicity < case H6.
+Subgoal 10:
+
+Variables: G T1 T2 T3 E2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (app E1 E2) T2}
+H4 : {G |- of E1 (arr T3 T1)}*
+H5 : {G |- of E2 T3}*
+============================
+ T1 = T2
+
+6 other subgoals.
+
+unicity < case H3.
+Subgoal 10.1:
+
+Variables: G T1 T2 T3 E2 E1 T4
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (arr T3 T1)}*
+H5 : {G |- of E2 T3}*
+H6 : {G |- of E1 (arr T4 T2)}
+H7 : {G |- of E2 T4}
+============================
+ T1 = T2
+
+7 other subgoals.
+
+unicity < apply IH to H1 H4 H6.
+Subgoal 10.1:
+
+Variables: G T2 E2 E1 T4
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (arr T4 T2)}*
+H5 : {G |- of E2 T4}*
+H6 : {G |- of E1 (arr T4 T2)}
+H7 : {G |- of E2 T4}
+============================
+ T2 = T2
+
+7 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 10.2:
+
+Variables: G T1 T2 T3 E2 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (arr T3 T1)}*
+H5 : {G |- of E2 T3}*
+H6 : {G, [F] |- of (app E1 E2) T2}
+H7 : member F G
+============================
+ T1 = T2
+
+6 other subgoals.
+
+unicity < apply ctx_inv to H1 H7.
+Subgoal 10.2:
+
+Variables: G T1 T2 T3 E2 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (arr T3 T1)}*
+H5 : {G |- of E2 T3}*
+H6 : {G, [F] |- of (app E1 E2) T2}
+H7 : member F G
+H8 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ T1 = T2
+
+6 other subgoals.
+
+unicity < case H8.
+Subgoal 10.2.1:
+
+Variables: G T1 T2 T3 E2 E1 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (arr T3 T1)}*
+H5 : {G |- of E2 T3}*
+H6 : {G, [of X T] |- of (app E1 E2) T2}
+H7 : member (of X T) G
+H9 : is_name X
+H10 : {G |- typ T}
+============================
+ T1 = T2
+
+7 other subgoals.
+
+unicity < case H6.
+Subgoal 10.2.1:
+
+Variables: G T1 T2 T3 E2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (arr T3 T1)}*
+H5 : {G |- of E2 T3}*
+H7 : member (of (app E1 E2) T2) G
+H9 : is_name (app E1 E2)
+H10 : {G |- typ T2}
+============================
+ T1 = T2
+
+7 other subgoals.
+
+unicity < case H9.
+Subgoal 10.2.2:
+
+Variables: G T1 T2 T3 E2 E1 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (arr T3 T1)}*
+H5 : {G |- of E2 T3}*
+H6 : {G, [typ T] |- of (app E1 E2) T2}
+H7 : member (typ T) G
+H9 : is_name T
+============================
+ T1 = T2
+
+6 other subgoals.
+
+unicity < case H6.
+Subgoal 11:
+
+Variables: G T2 R' R T E1 E'
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (map T R R' E' E1) T2}
+H4 : {G, of n1 R |- of (E' n1) R'}*
+H5 : {G |- of E1 (T R)}*
+H6 : {G |- pos T}*
+H7 : {G |- typ R}*
+H8 : {G |- typ R'}*
+============================
+ T R' = T2
+
+5 other subgoals.
+
+unicity < case H3.
+Subgoal 11.1:
+
+Variables: G R' R T E1 E'
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 R |- of (E' n1) R'}*
+H5 : {G |- of E1 (T R)}*
+H6 : {G |- pos T}*
+H7 : {G |- typ R}*
+H8 : {G |- typ R'}*
+H9 : {G, of n1 R |- of (E' n1) R'}
+H10 : {G |- of E1 (T R)}
+H11 : {G |- pos T}
+H12 : {G |- typ R}
+H13 : {G |- typ R'}
+============================
+ T R' = T R'
+
+6 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 11.2:
+
+Variables: G T2 R' R T E1 E' F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 R |- of (E' n1) R'}*
+H5 : {G |- of E1 (T R)}*
+H6 : {G |- pos T}*
+H7 : {G |- typ R}*
+H8 : {G |- typ R'}*
+H9 : {G, [F] |- of (map T R R' E' E1) T2}
+H10 : member F G
+============================
+ T R' = T2
+
+5 other subgoals.
+
+unicity < apply ctx_inv to H1 H10.
+Subgoal 11.2:
+
+Variables: G T2 R' R T E1 E' F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 R |- of (E' n1) R'}*
+H5 : {G |- of E1 (T R)}*
+H6 : {G |- pos T}*
+H7 : {G |- typ R}*
+H8 : {G |- typ R'}*
+H9 : {G, [F] |- of (map T R R' E' E1) T2}
+H10 : member F G
+H11 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+        (exists T, F = typ T /\ is_name T)
+============================
+ T R' = T2
+
+5 other subgoals.
+
+unicity < case H11.
+Subgoal 11.2.1:
+
+Variables: G T2 R' R T E1 E' X T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 R |- of (E' n1) R'}*
+H5 : {G |- of E1 (T R)}*
+H6 : {G |- pos T}*
+H7 : {G |- typ R}*
+H8 : {G |- typ R'}*
+H9 : {G, [of X T3] |- of (map T R R' E' E1) T2}
+H10 : member (of X T3) G
+H12 : is_name X
+H13 : {G |- typ T3}
+============================
+ T R' = T2
+
+6 other subgoals.
+
+unicity < case H9.
+Subgoal 11.2.1:
+
+Variables: G T2 R' R T E1 E'
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 R |- of (E' n1) R'}*
+H5 : {G |- of E1 (T R)}*
+H6 : {G |- pos T}*
+H7 : {G |- typ R}*
+H8 : {G |- typ R'}*
+H10 : member (of (map T R R' E' E1) T2) G
+H12 : is_name (map T R R' E' E1)
+H13 : {G |- typ T2}
+============================
+ T R' = T2
+
+6 other subgoals.
+
+unicity < case H12.
+Subgoal 11.2.2:
+
+Variables: G T2 R' R T E1 E' T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 R |- of (E' n1) R'}*
+H5 : {G |- of E1 (T R)}*
+H6 : {G |- pos T}*
+H7 : {G |- typ R}*
+H8 : {G |- typ R'}*
+H9 : {G, [typ T3] |- of (map T R R' E' E1) T2}
+H10 : member (typ T3) G
+H12 : is_name T3
+============================
+ T R' = T2
+
+5 other subgoals.
+
+unicity < case H9.
+Subgoal 12:
+
+Variables: G T2 T E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (fold T E1) T2}
+H4 : {G |- of E1 (T (ind T))}*
+H5 : {G |- pos T}*
+============================
+ ind T = T2
+
+4 other subgoals.
+
+unicity < case H3.
+Subgoal 12.1:
+
+Variables: G T E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (T (ind T))}*
+H5 : {G |- pos T}*
+H6 : {G |- of E1 (T (ind T))}
+H7 : {G |- pos T}
+============================
+ ind T = ind T
+
+5 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 12.2:
+
+Variables: G T2 T E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (T (ind T))}*
+H5 : {G |- pos T}*
+H6 : {G, [F] |- of (fold T E1) T2}
+H7 : member F G
+============================
+ ind T = T2
+
+4 other subgoals.
+
+unicity < apply ctx_inv to H1 H7.
+Subgoal 12.2:
+
+Variables: G T2 T E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (T (ind T))}*
+H5 : {G |- pos T}*
+H6 : {G, [F] |- of (fold T E1) T2}
+H7 : member F G
+H8 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ ind T = T2
+
+4 other subgoals.
+
+unicity < case H8.
+Subgoal 12.2.1:
+
+Variables: G T2 T E1 X T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (T (ind T))}*
+H5 : {G |- pos T}*
+H6 : {G, [of X T3] |- of (fold T E1) T2}
+H7 : member (of X T3) G
+H9 : is_name X
+H10 : {G |- typ T3}
+============================
+ ind T = T2
+
+5 other subgoals.
+
+unicity < case H6.
+Subgoal 12.2.1:
+
+Variables: G T2 T E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (T (ind T))}*
+H5 : {G |- pos T}*
+H7 : member (of (fold T E1) T2) G
+H9 : is_name (fold T E1)
+H10 : {G |- typ T2}
+============================
+ ind T = T2
+
+5 other subgoals.
+
+unicity < case H9.
+Subgoal 12.2.2:
+
+Variables: G T2 T E1 T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (T (ind T))}*
+H5 : {G |- pos T}*
+H6 : {G, [typ T3] |- of (fold T E1) T2}
+H7 : member (typ T3) G
+H9 : is_name T3
+============================
+ ind T = T2
+
+4 other subgoals.
+
+unicity < case H6.
+Subgoal 13:
+
+Variables: G T1 T2 T E2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (rec T T1 E1 E2) T2}
+H4 : {G, of n1 (T T1) |- of (E1 n1) T1}*
+H5 : {G |- of E2 (ind T)}*
+H6 : {G |- typ T1}*
+============================
+ T1 = T2
+
+3 other subgoals.
+
+unicity < case H3.
+Subgoal 13.1:
+
+Variables: G T2 T E2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 (T T2) |- of (E1 n1) T2}*
+H5 : {G |- of E2 (ind T)}*
+H6 : {G |- typ T2}*
+H7 : {G, of n1 (T T2) |- of (E1 n1) T2}
+H8 : {G |- of E2 (ind T)}
+H9 : {G |- typ T2}
+============================
+ T2 = T2
+
+4 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 13.2:
+
+Variables: G T1 T2 T E2 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 (T T1) |- of (E1 n1) T1}*
+H5 : {G |- of E2 (ind T)}*
+H6 : {G |- typ T1}*
+H7 : {G, [F] |- of (rec T T1 E1 E2) T2}
+H8 : member F G
+============================
+ T1 = T2
+
+3 other subgoals.
+
+unicity < apply ctx_inv to H1 H8.
+Subgoal 13.2:
+
+Variables: G T1 T2 T E2 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 (T T1) |- of (E1 n1) T1}*
+H5 : {G |- of E2 (ind T)}*
+H6 : {G |- typ T1}*
+H7 : {G, [F] |- of (rec T T1 E1 E2) T2}
+H8 : member F G
+H9 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ T1 = T2
+
+3 other subgoals.
+
+unicity < case H9.
+Subgoal 13.2.1:
+
+Variables: G T1 T2 T E2 E1 X T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 (T T1) |- of (E1 n1) T1}*
+H5 : {G |- of E2 (ind T)}*
+H6 : {G |- typ T1}*
+H7 : {G, [of X T3] |- of (rec T T1 E1 E2) T2}
+H8 : member (of X T3) G
+H10 : is_name X
+H11 : {G |- typ T3}
+============================
+ T1 = T2
+
+4 other subgoals.
+
+unicity < case H7.
+Subgoal 13.2.1:
+
+Variables: G T1 T2 T E2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 (T T1) |- of (E1 n1) T1}*
+H5 : {G |- of E2 (ind T)}*
+H6 : {G |- typ T1}*
+H8 : member (of (rec T T1 E1 E2) T2) G
+H10 : is_name (rec T T1 E1 E2)
+H11 : {G |- typ T2}
+============================
+ T1 = T2
+
+4 other subgoals.
+
+unicity < case H10.
+Subgoal 13.2.2:
+
+Variables: G T1 T2 T E2 E1 T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 (T T1) |- of (E1 n1) T1}*
+H5 : {G |- of E2 (ind T)}*
+H6 : {G |- typ T1}*
+H7 : {G, [typ T3] |- of (rec T T1 E1 E2) T2}
+H8 : member (typ T3) G
+H10 : is_name T3
+============================
+ T1 = T2
+
+3 other subgoals.
+
+unicity < case H7.
+Subgoal 14:
+
+Variables: G T2 T E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (unfold T E1) T2}
+H4 : {G |- of E1 (coi T)}*
+============================
+ T (coi T) = T2
+
+2 other subgoals.
+
+unicity < case H3.
+Subgoal 14.1:
+
+Variables: G T E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (coi T)}*
+H5 : {G |- of E1 (coi T)}
+============================
+ T (coi T) = T (coi T)
+
+3 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 14.2:
+
+Variables: G T2 T E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (coi T)}*
+H5 : {G, [F] |- of (unfold T E1) T2}
+H6 : member F G
+============================
+ T (coi T) = T2
+
+2 other subgoals.
+
+unicity < apply ctx_inv to H1 H6.
+Subgoal 14.2:
+
+Variables: G T2 T E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (coi T)}*
+H5 : {G, [F] |- of (unfold T E1) T2}
+H6 : member F G
+H7 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ T (coi T) = T2
+
+2 other subgoals.
+
+unicity < case H7.
+Subgoal 14.2.1:
+
+Variables: G T2 T E1 X T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (coi T)}*
+H5 : {G, [of X T3] |- of (unfold T E1) T2}
+H6 : member (of X T3) G
+H8 : is_name X
+H9 : {G |- typ T3}
+============================
+ T (coi T) = T2
+
+3 other subgoals.
+
+unicity < case H5.
+Subgoal 14.2.1:
+
+Variables: G T2 T E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (coi T)}*
+H6 : member (of (unfold T E1) T2) G
+H8 : is_name (unfold T E1)
+H9 : {G |- typ T2}
+============================
+ T (coi T) = T2
+
+3 other subgoals.
+
+unicity < case H8.
+Subgoal 14.2.2:
+
+Variables: G T2 T E1 T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G |- of E1 (coi T)}*
+H5 : {G, [typ T3] |- of (unfold T E1) T2}
+H6 : member (typ T3) G
+H8 : is_name T3
+============================
+ T (coi T) = T2
+
+2 other subgoals.
+
+unicity < case H5.
+Subgoal 15:
+
+Variables: G T2 T' T E2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of (gen T T' E1 E2) T2}
+H4 : {G, of n1 T' |- of (E1 n1) (T T')}*
+H5 : {G |- of E2 T'}*
+H6 : {G |- pos T}*
+H7 : {G |- typ T'}*
+============================
+ coi T = T2
+
+1 other subgoal.
+
+unicity < case H3.
+Subgoal 15.1:
+
+Variables: G T' T E2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T' |- of (E1 n1) (T T')}*
+H5 : {G |- of E2 T'}*
+H6 : {G |- pos T}*
+H7 : {G |- typ T'}*
+H8 : {G, of n1 T' |- of (E1 n1) (T T')}
+H9 : {G |- of E2 T'}
+H10 : {G |- pos T}
+H11 : {G |- typ T'}
+============================
+ coi T = coi T
+
+2 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 15.2:
+
+Variables: G T2 T' T E2 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T' |- of (E1 n1) (T T')}*
+H5 : {G |- of E2 T'}*
+H6 : {G |- pos T}*
+H7 : {G |- typ T'}*
+H8 : {G, [F] |- of (gen T T' E1 E2) T2}
+H9 : member F G
+============================
+ coi T = T2
+
+1 other subgoal.
+
+unicity < apply ctx_inv to H1 H9.
+Subgoal 15.2:
+
+Variables: G T2 T' T E2 E1 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T' |- of (E1 n1) (T T')}*
+H5 : {G |- of E2 T'}*
+H6 : {G |- pos T}*
+H7 : {G |- typ T'}*
+H8 : {G, [F] |- of (gen T T' E1 E2) T2}
+H9 : member F G
+H10 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+        (exists T, F = typ T /\ is_name T)
+============================
+ coi T = T2
+
+1 other subgoal.
+
+unicity < case H10.
+Subgoal 15.2.1:
+
+Variables: G T2 T' T E2 E1 X T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T' |- of (E1 n1) (T T')}*
+H5 : {G |- of E2 T'}*
+H6 : {G |- pos T}*
+H7 : {G |- typ T'}*
+H8 : {G, [of X T3] |- of (gen T T' E1 E2) T2}
+H9 : member (of X T3) G
+H11 : is_name X
+H12 : {G |- typ T3}
+============================
+ coi T = T2
+
+2 other subgoals.
+
+unicity < case H8.
+Subgoal 15.2.1:
+
+Variables: G T2 T' T E2 E1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T' |- of (E1 n1) (T T')}*
+H5 : {G |- of E2 T'}*
+H6 : {G |- pos T}*
+H7 : {G |- typ T'}*
+H9 : member (of (gen T T' E1 E2) T2) G
+H11 : is_name (gen T T' E1 E2)
+H12 : {G |- typ T2}
+============================
+ coi T = T2
+
+2 other subgoals.
+
+unicity < case H11.
+Subgoal 15.2.2:
+
+Variables: G T2 T' T E2 E1 T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H4 : {G, of n1 T' |- of (E1 n1) (T T')}*
+H5 : {G |- of E2 T'}*
+H6 : {G |- pos T}*
+H7 : {G |- typ T'}*
+H8 : {G, [typ T3] |- of (gen T T' E1 E2) T2}
+H9 : member (typ T3) G
+H11 : is_name T3
+============================
+ coi T = T2
+
+1 other subgoal.
+
+unicity < case H8.
+Subgoal 16:
+
+Variables: G E T1 T2 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of E T2}
+H4 : {G, [F] |- of E T1}*
+H5 : member F G
+============================
+ T1 = T2
+
+unicity < apply ctx_inv to H1 H5.
+Subgoal 16:
+
+Variables: G E T1 T2 F
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of E T2}
+H4 : {G, [F] |- of E T1}*
+H5 : member F G
+H6 : (exists X T, F = of X T /\ is_name X /\ {G |- typ T}) \/
+       (exists T, F = typ T /\ is_name T)
+============================
+ T1 = T2
+
+unicity < case H6.
+Subgoal 16.1:
+
+Variables: G E T1 T2 X T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of E T2}
+H4 : {G, [of X T] |- of E T1}*
+H5 : member (of X T) G
+H7 : is_name X
+H8 : {G |- typ T}
+============================
+ T1 = T2
+
+1 other subgoal.
+
+unicity < case H4.
+Subgoal 16.1:
+
+Variables: G E T1 T2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of E T2}
+H5 : member (of E T1) G
+H7 : is_name E
+H8 : {G |- typ T1}
+============================
+ T1 = T2
+
+1 other subgoal.
+
+unicity < case H7.
+Subgoal 16.1:
+
+Variables: G T1 T2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx (G n1)
+H3 : {G n1 |- of n1 (T2 n1)}
+H5 : member (of n1 (T1 n1)) (G n1)
+H8 : {G n1 |- typ (T1 n1)}
+============================
+ T1 n1 = T2 n1
+
+1 other subgoal.
+
+unicity < case H3.
+Subgoal 16.1:
+
+Variables: G T1 T2 F1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx (G n1)
+H5 : member (of n1 (T1 n1)) (G n1)
+H8 : {G n1 |- typ (T1 n1)}
+H9 : {G n1, [F1 n1] |- of n1 (T2 n1)}
+H10 : member (F1 n1) (G n1)
+============================
+ T1 n1 = T2 n1
+
+1 other subgoal.
+
+unicity < apply ctx_inv to H1 H10.
+Subgoal 16.1:
+
+Variables: G T1 T2 F1
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx (G n1)
+H5 : member (of n1 (T1 n1)) (G n1)
+H8 : {G n1 |- typ (T1 n1)}
+H9 : {G n1, [F1 n1] |- of n1 (T2 n1)}
+H10 : member (F1 n1) (G n1)
+H11 : (exists X T, F1 n1 = of X T /\ is_name X /\ {G n1 |- typ T}) \/
+        (exists T, F1 n1 = typ T /\ is_name T)
+============================
+ T1 n1 = T2 n1
+
+1 other subgoal.
+
+unicity < case H11.
+Subgoal 16.1.1:
+
+Variables: G T1 T2 X1 T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx (G n1)
+H5 : member (of n1 (T1 n1)) (G n1)
+H8 : {G n1 |- typ (T1 n1)}
+H9 : {G n1, [of (X1 n1) (T3 n1)] |- of n1 (T2 n1)}
+H10 : member (of (X1 n1) (T3 n1)) (G n1)
+H12 : is_name (X1 n1)
+H13 : {G n1 |- typ (T3 n1)}
+============================
+ T1 n1 = T2 n1
+
+2 other subgoals.
+
+unicity < case H9.
+Subgoal 16.1.1:
+
+Variables: G T1 T2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx (G n1)
+H5 : member (of n1 (T1 n1)) (G n1)
+H8 : {G n1 |- typ (T1 n1)}
+H10 : member (of n1 (T2 n1)) (G n1)
+H12 : is_name n1
+H13 : {G n1 |- typ (T2 n1)}
+============================
+ T1 n1 = T2 n1
+
+2 other subgoals.
+
+unicity < apply uniq_ctx to H1 H5 H10.
+Subgoal 16.1.1:
+
+Variables: G T2
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx (G n1)
+H5 : member (of n1 (T2 n1)) (G n1)
+H8 : {G n1 |- typ (T2 n1)}
+H10 : member (of n1 (T2 n1)) (G n1)
+H12 : is_name n1
+H13 : {G n1 |- typ (T2 n1)}
+============================
+ T2 n1 = T2 n1
+
+2 other subgoals.
+
+unicity < search.
+Witness: =
+Subgoal 16.1.2:
+
+Variables: G T1 T2 T3
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx (G n1)
+H5 : member (of n1 (T1 n1)) (G n1)
+H8 : {G n1 |- typ (T1 n1)}
+H9 : {G n1, [typ (T3 n1)] |- of n1 (T2 n1)}
+H10 : member (typ (T3 n1)) (G n1)
+H12 : is_name (T3 n1)
+============================
+ T1 n1 = T2 n1
+
+1 other subgoal.
+
+unicity < case H9.
+Subgoal 16.2:
+
+Variables: G E T1 T2 T
+IH : forall G E T1 T2, ctx G -> {G |- of E T1}* -> {G |- of E T2} -> T1 = T2
+H1 : ctx G
+H3 : {G |- of E T2}
+H4 : {G, [typ T] |- of E T1}*
+H5 : member (typ T) G
+H7 : is_name T
+============================
+ T1 = T2
+
+unicity < case H4.
+Proof completed.
+Abella < Theorem determinism : 
+forall E E1 E2, {step E E1} -> {step E E2} -> E1 = E2.
+
+
+============================
+ forall E E1 E2, {step E E1} -> {step E E2} -> E1 = E2
+
+determinism < induction on 1.
+
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ forall E E1 E2, {step E E1}@ -> {step E E2} -> E1 = E2
+
+determinism < intros.
+
+Variables: E E1 E2
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H1 : {step E E1}@
+H2 : {step E E2}
+============================
+ E1 = E2
+
+determinism < case H1.
+Subgoal 1:
+
+Variables: E2 E' E3
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (prl E3) E2}
+H3 : {step E3 E'}*
+============================
+ prl E' = E2
+
+19 other subgoals.
+
+determinism < case H2.
+Subgoal 1.1:
+
+Variables: E' E3 E'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E'}*
+H4 : {step E3 E'1}
+============================
+ prl E' = prl E'1
+
+20 other subgoals.
+
+determinism < apply IH to H3 H4.
+Subgoal 1.1:
+
+Variables: E3 E'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E'1}*
+H4 : {step E3 E'1}
+============================
+ prl E'1 = prl E'1
+
+20 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 1.2:
+
+Variables: E2 E' E4
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (pair E2 E4) E'}*
+============================
+ prl E' = E2
+
+19 other subgoals.
+
+determinism < case H3.
+Subgoal 2:
+
+Variables: E2 E' E3
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (prr E3) E2}
+H3 : {step E3 E'}*
+============================
+ prr E' = E2
+
+18 other subgoals.
+
+determinism < case H2.
+Subgoal 2.1:
+
+Variables: E' E3 E'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E'}*
+H4 : {step E3 E'1}
+============================
+ prr E' = prr E'1
+
+19 other subgoals.
+
+determinism < apply IH to H3 H4.
+Subgoal 2.1:
+
+Variables: E3 E'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E'1}*
+H4 : {step E3 E'1}
+============================
+ prr E'1 = prr E'1
+
+19 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 2.2:
+
+Variables: E2 E' E5
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (pair E5 E2) E'}*
+============================
+ prr E' = E2
+
+18 other subgoals.
+
+determinism < case H3.
+Subgoal 3:
+
+Variables: E1 E2 E3
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (prl (pair E1 E3)) E2}
+============================
+ E1 = E2
+
+17 other subgoals.
+
+determinism < case H2.
+Subgoal 3.1:
+
+Variables: E1 E3 E'
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (pair E1 E3) E'}
+============================
+ E1 = prl E'
+
+18 other subgoals.
+
+determinism < case H3.
+Subgoal 3.2:
+
+Variables: E2 E3
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ E2 = E2
+
+17 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 4:
+
+Variables: E1 E2 E4
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (prr (pair E4 E1)) E2}
+============================
+ E1 = E2
+
+16 other subgoals.
+
+determinism < case H2.
+Subgoal 4.1:
+
+Variables: E1 E4 E'
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (pair E4 E1) E'}
+============================
+ E1 = prr E'
+
+17 other subgoals.
+
+determinism < case H3.
+Subgoal 4.2:
+
+Variables: E2 E4
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ E2 = E2
+
+16 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 5:
+
+Variables: E2 E' E3 T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (abort T E3) E2}
+H3 : {step E3 E'}*
+============================
+ abort T E' = E2
+
+15 other subgoals.
+
+determinism < case H2.
+Subgoal 5:
+
+Variables: E' E3 T E'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E'}*
+H4 : {step E3 E'1}
+============================
+ abort T E' = abort T E'1
+
+15 other subgoals.
+
+determinism < apply IH to H3 H4.
+Subgoal 5:
+
+Variables: E3 T E'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E'1}*
+H4 : {step E3 E'1}
+============================
+ abort T E'1 = abort T E'1
+
+15 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 6:
+
+Variables: E2 E' E5 E3 E4
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (case E5 E4 E3) E2}
+H3 : {step E5 E'}*
+============================
+ case E' E4 E3 = E2
+
+14 other subgoals.
+
+determinism < case H2.
+Subgoal 6.1:
+
+Variables: E' E5 E3 E4 E'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E5 E'}*
+H4 : {step E5 E'1}
+============================
+ case E' E4 E3 = case E'1 E4 E3
+
+16 other subgoals.
+
+determinism < apply IH to H3 H4.
+Subgoal 6.1:
+
+Variables: E5 E3 E4 E'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E5 E'1}*
+H4 : {step E5 E'1}
+============================
+ case E'1 E4 E3 = case E'1 E4 E3
+
+16 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 6.2:
+
+Variables: E' E3 E4 E8 T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (inl T1 T2 E8) E'}*
+============================
+ case E' E4 E3 = E4 E8
+
+15 other subgoals.
+
+determinism < case H3.
+Subgoal 6.3:
+
+Variables: E' E3 E4 E8 T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (inr T1 T2 E8) E'}*
+============================
+ case E' E4 E3 = E3 E8
+
+14 other subgoals.
+
+determinism < case H3.
+Subgoal 7:
+
+Variables: E2 E5 E4 E3 T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (case (inl T1 T2 E5) E4 E3) E2}
+============================
+ E4 E5 = E2
+
+13 other subgoals.
+
+determinism < case H2.
+Subgoal 7.1:
+
+Variables: E5 E4 E3 T2 T1 E'
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (inl T1 T2 E5) E'}
+============================
+ E4 E5 = case E' E4 E3
+
+14 other subgoals.
+
+determinism < case H3.
+Subgoal 7.2:
+
+Variables: E5 E4 E3 T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ E4 E5 = E4 E5
+
+13 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 8:
+
+Variables: E2 E5 E3 E4 T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (case (inr T1 T2 E5) E4 E3) E2}
+============================
+ E3 E5 = E2
+
+12 other subgoals.
+
+determinism < case H2.
+Subgoal 8.1:
+
+Variables: E5 E3 E4 T2 T1 E'
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (inr T1 T2 E5) E'}
+============================
+ E3 E5 = case E' E4 E3
+
+13 other subgoals.
+
+determinism < case H3.
+Subgoal 8.2:
+
+Variables: E5 E3 E4 T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ E3 E5 = E3 E5
+
+12 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 9:
+
+Variables: E2 E1' E4 E3
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (app E4 E3) E2}
+H3 : {step E4 E1'}*
+============================
+ app E1' E3 = E2
+
+11 other subgoals.
+
+determinism < case H2.
+Subgoal 9.1:
+
+Variables: E1' E4 E3 E1'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E4 E1'}*
+H4 : {step E4 E1'1}
+============================
+ app E1' E3 = app E1'1 E3
+
+12 other subgoals.
+
+determinism < apply IH to H3 H4.
+Subgoal 9.1:
+
+Variables: E4 E3 E1'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E4 E1'1}*
+H4 : {step E4 E1'1}
+============================
+ app E1'1 E3 = app E1'1 E3
+
+12 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 9.2:
+
+Variables: E1' E3 E6 T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (lam T E6) E1'}*
+============================
+ app E1' E3 = E6 E3
+
+11 other subgoals.
+
+determinism < case H3.
+Subgoal 10:
+
+Variables: E2 E3 E4 T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (app (lam T E4) E3) E2}
+============================
+ E4 E3 = E2
+
+10 other subgoals.
+
+determinism < case H2.
+Subgoal 10.1:
+
+Variables: E3 E4 T E1'
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (lam T E4) E1'}
+============================
+ E4 E3 = app E1' E3
+
+11 other subgoals.
+
+determinism < case H3.
+Subgoal 10.2:
+
+Variables: E3 E4 T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ E4 E3 = E4 E3
+
+10 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 11:
+
+Variables: E2 E3 E' R' R
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (map t\t R R' E' E3) E2}
+============================
+ E' E3 = E2
+
+9 other subgoals.
+
+determinism < case H2.
+Subgoal 11:
+
+Variables: E3 E' R' R
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ E' E3 = E' E3
+
+9 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 12:
+
+Variables: E1 E2 E' R' R
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (map t\unit R R' E' E1) E2}
+============================
+ E1 = E2
+
+8 other subgoals.
+
+determinism < case H2.
+Subgoal 12:
+
+Variables: E2 E' R' R
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ E2 = E2
+
+8 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 13:
+
+Variables: E2 E3 E' R' R T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (map (t\prod (T1 t) (T2 t)) R R' E' E3) E2}
+============================
+ pair (map T1 R R' E' (prl E3)) (map T2 R R' E' (prr E3)) = E2
+
+7 other subgoals.
+
+determinism < case H2.
+Subgoal 13:
+
+Variables: E3 E' R' R T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ pair (map T1 R R' E' (prl E3)) (map T2 R R' E' (prr E3)) =
+ pair (map (z1\T1 z1) R R' E' (prl E3)) (map (z1\T2 z1) R R' E' (prr E3))
+
+7 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 14:
+
+Variables: E1 E2 E' R' R
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (map t\void R R' E' E1) E2}
+============================
+ E1 = E2
+
+6 other subgoals.
+
+determinism < case H2.
+Subgoal 14:
+
+Variables: E2 E' R' R
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ E2 = E2
+
+6 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 15:
+
+Variables: E2 E' R' R T2 T1 E3
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (map (t\sum (T1 t) (T2 t)) R R' E' E3) E2}
+============================
+ case E3 (x1\inl (T1 R') (T2 R') (map T1 R R' E' x1))
+   (x2\inr (T1 R') (T2 R') (map T2 R R' E' x2)) =
+ E2
+
+5 other subgoals.
+
+determinism < case H2.
+Subgoal 15:
+
+Variables: E' R' R T2 T1 E3
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ case E3 (x1\inl (T1 R') (T2 R') (map T1 R R' E' x1))
+   (x2\inr (T1 R') (T2 R') (map T2 R R' E' x2)) =
+ case E3 (x1\inl (T1 R') (T2 R') (map (z1\T1 z1) R R' E' x1))
+   (x2\inr (T1 R') (T2 R') (map (z1\T2 z1) R R' E' x2))
+
+5 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 16:
+
+Variables: E2 E3 E' R' R T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (map (t\arr T1 (T2 t)) R R' E' E3) E2}
+============================
+ lam T1 (x1\map T2 R R' E' (app E3 x1)) = E2
+
+4 other subgoals.
+
+determinism < case H2.
+Subgoal 16:
+
+Variables: E3 E' R' R T2 T1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ lam T1 (x1\map T2 R R' E' (app E3 x1)) =
+ lam T1 (x1\map (z1\T2 z1) R R' E' (app E3 x1))
+
+4 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 17:
+
+Variables: E2 E2' E3 E4 T' T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (rec T T' E4 E3) E2}
+H3 : {step E3 E2'}*
+============================
+ rec T T' E4 E2' = E2
+
+3 other subgoals.
+
+determinism < case H2.
+Subgoal 17.1:
+
+Variables: E2' E3 E4 T' T E2'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E2'}*
+H4 : {step E3 E2'1}
+============================
+ rec T T' E4 E2' = rec T T' E4 E2'1
+
+4 other subgoals.
+
+determinism < apply IH to H3 H4.
+Subgoal 17.1:
+
+Variables: E3 E4 T' T E2'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E2'1}*
+H4 : {step E3 E2'1}
+============================
+ rec T T' E4 E2'1 = rec T T' E4 E2'1
+
+4 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 17.2:
+
+Variables: E2' E4 T' T E5
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (fold T E5) E2'}*
+============================
+ rec T T' E4 E2' = E4 (map T (ind T) T' (rec T T' E4) E5)
+
+3 other subgoals.
+
+determinism < case H3.
+Subgoal 18:
+
+Variables: E2 E3 E4 T' T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (rec T T' E4 (fold T E3)) E2}
+============================
+ E4 (map T (ind T) T' (rec T T' E4) E3) = E2
+
+2 other subgoals.
+
+determinism < case H2.
+Subgoal 18.1:
+
+Variables: E3 E4 T' T E2'
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (fold T E3) E2'}
+============================
+ E4 (map T (ind T) T' (rec T T' E4) E3) = rec T T' E4 E2'
+
+3 other subgoals.
+
+determinism < case H3.
+Subgoal 18.2:
+
+Variables: E3 E4 T' T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ E4 (map T (ind T) T' (rec T T' E4) E3) =
+ E4 (map T (ind T) T' (rec T T' E4) E3)
+
+2 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 19:
+
+Variables: E2 E1' E3 T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (unfold T E3) E2}
+H3 : {step E3 E1'}*
+============================
+ unfold T E1' = E2
+
+1 other subgoal.
+
+determinism < case H2.
+Subgoal 19.1:
+
+Variables: E1' E3 T E1'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E1'}*
+H4 : {step E3 E1'1}
+============================
+ unfold T E1' = unfold T E1'1
+
+2 other subgoals.
+
+determinism < apply IH to H3 H4.
+Subgoal 19.1:
+
+Variables: E3 T E1'1
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step E3 E1'1}*
+H4 : {step E3 E1'1}
+============================
+ unfold T E1'1 = unfold T E1'1
+
+2 other subgoals.
+
+determinism < search.
+Witness: =
+Subgoal 19.2:
+
+Variables: E1' T E4 E5 T'
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (gen T T' E5 E4) E1'}*
+============================
+ unfold T E1' = map T T' (coi T) (gen T T' E5) (E5 E4)
+
+1 other subgoal.
+
+determinism < case H3.
+Subgoal 20:
+
+Variables: E2 E3 E4 T' T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H2 : {step (unfold T (gen T T' E4 E3)) E2}
+============================
+ map T T' (coi T) (gen T T' E4) (E4 E3) = E2
+
+determinism < case H2.
+Subgoal 20.1:
+
+Variables: E3 E4 T' T E1'
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+H3 : {step (gen T T' E4 E3) E1'}
+============================
+ map T T' (coi T) (gen T T' E4) (E4 E3) = unfold T E1'
+
+1 other subgoal.
+
+determinism < case H3.
+Subgoal 20.2:
+
+Variables: E3 E4 T' T
+IH : forall E E1 E2, {step E E1}* -> {step E E2} -> E1 = E2
+============================
+ map T T' (coi T) (gen T T' E4) (E4 E3) =
+ map T T' (coi T) (gen T T' E4) (E4 E3)
+
+determinism < search.
+Witness: =
+Proof completed.
+Abella < 

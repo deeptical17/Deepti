@@ -1,0 +1,301 @@
+Specification "hw2".
+
+/* Pos for preservation */
+Theorem pos_type : forall T, nabla t, {pos T} -> {typ t |- typ (T t)}.
+induction on 1. intros. case H1.
+	search. 
+	search.
+	apply IH to H2. apply IH to H3. search. 
+	search.
+	apply IH to H2. apply IH to H3. search. 
+	apply IH to H3. search.
+
+/* Preservation */
+
+Theorem preservation : forall E T E',
+  {of E T} -> {step E E'} ->
+    {of E' T}.
+induction on 2. intros. case H2.
+Set subgoals 0.
+	case H1. apply IH to H4 H3. search.				 /*sg 1*/
+	case H1. apply IH to H4 H3. search.				/*sg 2*/
+	case H1. case H3. search.					/* sg 3*/
+	case H1. case H3. search.					/* sg 4*/
+	case H1. apply IH to H4 H3. search.				/* sg 5*/
+	case H1. apply IH to H4 H3. search.				/* sg 6*/
+	case H1. case H3. inst H4 with n1 = E3. cut H8. search.		/* sg 7 */
+	case H1. case H3. inst H5 with n1 = E3. cut H8 with H6. search. /*sg 8*/
+	case H1. apply IH to H4 H3. search.				/* sg 9*/
+	case H1. case H3. inst H5 with n1 = E2. cut H7 with H4. search.	/*sg 10*/
+	case H1. inst H3 with n1 = E1. cut H8 with H4. search.		/*sg 11*/
+	case H1. search.						/*sg 12*/
+	case H1. case H5. apply pos_type to H8. apply pos_type to H9. search.		/*sg 13*/
+	case H1. search.						/*sg 14*/
+
+	case H1. case H5. apply pos_type to H8. apply pos_type to H9. 
+inst H10 with n1 = R'. 
+inst H11 with n1 = R'. cut H12. cut H13. search./*sg 15*/
+	case H1. case H5. apply pos_type to H9. search. 		/*sg 16*/
+	case H1. apply IH to H5 H3. search. 				/* sg 17*/
+	case H1. case H4.  inst H3 with n1 = (map T1 (ind T1) T (rec T1 T E1) E2). cut H8. search. /*sg 18 */
+	case H1. apply IH to H4 H3. search.				/* sg 19*/	
+	case H1. case H3. inst H4 with n1 = E2. cut H8. search.		/* sg 20*/
+
+/* cfl for Progress */
+
+Theorem cfl : forall E T,
+  {of E T} -> {val E} -> 
+    (T = unit /\ E = triv) \/
+(exists T1 T2 E1, T = arr T1 T2 /\ E = lam T1 E1) \/
+(exists T1 T2 E1 E2, T = prod T1 T2 /\ E = pair E1 E2) \/
+(exists T1 T2 E1, T = sum T1 T2 /\ E = inl T1 T2 E1) \/
+(exists T1 T2 E2, T = sum T1 T2 /\ E = inr T1 T2 E2) \/
+(exists T1 T2 E1, T = arr T1 T2 /\ E = lam T1 E1) \/
+(exists T1 E1, T = ind T1 /\ E = fold T1 E1) \/
+(exists T1 T2 E1 E2, T = coi T1 /\ E = gen T1 T2 E1 E2).
+
+
+induction on 1. intros. case H1. 
+	search. 
+	search.
+	case H2. 
+	case H2. 
+	case H2.
+	 search.
+	 search. 
+	case H2. 
+	search. 
+	case H2. 
+	case H2.
+	 search. 
+	case H2.
+	case H2. search.
+
+		/* Progress */
+
+Theorem progress : forall E T,
+  {of E T} ->
+    {val E} \/ exists E', {step E E'}.
+ 
+
+
+induction on 1. intros. case H1.
+
+/*sg1*/	search.
+
+/*sg2*/	search.
+
+/*sg3*/	apply IH to H2. case H3. apply cfl to H2 H4. case H5. search. search.
+
+/*sg4*/	apply IH to H2. case H3. apply cfl to H2 H4. case H5. search. search.
+
+/*sg5*/	apply IH to H2. case H4. apply cfl to H2 H5. case H6. search.
+
+/*sg6*/	apply IH to H2. case H4. apply cfl to H2 H5.  search. search. 
+
+/*sg7*/	apply IH to H2. case H4. apply cfl to H2 H5. search. search.
+
+/*sg8*/	apply IH to H2. case H5. apply cfl to H2 H6. case H7. search. search. search.
+search.
+
+/*sg9*/	apply IH to H2. case H4. apply cfl to H2 H5. case H6. search. search. search.
+
+/*sg10*/case H4. search. search. search. search. search. search.
+
+/*sg11*/case H3. search. search. search. search. search. search.
+
+/*sg12*/apply IH to H3. case H5. apply cfl to H3 H6. case H7. search. search.
+
+/*sg13*/apply IH to H2. case H3. apply cfl to H2 H4. case H5. search. search.
+
+/*sg14*/case H4.search. search. search. search. search. search.
+
+
+
+
+/*reguLrity*/
+
+/* ctx for regularity */
+Define ctx : olist -> prop by
+   ctx nil;
+   nabla x, ctx (of x T :: G) := {G |- typ T} /\ ctx G;
+  
+ nabla t, ctx (typ t :: G) := ctx G.   
+
+Define is_name/typ : typ -> prop by
+  nabla t, is_name/typ t.
+
+Define is_name/exp : exp -> prop by
+  nabla x, is_name/exp x.
+
+
+
+/*ctx_inv for regularity*/
+
+
+Theorem ctx_inv : forall G E,
+  ctx G -> member E G ->
+    (exists X T, E = of X T /\ {G |- typ T} /\ is_name/exp X)
+  
+  \/ exists T, E = typ T /\ is_name/typ T.
+
+induction on 1. intros. case H1.
+	/*sg1*/case H2.
+ case H2.
+    search.
+ 
+		apply IH to H4 H5. case H6.search.
+ search.
+
+		case H2.
+  search.
+  
+	apply IH to H3 H4. case H5.
+search.
+ search.
+
+/*typ/pos_str for regularity */
+
+
+Theorem typ/pos_str :(forall G T1 T, nabla x1,
+
+ctx G -> {G, of x1 T1 |- typ T} -> {G |- typ T1} ->{G |- typ T}) 
+/\(forall G T1 T, nabla x1,
+
+ctx G -> {G, of x1 T1 |- pos T} -> {G |- typ T1} ->{G |- pos T}).
+
+
+
+induction on 2 2. split. intros. case H2.
+
+	search.
+
+	apply IH to H1 H4 H3. apply IH to H1 H5 H3. search.
+
+	search.
+
+	apply IH to H1 H4 H3. apply IH to H1 H5 H3. search.
+
+	apply IH to H1 H4 H3. apply IH to H1 H5 H3. search.
+
+	apply IH1 to H1 H4 H3. search.
+
+	apply IH1 to H1 H4 H3. search.
+case H5. case H4. apply ctx_inv to H1 H6. case H7.
+	 case H4. case H4. search.
+intros. case H2.
+search.
+search.
+
+	apply IH1 to H1 H4 H3. apply IH1 to H1 H5 H3.search.
+search.
+	
+apply IH1 to H1 H4 H3. apply IH1 to H1 H5 H3. search.
+	
+apply IH to H1 H4 H3. apply IH1 to H1 H5 H3. search.
+
+	case H5. case H4. apply ctx_inv to H1 H6.
+	case H7. case H4. case H4.
+
+
+
+
+Split typ/pos_str as typ_str, pos_str.
+
+
+
+
+Theorem pos_type2 : forall G T, nabla t,ctx G -> {G |- pos T} ->{G, typ t |- typ (T t)}.
+
+
+induction on 2. intros. case H2.
+
+	search.
+
+	search.
+
+	apply IH to H1 H3. apply IH to H1 H4. search.
+search.
+
+	apply IH to H1 H3. apply IH to H1 H4. search.
+
+	apply IH to H1 H4. search.
+
+	apply ctx_inv to H1 H4.case H5.case H3.case H3.
+
+
+
+
+
+
+
+
+
+
+
+/*Regularity*/
+Theorem regularity : forall G E T,
+  ctx G -> {G |- of E T} ->
+    {G |- typ T}.
+induction on 2. intros. case H2.
+
+
+	search.
+
+
+	apply IH to H1 H3. apply IH to H1 H4. search.
+
+
+	apply IH to H1 H3. case H4. search. apply ctx_inv to H1 H6. case H7. case H5. case H5.case H8.
+
+	
+apply IH to H1 H3. case H4 . search. apply ctx_inv to H1 H6. case H7. case H5. case H5. case H8.
+
+search.
+
+	
+apply IH to H1 H3. search.
+
+apply IH to H1 H3. search.
+
+	
+apply IH to H1 H3. case H6. 
+	apply IH to _ H4. apply typ_str to H1 H9 H7. search. apply ctx_inv to H1 H8. 
+	case H9. case H7. case H7. case H10.
+
+	
+apply IH to _ H3. apply typ_str to H1 H5 H4. search. 
+	 
+
+apply IH to H1 H3.case H5.search. apply ctx_inv to H1 H7. case H8. case H6. case H6. case H9.  
+	 
+
+apply pos_type2 to H1 H5. inst H8 with n1 = R'. cut H9. search.
+
+
+	apply IH to H1 H3. search.
+
+search.
+
+	
+apply IH to H1 H3. case H4. 
+	apply pos_type2 to H1 H5. inst H6 with n1 = (coi T1). cut H7. search. 
+	apply ctx_inv to H1 H6. case H7. case H5. case H5. case H8.
+
+search.
+
+	
+apply ctx_inv to H1 H4. case H5. case H3. search. case H3.
+ 
+
+
+
+
+
+
+
+
+
+
+
+
